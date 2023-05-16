@@ -9,43 +9,52 @@ public class Main {
         frame.setSize(1280,720);
         frame.setLayout(new BorderLayout());
 
-        JPanel panel1 = new JPanel();
-        JPanel panel2 = new JPanel();
-        JPanel panel3 = new JPanel();
-        JPanel panel4 = new JPanel();
-        JPanel panel5 = new JPanel();
+        JPanel topPanel = new JPanel();
+        JPanel leftPanel = new JPanel();
+        JPanel centerPanel = new JPanel();
+        JPanel rightPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
 
-        panel1.setBackground(Color.red);
-        panel2.setBackground(Color.green);
-        panel3.setBackground(Color.yellow);
-        panel4.setBackground(Color.magenta);
-        panel5.setBackground(Color.blue);
+        Color darkBrown = new Color(115, 75, 52);
+        Color darkGray = new Color(140,128,120);
+        Color lightGray = new Color(179,162,153);
 
-        panel1.setPreferredSize(new Dimension(100,30));
-        panel2.setPreferredSize(new Dimension(150,100));
-        panel3.setPreferredSize(new Dimension(100,100));
-        panel4.setPreferredSize(new Dimension(30,100));
-        panel5.setPreferredSize(new Dimension(100,30));
+        topPanel.setBackground(darkBrown);
+        leftPanel.setBackground(darkGray);
+        centerPanel.setBackground(lightGray);
+        rightPanel.setBackground(lightGray);
+        bottomPanel.setBackground(darkBrown);
 
-        frame.add(panel1, BorderLayout.NORTH);
-        frame.add(panel2, BorderLayout.WEST);
-        frame.add(panel3, BorderLayout.CENTER);
-        frame.add(panel4, BorderLayout.EAST);
-        frame.add(panel5, BorderLayout.SOUTH);
+        topPanel.setPreferredSize(new Dimension(100,30));
+        leftPanel.setPreferredSize(new Dimension(250,100));
+        centerPanel.setPreferredSize(new Dimension(100,100));
+        rightPanel.setPreferredSize(new Dimension(30,100));
+        bottomPanel.setPreferredSize(new Dimension(100,30));
 
-        JButton jButton1 = new JButton("1");
-        JButton jButton2 = new JButton("2");
-        JButton jButton3 = new JButton("3");
-        JButton jButton4 = new JButton("4");
-        JButton jButton5 = new JButton("5");
+        frame.add(topPanel, BorderLayout.NORTH);
+        frame.add(leftPanel, BorderLayout.WEST);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(rightPanel, BorderLayout.EAST);
+        frame.add(bottomPanel, BorderLayout.SOUTH);
 
-        panel2.setLayout(new GridLayout(5,1, 0, 50));
+        Button jButton1 = new Button("Cashier");
+        Button jButton2 = new Button("Stock");
+        Button jButton3 = new Button("Report");
+        Button jButton4 = new Button("Users");
+        Button jButton5 = new Button("Logout");
 
-        panel2.add(jButton1);
-        panel2.add(jButton2);
-        panel2.add(jButton3);
-        panel2.add(jButton4);
-        panel2.add(jButton5);
+        jButton1.setBounds(30,30,190,40);
+        jButton2.setBounds(30,80,190,40);
+        jButton3.setBounds(30,130,190,40);
+        jButton4.setBounds(30,180,190,40);
+        jButton5.setBounds(30,230,190,40);
+
+        leftPanel.setLayout(null);
+        leftPanel.add(jButton1);
+        leftPanel.add(jButton2);
+        leftPanel.add(jButton3);
+        leftPanel.add(jButton4);
+        leftPanel.add(jButton5);
 
         frame.setVisible(true);
     }

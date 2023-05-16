@@ -1,20 +1,19 @@
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
-public class Table extends AbstractTableModel {
+public class TestTableModel extends AbstractTableModel {
 
     private final String[] columnNames = {"Name", "Age"};
 
     private final List<Person> list;
 
-    public Table(List<Person> list){
+    public TestTableModel(List<Person> list){
         this.list = list;
     }
 
     public String getColumnName(int index){
         return columnNames[index];
     }
-
 
     @Override
     public int getRowCount() {
@@ -31,13 +30,10 @@ public class Table extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        switch(columnIndex){
-            case 0:
-                return this.list.get(rowIndex).getName();
-            case 1:
-                return this.list.get(rowIndex).getAge();
-            default:
-                return 0;
-        }
+        return switch (columnIndex) {
+            case 0 -> this.list.get(rowIndex).getName();
+            case 1 -> this.list.get(rowIndex).getAge();
+            default -> 0;
+        };
     }
 }

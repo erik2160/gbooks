@@ -18,28 +18,27 @@ public class Testing {
 
         JTextField text1 = new JTextField(16);
         topPanel.add(text1);
-        String name = text1.getText();
 
         JTextField text2 = new JTextField(16);
         topPanel.add(text2);
-        String age = text1.getText();
+
+        List<Person> personList = new ArrayList<>();
+        personList.add(new Person("José", 12));
+        personList.add(new Person("Fernando", 99));
 
         JButton button = new JButton("Submit");
         topPanel.add(button);
         Cursor cur = new Cursor(Cursor.HAND_CURSOR);
         button.setCursor(cur);
         button.addActionListener(e -> {
-       //     String name = text1.getText();
-        //    String age = text1.getText();
+            String name = text1.getText();
+            int age = Integer.parseInt(text1.getText());
+            personList.add(new Person(name, age));
         });
 
         JPanel centerPanel = new JPanel();
         centerPanel.setBackground(Color.darkGray);
         frame.add(centerPanel, BorderLayout.CENTER);
-
-        List<Person> personList = new ArrayList<>();
-        personList.add(new Person("José", 12));
-        personList.add(new Person("Fernando", 99));
 
         Table table = new Table(personList);
         JTable jtable = new JTable(table);
