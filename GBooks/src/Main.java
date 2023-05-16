@@ -76,6 +76,22 @@ public class Main {
         codeBarText.setBounds (154,26, 300, 33);
         cartPanel.add(codeBarText);
 
+        Button buttonAdd = new Button ("ADD");
+        buttonAdd.setBounds (460,26, 110, 33);
+        cartPanel.add(buttonAdd);
+
+        Button buttonRemove = new Button ("REMOVE");
+        buttonRemove.setBounds (680,26, 120, 33);
+        cartPanel.add(buttonRemove);
+        buttonRemove.setBackground (new Color (139, 0, 0));
+        buttonRemove.setForeground (Color.WHITE);
+
+        Button buttonCancel = new Button ("CANCEL");
+        buttonCancel.setBounds (808,26, 120, 33);
+        cartPanel.add(buttonCancel);
+        buttonCancel.setBackground (new Color (139, 0, 0));
+        buttonCancel.setForeground (Color.WHITE);
+
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(darkGray);
         pointsPanel.setBounds (40, 366,315, 240);
