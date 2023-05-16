@@ -63,6 +63,19 @@ public class Main {
         cartPanel.setBounds (40, 20,950, 335);
         centerPanel.add(cartPanel);
 
+        JLabel cartLabel = new JLabel ();
+        cartPanel.setLayout(null);
+        cartLabel.setText ("BARCODE: ");
+        cartLabel.setForeground (Color.WHITE);
+        cartLabel.setBounds (26, 26,130,33);
+        cartLabel.setFont (new Font("Ubuntu", Font.PLAIN,25));
+        cartLabel.setOpaque (false);
+        cartPanel.add(cartLabel);
+
+        JTextField codeBarText = new JTextField ();
+        codeBarText.setBounds (154,26, 300, 33);
+        cartPanel.add(codeBarText);
+
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(darkGray);
         pointsPanel.setBounds (40, 366,315, 240);
