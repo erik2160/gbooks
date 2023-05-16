@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.table.DefaultTableModel;
 
 public class Main {
     public static void main(String[] args) {
@@ -81,16 +82,32 @@ public class Main {
         cartPanel.add(buttonAdd);
 
         Button buttonRemove = new Button ("REMOVE");
-        buttonRemove.setBounds (680,26, 120, 33);
+        buttonRemove.setBounds (678,26, 120, 33);
         cartPanel.add(buttonRemove);
         buttonRemove.setBackground (new Color (139, 0, 0));
         buttonRemove.setForeground (Color.WHITE);
 
         Button buttonCancel = new Button ("CANCEL");
-        buttonCancel.setBounds (808,26, 120, 33);
+        buttonCancel.setBounds (806,26, 120, 33);
         cartPanel.add(buttonCancel);
         buttonCancel.setBackground (new Color (139, 0, 0));
         buttonCancel.setForeground (Color.WHITE);
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("CODE");
+        model.addColumn("TITLE");
+        model.addColumn("UNITS");
+        model.addColumn("UNIT VAL.");
+        model.addColumn("TOTAL VAL.");
+        //test
+        model.addRow (new String[] {
+                "55555", "TextBook", "5", "10,50", "52,50"
+        });
+
+        JTable listProduct = new JTable(model);
+        JScrollPane viewTable = new JScrollPane(listProduct);
+        viewTable.setBounds(26, 70, 898, 238);
+        cartPanel.add (viewTable);
 
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(darkGray);
