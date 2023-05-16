@@ -8,6 +8,7 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280,720);
         frame.setLayout(new BorderLayout());
+        frame.setResizable (false);
 
         JPanel topPanel = new JPanel();
         JPanel leftPanel = new JPanel();
@@ -55,6 +56,22 @@ public class Main {
         leftPanel.add(jButton3);
         leftPanel.add(jButton4);
         leftPanel.add(jButton5);
+
+        JPanel cartPanel = new JPanel();
+        cartPanel.setBackground(darkGray);
+        centerPanel.setLayout(null);
+        cartPanel.setBounds (40, 20,950, 335);
+        centerPanel.add(cartPanel);
+
+        JPanel pointsPanel = new JPanel();
+        pointsPanel.setBackground(darkGray);
+        pointsPanel.setBounds (40, 366,315, 240);
+        centerPanel.add(pointsPanel);
+
+        JPanel finishPanel = new JPanel();
+        finishPanel.setBackground(darkGray);
+        finishPanel.setBounds (370, 366,620, 240);
+        centerPanel.add(finishPanel);
 
         frame.setVisible(true);
     }
