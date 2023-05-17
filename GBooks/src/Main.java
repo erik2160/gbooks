@@ -1,25 +1,48 @@
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main {
-    public static void main(String[] args) {
 
-        JFrame frame = new JFrame();
+    private JFrame frame;
+    private JPanel topPanel;
+    private JPanel leftPanel;
+    private JPanel centerPanel;
+    private JPanel rightPanel;
+    private JPanel bottomPanel;
+    private Color darkBrown;
+    private Color darkGray;
+    private Color lightGray;
+
+    public Main(){
+        initializeFrame();
+        createPanels();
+        createButtons();
+        configureLeftPanel();
+        addComponentsToFrame();
+        showMainFrame();
+    }
+
+    private void initializeFrame() {
+        frame = new JFrame("G-Books System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1280,720);
+        frame.setSize(1280, 720);
         frame.setLayout(new BorderLayout());
-        frame.setResizable (false);
+        frame.setResizable(false);
+    }
 
-        JPanel topPanel = new JPanel();
-        JPanel leftPanel = new JPanel();
-        JPanel centerPanel = new JPanel();
-        JPanel rightPanel = new JPanel();
-        JPanel bottomPanel = new JPanel();
+    private void createPanels() {
+        topPanel = new JPanel();
+        leftPanel = new JPanel();
+        centerPanel = new JPanel();
+        rightPanel = new JPanel();
+        bottomPanel = new JPanel();
 
-        Color darkBrown = new Color(115, 75, 52);
-        Color darkGray = new Color(140,128,120);
-        Color lightGray = new Color(179,162,153);
+        darkBrown = new Color(115, 75, 52);
+        darkGray = new Color(140, 128, 120);
+        lightGray = new Color(179, 162, 153);
 
         topPanel.setBackground(darkBrown);
         leftPanel.setBackground(darkGray);
@@ -27,72 +50,118 @@ public class Main {
         rightPanel.setBackground(lightGray);
         bottomPanel.setBackground(darkBrown);
 
-        topPanel.setPreferredSize(new Dimension(100,30));
-        leftPanel.setPreferredSize(new Dimension(250,100));
-        centerPanel.setPreferredSize(new Dimension(100,100));
-        rightPanel.setPreferredSize(new Dimension(30,100));
-        bottomPanel.setPreferredSize(new Dimension(100,30));
+        topPanel.setPreferredSize(new Dimension(100, 30));
+        leftPanel.setPreferredSize(new Dimension(250, 100));
+        centerPanel.setPreferredSize(new Dimension(100, 100));
+        rightPanel.setPreferredSize(new Dimension(30, 100));
+        bottomPanel.setPreferredSize(new Dimension(100, 30));
+    }
 
+    private void createButtons() {
+        Button cashierButton = new Button("Cashier");
+        Button stockButton = new Button("Stock");
+        Button reportButton = new Button("Report");
+        Button usersButton = new Button("Users");
+        Button logoutButton = new Button("Logout");
+
+        cashierButton.setBounds(30, 60, 190, 40);
+        stockButton.setBounds(30, 130, 190, 40);
+        reportButton.setBounds(30, 200, 190, 40);
+        usersButton.setBounds(30, 270, 190, 40);
+        logoutButton.setBounds(30, 340, 190, 40);
+
+        cashierButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showCashierScreen();
+            }
+        });
+
+        leftPanel.setLayout(null);
+        leftPanel.add(cashierButton);
+        leftPanel.add(stockButton);
+        leftPanel.add(reportButton);
+        leftPanel.add(usersButton);
+        leftPanel.add(logoutButton);
+    }
+
+    private void configureLeftPanel() {
+        // Configurações específicas do painel lateral
+    }
+
+    private void addComponentsToFrame() {
         frame.add(topPanel, BorderLayout.NORTH);
         frame.add(leftPanel, BorderLayout.WEST);
         frame.add(centerPanel, BorderLayout.CENTER);
         frame.add(rightPanel, BorderLayout.EAST);
         frame.add(bottomPanel, BorderLayout.SOUTH);
+    }
 
-        Button jButton1 = new Button("Cashier");
-        Button jButton2 = new Button("Stock");
-        Button jButton3 = new Button("Report");
-        Button jButton4 = new Button("Users");
-        Button jButton5 = new Button("Logout");
+    private void showMainFrame() {
+        frame.setVisible(true);
+    }
 
-        jButton1.setBounds(30,30,190,40);
-        jButton2.setBounds(30,80,190,40);
-        jButton3.setBounds(30,130,190,40);
-        jButton4.setBounds(30,180,190,40);
-        jButton5.setBounds(30,230,190,40);
+    private void showDefaultScreen() {
+        centerPanel.removeAll();
 
-        leftPanel.setLayout(null);
-        leftPanel.add(jButton1);
-        leftPanel.add(jButton2);
-        leftPanel.add(jButton3);
-        leftPanel.add(jButton4);
-        leftPanel.add(jButton5);
+        JLabel titleLabel = new JLabel("G BOOKS");
 
+        JButton enterButton = new JButton("Login");
+        enterButton.setPreferredSize(new Dimension(200, 40));
+        enterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        centerPanel.add(titleLabel);
+        centerPanel.add(enterButton);
+
+        centerPanel.revalidate();
+        centerPanel.repaint();
+
+    }
+
+    private void showCashierScreen() {
+        centerPanel.removeAll();
+
+        //criação do painel do carrinho e características do mesmo
         JPanel cartPanel = new JPanel();
         cartPanel.setBackground(darkGray);
         centerPanel.setLayout(null);
-        cartPanel.setBounds (40, 20,950, 335);
-        centerPanel.add(cartPanel);
+        cartPanel.setBounds(40, 20, 950, 335);
+        centerPanel.add(cartPanel);//adicionando o painel do carrinho no painel central
 
-        JLabel cartLabel = new JLabel ();
+        //criação da palavra BARCODE acima do carrinho
+        JLabel cartLabel = new JLabel();
         cartPanel.setLayout(null);
-        cartLabel.setText ("BARCODE: ");
-        cartLabel.setForeground (Color.WHITE);
-        cartLabel.setBounds (26, 26,130,33);
-        cartLabel.setFont (new Font("Ubuntu", Font.PLAIN,25));
-        cartLabel.setOpaque (false);
-        cartPanel.add(cartLabel);
+        cartLabel.setText("BARCODE: ");
+        cartLabel.setForeground(Color.WHITE);
+        cartLabel.setBounds(26, 26, 130, 33);
+        cartLabel.setFont(new Font("Ubuntu", Font.PLAIN, 25));
+        cartLabel.setOpaque(false);
+        cartPanel.add(cartLabel); //adicionando a palavra no painel do carrinho
 
-        JTextField codeBarText = new JTextField ();
-        codeBarText.setBounds (154,26, 300, 33);
+        //criação do text entry acima do carrinho e suas características
+        JTextField codeBarText = new JTextField();
+        codeBarText.setBounds(154, 26, 300, 33);
         cartPanel.add(codeBarText);
 
-        Button buttonAdd = new Button ("ADD");
-        buttonAdd.setBounds (460,26, 110, 33);
+        //criação do botão ADD acima do carrinho
+        Button buttonAdd = new Button("ADD");
+        buttonAdd.setBounds(460, 26, 110, 33);
         cartPanel.add(buttonAdd);
 
-        Button buttonRemove = new Button ("REMOVE");
-        buttonRemove.setBounds (678,26, 120, 33);
+        //criação do botão REMOVE e suas características
+        Button buttonRemove = new Button("REMOVE");
+        buttonRemove.setBounds(678, 26, 120, 33);
         cartPanel.add(buttonRemove);
-        buttonRemove.setBackground (new Color (139, 0, 0));
-        buttonRemove.setForeground (Color.WHITE);
+        buttonRemove.setBackground(new Color(139, 0, 0));
+        buttonRemove.setForeground(Color.WHITE);
 
-        Button buttonCancel = new Button ("CANCEL");
-        buttonCancel.setBounds (806,26, 120, 33);
+        //criação do botão CANCEL e suas características
+        Button buttonCancel = new Button("CANCEL");
+        buttonCancel.setBounds(806, 26, 120, 33);
         cartPanel.add(buttonCancel);
-        buttonCancel.setBackground (new Color (139, 0, 0));
-        buttonCancel.setForeground (Color.WHITE);
+        buttonCancel.setBackground(new Color(139, 0, 0));
+        buttonCancel.setForeground(Color.WHITE);
 
+        //criação da tabela/lista de produtos
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("CODE");
         model.addColumn("TITLE");
@@ -100,25 +169,32 @@ public class Main {
         model.addColumn("UNIT VAL.");
         model.addColumn("TOTAL VAL.");
         //test
-        model.addRow (new String[] {
+        model.addRow(new String[]{
                 "55555", "TextBook", "5", "10,50", "52,50"
         });
 
+        //**
         JTable listProduct = new JTable(model);
         JScrollPane viewTable = new JScrollPane(listProduct);
         viewTable.setBounds(26, 70, 898, 238);
-        cartPanel.add (viewTable);
+        cartPanel.add(viewTable);
 
+        //**
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(darkGray);
-        pointsPanel.setBounds (40, 366,315, 240);
+        pointsPanel.setBounds(40, 366, 315, 240);
         centerPanel.add(pointsPanel);
 
+        //**
         JPanel finishPanel = new JPanel();
         finishPanel.setBackground(darkGray);
-        finishPanel.setBounds (370, 366,620, 240);
+        finishPanel.setBounds(370, 366, 620, 240);
         centerPanel.add(finishPanel);
+    }
 
-        frame.setVisible(true);
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new Main();
+        });
     }
 }
