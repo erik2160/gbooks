@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Main {
 
@@ -12,17 +10,18 @@ public class Main {
     private JPanel centerPanel;
     private JPanel rightPanel;
     private JPanel bottomPanel;
-    private Color darkBrown;
-    private Color darkGray;
-    private Color lightGray;
+    private final Color DARKBROWN = new Color(115, 75, 52);
+    private final Color DARKGRAY = new Color(140, 128, 120);
+    private final Color LIGHTGRAY = new Color(179, 162, 153);
+    private final Color CANCELRED = new Color(139, 0, 0);
 
     public Main(){
         initializeFrame();
         createPanels();
         createButtons();
         configureLeftPanel();
-        addComponentsToFrame();
         showMainFrame();
+        showDefaultScreen();
     }
 
     private void initializeFrame() {
@@ -40,21 +39,26 @@ public class Main {
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
 
-        darkBrown = new Color(115, 75, 52);
-        darkGray = new Color(140, 128, 120);
-        lightGray = new Color(179, 162, 153);
+        leftPanel.setLayout(null);
+        centerPanel.setLayout(null);
 
-        topPanel.setBackground(darkBrown);
-        leftPanel.setBackground(darkGray);
-        centerPanel.setBackground(lightGray);
-        rightPanel.setBackground(lightGray);
-        bottomPanel.setBackground(darkBrown);
+        topPanel.setBackground(DARKBROWN);
+        leftPanel.setBackground(DARKGRAY);
+        centerPanel.setBackground(LIGHTGRAY);
+        rightPanel.setBackground(LIGHTGRAY);
+        bottomPanel.setBackground(DARKBROWN);
 
         topPanel.setPreferredSize(new Dimension(100, 30));
         leftPanel.setPreferredSize(new Dimension(250, 100));
         centerPanel.setPreferredSize(new Dimension(100, 100));
         rightPanel.setPreferredSize(new Dimension(30, 100));
         bottomPanel.setPreferredSize(new Dimension(100, 30));
+
+        frame.add(topPanel, BorderLayout.NORTH);
+        frame.add(leftPanel, BorderLayout.WEST);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(rightPanel, BorderLayout.EAST);
+        frame.add(bottomPanel, BorderLayout.SOUTH);
     }
 
     private void createButtons() {
@@ -70,13 +74,9 @@ public class Main {
         usersButton.setBounds(30, 270, 190, 40);
         logoutButton.setBounds(30, 340, 190, 40);
 
-        cashierButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                showCashierScreen();
-            }
-        });
+        cashierButton.addActionListener(e -> showCashierScreen());
+        logoutButton.addActionListener(e -> showDefaultScreen());
 
-        leftPanel.setLayout(null);
         leftPanel.add(cashierButton);
         leftPanel.add(stockButton);
         leftPanel.add(reportButton);
@@ -88,42 +88,36 @@ public class Main {
         // Configurações específicas do painel lateral
     }
 
-    private void addComponentsToFrame() {
-        frame.add(topPanel, BorderLayout.NORTH);
-        frame.add(leftPanel, BorderLayout.WEST);
-        frame.add(centerPanel, BorderLayout.CENTER);
-        frame.add(rightPanel, BorderLayout.EAST);
-        frame.add(bottomPanel, BorderLayout.SOUTH);
-    }
-
     private void showMainFrame() {
         frame.setVisible(true);
     }
 
     private void showDefaultScreen() {
         centerPanel.removeAll();
+        centerPanel.setVisible(false);
+        centerPanel.setVisible(true);
 
-        JLabel titleLabel = new JLabel("G BOOKS");
-
-        JButton enterButton = new JButton("Login");
-        enterButton.setPreferredSize(new Dimension(200, 40));
-        enterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        JLabel titleLabel = new JLabel("G-BOOKS");
+        titleLabel.setBounds(280,200,440,100);
+        titleLabel.setOpaque(false);
+        titleLabel.setFont(new Font("Ubuntu", Font.PLAIN,100));
+        titleLabel.setForeground(DARKBROWN);
         centerPanel.add(titleLabel);
-        centerPanel.add(enterButton);
 
-        centerPanel.revalidate();
-        centerPanel.repaint();
+        Button enterButton = new Button("Login");
+        enterButton.setBounds(455,330, 90,40);
+        centerPanel.add(enterButton);
 
     }
 
     private void showCashierScreen() {
         centerPanel.removeAll();
+        centerPanel.setVisible(false);
+        centerPanel.setVisible(true);
 
         //criação do painel do carrinho e características do mesmo
         JPanel cartPanel = new JPanel();
-        cartPanel.setBackground(darkGray);
-        centerPanel.setLayout(null);
+        cartPanel.setBackground(DARKGRAY);
         cartPanel.setBounds(40, 20, 950, 335);
         centerPanel.add(cartPanel);//adicionando o painel do carrinho no painel central
 
@@ -151,14 +145,14 @@ public class Main {
         Button buttonRemove = new Button("REMOVE");
         buttonRemove.setBounds(678, 26, 120, 33);
         cartPanel.add(buttonRemove);
-        buttonRemove.setBackground(new Color(139, 0, 0));
+        buttonRemove.setBackground(CANCELRED);
         buttonRemove.setForeground(Color.WHITE);
 
         //criação do botão CANCEL e suas características
         Button buttonCancel = new Button("CANCEL");
         buttonCancel.setBounds(806, 26, 120, 33);
         cartPanel.add(buttonCancel);
-        buttonCancel.setBackground(new Color(139, 0, 0));
+        buttonCancel.setBackground(CANCELRED);
         buttonCancel.setForeground(Color.WHITE);
 
         //criação da tabela/lista de produtos
@@ -181,13 +175,13 @@ public class Main {
 
         //**
         JPanel pointsPanel = new JPanel();
-        pointsPanel.setBackground(darkGray);
+        pointsPanel.setBackground(DARKGRAY);
         pointsPanel.setBounds(40, 366, 315, 240);
         centerPanel.add(pointsPanel);
 
         //**
         JPanel finishPanel = new JPanel();
-        finishPanel.setBackground(darkGray);
+        finishPanel.setBackground(DARKGRAY);
         finishPanel.setBounds(370, 366, 620, 240);
         centerPanel.add(finishPanel);
     }
