@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/gbooksbackup.iml" filepath="$PROJECT_DIR$/gbooksbackup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G-Books.iml" filepath="$PROJECT_DIR$/G-Books.iml" />
     </modules>
   </component>
 </project>
