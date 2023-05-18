@@ -135,6 +135,7 @@ public class Main {
         JTextField codeBarText = new JTextField();
         codeBarText.setBounds(154, 26, 300, 33);
         codeBarText.setFont(new Font("Ubuntu", Font.PLAIN, 22));
+        codeBarText.setFont(new Font("Ubuntu", Font.PLAIN, 19));
         cartPanel.add(codeBarText);
 
         //criação do botão ADD acima do carrinho
@@ -163,22 +164,82 @@ public class Main {
         model.addColumn("UNITS");
         model.addColumn("UNIT VAL.");
         model.addColumn("TOTAL VAL.");
-        //test
-        model.addRow(new String[]{
-                "55555", "TextBook", "5", "10,50", "52,50"
-        });
-
-        //**
         JTable listProduct = new JTable(model);
         JScrollPane viewTable = new JScrollPane(listProduct);
         viewTable.setBounds(26, 70, 898, 238);
         cartPanel.add(viewTable);
 
-        //**
+        //test
+        model.addRow(new String[]{
+                "55555", "TextBook", "5", "10,50", "52,50"
+        });
+
+        //criação do painel do points e características do mesmo
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(DARKGRAY);
         pointsPanel.setBounds(40, 366, 315, 240);
-        centerPanel.add(pointsPanel);
+        centerPanel.add(pointsPanel); //adicionando o painel do points no painel central
+
+        //criação das palavras CPF, POINTS, NEW PRICE em points
+        JLabel cpfLabel = new JLabel();
+        pointsPanel.setLayout(null);
+        cpfLabel.setText("CPF: ");
+        cpfLabel.setForeground(Color.WHITE);
+        cpfLabel.setBounds(66, 6, 130, 30);
+        cpfLabel.setFont(new Font("Ubuntu", Font.PLAIN, 19));
+        cpfLabel.setOpaque(false);
+        pointsPanel.add(cpfLabel); //adicionando a palavra CPF no painel points
+
+        JLabel pointsLabel = new JLabel();
+        pointsLabel.setText("POINTS: ");
+        pointsLabel.setForeground(Color.WHITE);
+        pointsLabel.setBounds(66, 64, 125, 30);
+        pointsLabel.setFont(new Font("Ubuntu", Font.PLAIN, 19));
+        pointsLabel.setOpaque(false);
+        pointsPanel.add(pointsLabel); //adicionando a palavra POINTS no painel points
+
+        JLabel newPriceLabel = new JLabel();
+        newPriceLabel.setText("NEW PRICE: ");
+        newPriceLabel.setForeground(Color.WHITE);
+        newPriceLabel.setBounds(66, 124, 130, 30);
+        newPriceLabel.setFont(new Font("Ubuntu", Font.PLAIN, 19));
+        newPriceLabel.setOpaque(false);
+        pointsPanel.add(newPriceLabel);
+
+        JCheckBox pointsCheckBox = new JCheckBox ("USE POINTS");
+        pointsCheckBox.setBackground (Color.yellow);
+        pointsCheckBox.setOpaque (true);
+        pointsCheckBox.setFocusPainted (false);
+        pointsCheckBox.setBounds (100, 194, 115, 30);
+        pointsCheckBox.setFont (new Font("Ubuntu", Font.BOLD, 16));
+        pointsCheckBox.setForeground (Color.BLACK);
+        pointsPanel.add(pointsCheckBox);
+
+        //criação do text entry abaixo do CPF, POINTS, NEW PRICE e suas características
+        JTextField cpfText = new JTextField();
+        cpfText.setBounds(66, 36, 181, 27);
+        cpfText.setFont(new Font("Ubuntu", Font.PLAIN, 19));
+        cpfText.setDisabledTextColor (Color.BLACK);
+        pointsPanel.add(cpfText);
+
+        JTextField pointsDisplay = new JTextField();
+        pointsDisplay.setBounds(66, 94, 181, 27);
+        pointsDisplay.setFont(new Font("Ubuntu", Font.PLAIN, 19));
+        pointsDisplay.setEnabled (false);
+        pointsDisplay.setDisabledTextColor (Color.BLACK);
+        pointsPanel.add(pointsDisplay);
+
+        JTextField newPriceDisplay = new JTextField();
+        newPriceDisplay.setBounds(66, 155, 181, 27);
+        newPriceDisplay.setFont(new Font("Ubuntu", Font.PLAIN, 19));
+        newPriceDisplay.setEnabled (false);
+        newPriceDisplay.setDisabledTextColor (new Color(36, 124, 68));
+        pointsPanel.add(newPriceDisplay);
+
+        cpfText.addActionListener (e -> {
+            pointsDisplay.setText ("3000");
+            newPriceDisplay.setText ("R$ 2");
+        });
 
         //**
         JPanel finishPanel = new JPanel();
