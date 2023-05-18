@@ -14,6 +14,7 @@ public class Main {
     private final Color DARKGRAY = new Color(140, 128, 120);
     private final Color LIGHTGRAY = new Color(179, 162, 153);
     private final Color CANCELRED = new Color(139, 0, 0);
+    private final Color CONFIRMGREEN = new Color(0, 124, 50);
 
     public Main(){
         initializeFrame();
@@ -117,14 +118,13 @@ public class Main {
 
         //criação do painel do carrinho e características do mesmo
         JPanel cartPanel = new JPanel();
+        cartPanel.setLayout(null);
         cartPanel.setBackground(DARKGRAY);
         cartPanel.setBounds(40, 20, 950, 335);
         centerPanel.add(cartPanel);//adicionando o painel do carrinho no painel central
 
         //criação da palavra BARCODE acima do carrinho
-        JLabel cartLabel = new JLabel();
-        cartPanel.setLayout(null);
-        cartLabel.setText("BARCODE: ");
+        JLabel cartLabel = new JLabel("BARCODE: ");
         cartLabel.setForeground(Color.WHITE);
         cartLabel.setBounds(26, 26, 130, 33);
         cartLabel.setFont(new Font("Ubuntu", Font.PLAIN, 25));
@@ -134,6 +134,7 @@ public class Main {
         //criação do text entry acima do carrinho e suas características
         JTextField codeBarText = new JTextField();
         codeBarText.setBounds(154, 26, 300, 33);
+        codeBarText.setFont(new Font("Ubuntu", Font.PLAIN, 22));
         cartPanel.add(codeBarText);
 
         //criação do botão ADD acima do carrinho
@@ -181,9 +182,82 @@ public class Main {
 
         //**
         JPanel finishPanel = new JPanel();
+        finishPanel.setLayout(null);
         finishPanel.setBackground(DARKGRAY);
         finishPanel.setBounds(370, 366, 620, 240);
         centerPanel.add(finishPanel);
+
+        JLabel cashLabel = new JLabel("CASH");
+        cashLabel.setBounds(52,30,60,24);
+        cashLabel.setForeground(Color.WHITE);
+        cashLabel.setFont(new Font("Ubuntu", Font.PLAIN, 22));
+        finishPanel.add(cashLabel);
+
+        JLabel payedLabel = new JLabel("PAYED");
+        payedLabel.setBounds(30,65,60,24);
+        payedLabel.setForeground(Color.WHITE);
+        payedLabel.setFont(new Font("Ubuntu", Font.PLAIN, 18));
+        finishPanel.add(payedLabel);
+
+        JTextField payedField = new JTextField();
+        payedField.setBounds(30,90,100,30);
+        payedField.setFont(new Font("Ubuntu", Font.BOLD, 16));
+        payedField.setForeground(Color.BLACK);
+        finishPanel.add(payedField);
+
+        JLabel changeLabel = new JLabel("CHANGE");
+        changeLabel.setBounds(30,125,80,24);
+        changeLabel.setForeground(Color.WHITE);
+        changeLabel.setFont(new Font("Ubuntu", Font.PLAIN, 18));
+        finishPanel.add(changeLabel);
+
+        JTextField changeDisplay = new JTextField();
+        changeDisplay.setBounds(30,150,100,30);
+        changeDisplay.setFont(new Font("Ubuntu", Font.BOLD, 16));
+        changeDisplay.setDisabledTextColor(Color.BLACK);
+        changeDisplay.setEnabled(false);
+        finishPanel.add(changeDisplay);
+        payedField.addActionListener(e -> changeDisplay.setText("R$ 110,00"));
+
+        JLabel creditCard = new JLabel("CREDIT CARD:");
+        creditCard.setBounds(180,30,144,24);
+        creditCard.setForeground(Color.WHITE);
+        creditCard.setFont(new Font("Ubuntu", Font.PLAIN, 22));
+        finishPanel.add(creditCard);
+
+        RadioButton creditButton = new RadioButton("Credit");
+        RadioButton debitButton = new RadioButton("Debit");
+        creditButton.setBounds(210,90,100,30);
+        debitButton.setBounds(210,150,100,30);
+        ButtonGroup creditCardButtons = new ButtonGroup();
+        creditCardButtons.add(creditButton);
+        creditCardButtons.add(debitButton);
+        Cursor cur = new Cursor(Cursor.HAND_CURSOR);
+        creditButton.setCursor(cur);
+        debitButton.setCursor(cur);
+        finishPanel.add(creditButton);
+        finishPanel.add(debitButton);
+
+        JLabel toPayLabel = new JLabel("TO PAY:");
+        toPayLabel.setBounds(400,30,80,24);
+        toPayLabel.setForeground(Color.WHITE);
+        toPayLabel.setFont(new Font("Ubuntu", Font.PLAIN, 22));
+        finishPanel.add(toPayLabel);
+
+        JTextField toPayDisplay = new JTextField();
+        toPayDisplay.setBounds(370, 80, 150,40);
+        toPayDisplay.setText("R$ 1149,90");
+        toPayDisplay.setFont(new Font("Ubuntu", Font.BOLD, 24));
+        toPayDisplay.setDisabledTextColor(Color.BLACK);
+        toPayDisplay.setEnabled(false);
+        finishPanel.add(toPayDisplay);
+
+        Button finishButton = new Button("FINISH");
+        finishButton.setBounds(370, 130, 150, 50);
+        finishButton.setBackground(CONFIRMGREEN);
+        finishButton.setForeground(Color.WHITE);
+
+        finishPanel.add(finishButton);
     }
 
     public static void main(String[] args) {
