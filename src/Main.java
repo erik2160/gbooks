@@ -13,6 +13,7 @@ public class Main {
         });
     }
 
+
     private void run() {
         screenMain = new HomeScreen();
         screenMain.insertSaleSection();
