@@ -1,10 +1,11 @@
 package Sale;
 
 import Elements.Button;
+import Elements.Constants;
 import Home.HomeScreen;
+
 import javax.swing.*;
 import java.awt.*;
-
 public class SaleScreen extends HomeScreen {
     private JPanel cartPanel;
     private JPanel pointsPanel;
@@ -82,7 +83,7 @@ public class SaleScreen extends HomeScreen {
     public JPanel insertCartPanel(Sale sale) {
         cartPanel = new JPanel();
         cartPanel.setLayout(null);
-        cartPanel.setBackground(super.getDarkGray());
+        cartPanel.setBackground(Constants.DARKGRAY);
         cartPanel.setBounds(40, 20,950, 335);
 
         cartLabel = new JLabel("BARCODE: ");
@@ -118,7 +119,7 @@ public class SaleScreen extends HomeScreen {
 
     public JPanel insertPointsPanel(Sale sale) {
         pointsPanel = new JPanel();
-        pointsPanel.setBackground(super.getDarkGray());
+        pointsPanel.setBackground(Constants.DARKGRAY);
         pointsPanel.setBounds(40, 366,315, 240);
 
         return pointsPanel;
@@ -126,7 +127,7 @@ public class SaleScreen extends HomeScreen {
 
     public JPanel insertFinishPanel(Sale sale) {
         finishPanel = new JPanel();
-        finishPanel.setBackground(super.getDarkGray());
+        finishPanel.setBackground(Constants.DARKGRAY);
         finishPanel.setBounds(370, 366,620, 240);
 
         return finishPanel;
