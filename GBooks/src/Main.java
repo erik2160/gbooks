@@ -131,6 +131,7 @@ public class Main {
         cartLabel.setOpaque(false);
         cartPanel.add(cartLabel); //adicionando a palavra no painel do carrinho
 
+
         //criação do text entry acima do carrinho e suas características
         JTextField codeBarText = new JTextField();
         codeBarText.setBounds(154, 26, 300, 33);
