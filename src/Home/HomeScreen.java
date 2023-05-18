@@ -68,7 +68,7 @@ public class HomeScreen {
         usersButton.setBounds(30, 270, 190, 40);
         logoutButton.setBounds(30, 340, 190, 40);
 
-        cashierButton.addActionListener(e -> new SaleScreen());
+        cashierButton.addActionListener(e -> insertSaleSection());
         logoutButton.addActionListener(e -> showDefaultScreen());
 
         leftPanel.add(cashierButton);
@@ -104,6 +104,9 @@ public class HomeScreen {
     }
 
     public void insertSaleSection() {
+        centerPanel.removeAll();
+        centerPanel.setVisible(false);
+        centerPanel.setVisible(true);
         SaleScreen screenSale = new SaleScreen();
         Sale sale = new Sale();
         centerPanel.setLayout(null);
