@@ -14,6 +14,12 @@ public class HomeScreen {
     private JPanel centerPanel;
     private JPanel rightPanel;
     private JPanel bottomPanel;
+    private JLabel menuLabel;
+    private Button cashierButton;
+    private Button stockButton;
+    private Button reportButton;
+    private Button usersButton;
+    private Button logoutButton;
 
     public HomeScreen() {
         frame = new JFrame("G-Books System");
@@ -23,6 +29,7 @@ public class HomeScreen {
         frame.setResizable(false);
         createPanels(); //chamada do método createPanels() no construtor
         createButtons(); //chamada do método createButtons() no construtor
+        configureLeftPanel();
         showDefaultScreen(); //chamada do método showDefaultScreen() no construtor
     }
 
@@ -56,30 +63,34 @@ public class HomeScreen {
     }
 
     public void createButtons() {
-        Button cashierButton = new Button("Cashier");
-        Button stockButton = new Button("Stock");
-        Button reportButton = new Button("Report");
-        Button usersButton = new Button("Users");
-        Button logoutButton = new Button("Logout");
-
-        cashierButton.setBounds(30, 60, 190, 40);
-        stockButton.setBounds(30, 130, 190, 40);
-        reportButton.setBounds(30, 200, 190, 40);
-        usersButton.setBounds(30, 270, 190, 40);
-        logoutButton.setBounds(30, 340, 190, 40);
+        cashierButton = new Button("Cashier");
+        stockButton = new Button("Stock");
+        reportButton = new Button("Report");
+        usersButton = new Button("Users");
+        logoutButton = new Button("Logout");
 
         cashierButton.addActionListener(e -> insertSaleSection());
         logoutButton.addActionListener(e -> showDefaultScreen());
+    }
 
+    public void configureLeftPanel() {
+        menuLabel = new JLabel("MENU");
+        menuLabel.setBounds(87,26,80,30);
+        menuLabel.setForeground(Color.WHITE);
+        menuLabel.setFont(new Font("Ubuntu", Font.BOLD, 26));
+
+        cashierButton.setBounds(30, 80, 190, 40);
+        stockButton.setBounds(30, 150, 190, 40);
+        reportButton.setBounds(30, 220, 190, 40);
+        usersButton.setBounds(30, 290, 190, 40);
+        logoutButton.setBounds(30, 360, 190, 40);
+
+        leftPanel.add(menuLabel);
         leftPanel.add(cashierButton);
         leftPanel.add(stockButton);
         leftPanel.add(reportButton);
         leftPanel.add(usersButton);
         leftPanel.add(logoutButton);
-    }
-
-    public void configureLeftPanel() {
-        //configurações específicas do painel lateral
     }
 
     private void showMainFrame() {

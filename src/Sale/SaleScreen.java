@@ -17,6 +17,8 @@ public class SaleScreen extends HomeScreen {
     private JPanel finishPanel;
     private TextField codeBarTextField;
     private TextField unitsTextField;
+    private DefaultTableModel model;
+    private JScrollPane table;
     private Button buttonAdd;
     private Button buttonRemove;
     private Button buttonCancel;
@@ -34,7 +36,6 @@ public class SaleScreen extends HomeScreen {
     private JLabel toPayLabel;
     private Display toPayDisplay;
     private Button finishButton;
-    private DefaultTableModel model;
 
     public JPanel getCartPanel() {
         return cartPanel;
@@ -226,17 +227,6 @@ public class SaleScreen extends HomeScreen {
         cartPanel.setBackground(Constants.DARKGRAY);
         cartPanel.setBounds(40, 20,950, 335);
 
-        /*
-        JLabel cartLabel = new JLabel("BARCODE: ");
-        cartLabel.setLayout(null);
-        cartLabel.setForeground(Color.WHITE);
-        cartLabel.setBounds(26, 26,130,33);
-        cartLabel.setFont(new Font("Ubuntu", Font.PLAIN,25));
-        cartLabel.setOpaque(false);
-        cartPanel.add(getCartLabel());
-
-         */
-
         codeBarTextField = new TextField("BARCODE");
         codeBarTextField.setBounds(26, 26, 240, 33);
         codeBarTextField.setFontSize(22);
@@ -263,6 +253,17 @@ public class SaleScreen extends HomeScreen {
         buttonCancel.setBackground(Constants.CANCELRED);
         buttonCancel.setForeground(Color.WHITE);
         cartPanel.add(buttonCancel);
+
+        model = new DefaultTableModel();
+        model.addColumn("CODE");
+        model.addColumn("TITLE");
+        model.addColumn("UNITS");
+        model.addColumn("UNIT VAL.");
+        model.addColumn("TOTAL VAL.");
+
+        table = new JScrollPane(new JTable(model));
+        table.setBounds(26, 70, 899, 240);
+        cartPanel.add(table);
 
         return cartPanel;
     }
