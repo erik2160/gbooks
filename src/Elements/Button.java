@@ -13,12 +13,9 @@ public class Button extends JButton {
         this.setForeground(Color.black);
         Cursor cur = new Cursor(Cursor.HAND_CURSOR);
         this.setCursor(cur);
-        //TEST
-        /*
         BevelBorder bevelBorder = new BevelBorder(BevelBorder.RAISED);
         EtchedBorder etchedBorder = new EtchedBorder();
         CompoundBorder compoundBorder = new CompoundBorder(bevelBorder,etchedBorder);
         this.setBorder(compoundBorder);
-         */
     }
 }

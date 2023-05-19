@@ -19,6 +19,7 @@ public class Main {
 
         screenMain.createPanels();
         screenMain.createButtons();
+        screenMain.configureLeftPanel();
         screenMain.showDefaultScreen();
 
         screenMain.getFrame().setVisible(true);
