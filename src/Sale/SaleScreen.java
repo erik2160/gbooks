@@ -2,22 +2,21 @@ package Sale;
 
 import Elements.Button;
 import Elements.Constants;
+import Elements.Display;
 import Elements.RadioButton;
+import Elements.TextField;
 import Home.HomeScreen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 public class SaleScreen extends HomeScreen {
     private JPanel cartPanel;
     private JPanel pointsPanel;
     private JPanel finishPanel;
     private JLabel cartLabel;
-    private JTextField codeBarText;
+    private TextField codeBarTextField;
+    private TextField unitsTextField;
     private Button buttonAdd;
     private Button buttonRemove;
     private Button buttonCancel;
@@ -54,12 +53,12 @@ public class SaleScreen extends HomeScreen {
         this.cartLabel = cartLabel;
     }
 
-    public JTextField getCodeBarText() {
-        return codeBarText;
+    public JTextField getCodeBarTextField() {
+        return codeBarTextField;
     }
 
-    public void setCodeBarText(JTextField codeBarText) {
-        this.codeBarText = codeBarText;
+    public void setCodeBarTextField(TextField codeBarTextField) {
+        this.codeBarTextField = codeBarTextField;
     }
 
     public Button getButtonAdd() {
@@ -92,6 +91,7 @@ public class SaleScreen extends HomeScreen {
         cartPanel.setBackground(Constants.DARKGRAY);
         cartPanel.setBounds(40, 20,950, 335);
 
+        /*
         cartLabel = new JLabel("BARCODE: ");
         cartLabel.setLayout(null);
         cartLabel.setForeground(Color.WHITE);
@@ -100,23 +100,31 @@ public class SaleScreen extends HomeScreen {
         cartLabel.setOpaque(false);
         cartPanel.add(getCartLabel());
 
-        codeBarText = new JTextField();
-        codeBarText.setBounds(154, 26, 300, 33);
-        cartPanel.add(codeBarText);
+         */
+
+        codeBarTextField = new TextField("BARCODE");
+        codeBarTextField.setBounds(26, 26, 240, 33);
+        codeBarTextField.setFontSize(22);
+        cartPanel.add(codeBarTextField);
+
+        unitsTextField = new TextField("UNITS");
+        unitsTextField.setBounds(276, 26, 80, 33);
+        unitsTextField.setFontSize(22);
+        cartPanel.add(unitsTextField);
 
         buttonAdd = new Button ("ADD");
-        buttonAdd.setBounds(460,26, 110, 33);
+        buttonAdd.setBounds(366,26, 110, 33);
         cartPanel.add(buttonAdd);
 
         buttonRemove = new Button("REMOVE");
         buttonRemove.setBounds(678,26, 120, 33);
-        buttonRemove.setBackground(new Color (139, 0, 0));
+        buttonRemove.setBackground(Constants.CANCELRED);
         buttonRemove.setForeground(Color.WHITE);
         cartPanel.add(buttonRemove);
 
         buttonCancel = new Button("CANCEL");
         buttonCancel.setBounds(806,26, 120, 33);
-        buttonCancel.setBackground(new Color (139, 0, 0));
+        buttonCancel.setBackground(Constants.CANCELRED);
         buttonCancel.setForeground(Color.WHITE);
         cartPanel.add(buttonCancel);
 
@@ -129,38 +137,16 @@ public class SaleScreen extends HomeScreen {
         pointsPanel.setBounds(40, 366,315, 240);
         pointsPanel.setLayout(null);
 
-        JTextField cpfText = new JTextField("CPF");
+        TextField cpfText = new TextField("CPF");
         cpfText.setBounds(66, 38, 181, 27);
-        cpfText.setFont(new Font("Ubuntu", Font.PLAIN, 19));
-        cpfText.setForeground(Color.lightGray);
-        cpfText.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                cpfText.setText(null);
-                cpfText.setForeground (Color.BLACK);
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                cpfText.setText("CPF");
-                cpfText.setForeground(Color.lightGray);
-            }
-        });
-
         pointsPanel.add(cpfText);
 
-        JTextField pointsDisplay = new JTextField("POINTS");
+        Display pointsDisplay = new Display("POINTS");
         pointsDisplay.setBounds(66, 80, 181, 27);
-        pointsDisplay.setFont(new Font("Ubuntu", Font.PLAIN, 19));
-        pointsDisplay.setEnabled (false);
-        pointsDisplay.setDisabledTextColor (Color.BLACK);
         pointsPanel.add(pointsDisplay);
 
-        JTextField newPriceDisplay = new JTextField("NEW PRICE");
+        Display newPriceDisplay = new Display("NEW PRICE", Constants.CONFIRMGREEN);
         newPriceDisplay.setBounds(66, 122, 181, 27);
-        newPriceDisplay.setFont(new Font("Ubuntu", Font.PLAIN, 19));
-        newPriceDisplay.setEnabled (false);
-        newPriceDisplay.setDisabledTextColor (new Color(36, 124, 68));
         pointsPanel.add(newPriceDisplay);
 
         JCheckBox pointsCheckBox = new JCheckBox ("USE POINTS");
@@ -168,10 +154,10 @@ public class SaleScreen extends HomeScreen {
         pointsCheckBox.setOpaque (true);
         pointsCheckBox.setFocusPainted (false);
         pointsCheckBox.setBounds (100, 179, 115, 30);
-        pointsCheckBox.setFont (new Font("Ubuntu", Font.BOLD, 16));
-        pointsCheckBox.setForeground (Color.BLACK);
+        pointsCheckBox.setFont (new Font(Constants.DEFAULTFONT, Font.BOLD, 16));
         pointsPanel.add(pointsCheckBox);
 
+        //APENAS PARA TESTE
         cpfText.addActionListener (e -> {
             pointsDisplay.setText ("3000");
             newPriceDisplay.setText ("R$ 2");
@@ -192,32 +178,13 @@ public class SaleScreen extends HomeScreen {
         cashLabel.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(cashLabel);
 
-        JTextField payedField = new JTextField("PAYED");
+        TextField payedField = new TextField("PAYED");
         payedField.setBounds(36,96,145,30);
-        payedField.setFont(new Font("Ubuntu", Font.BOLD, 16));
-        payedField.setForeground(Color.lightGray);
         finishPanel.add(payedField);
-        payedField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                payedField.setText(null);
-                payedField.setForeground (Color.BLACK);
-            }
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                payedField.setText("PAYED");
-                payedField.setForeground(Color.lightGray);
-            }
-        });
-
-        JTextField changeDisplay = new JTextField("CHANGE");
+        Display changeDisplay = new Display("CHANGE");
         changeDisplay.setBounds(36,154,145,30);
-        changeDisplay.setFont(new Font("Ubuntu", Font.BOLD, 16));
-        changeDisplay.setDisabledTextColor(Color.BLACK);
-        changeDisplay.setEnabled(false);
         finishPanel.add(changeDisplay);
-        payedField.addActionListener(e -> changeDisplay.setText("R$ 110,00"));
 
         JLabel creditCard = new JLabel("CREDIT CARD");
         creditCard.setBounds(240,48,154,24);
@@ -232,9 +199,6 @@ public class SaleScreen extends HomeScreen {
         ButtonGroup creditCardButtons = new ButtonGroup();
         creditCardButtons.add(creditButton);
         creditCardButtons.add(debitButton);
-        Cursor cur = new Cursor(Cursor.HAND_CURSOR);
-        creditButton.setCursor(cur);
-        debitButton.setCursor(cur);
         finishPanel.add(creditButton);
         finishPanel.add(debitButton);
 
@@ -244,17 +208,21 @@ public class SaleScreen extends HomeScreen {
         toPayLabel.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(toPayLabel);
 
-        JTextField toPayDisplay = new JTextField();
+        Display toPayDisplay = new Display("");
+        toPayDisplay.setFontSize(22);
         toPayDisplay.setBounds(446, 92, 150,38);
-        toPayDisplay.setText("R$ 1149,90");
-        toPayDisplay.setFont(new Font("Ubuntu", Font.BOLD, 24));
-        toPayDisplay.setDisabledTextColor(Color.BLACK);
-        toPayDisplay.setEnabled(false);
+
+        //APENAS PARA TESTE
+        payedField.addActionListener(e -> {
+            toPayDisplay.setText("R$ 1234,90");
+            changeDisplay.setText("R$ 110,00");
+        });
+
         finishPanel.add(toPayDisplay);
 
         Button finishButton = new Button("FINISH");
         finishButton.setBounds(446, 142, 150, 50);
-        finishButton.setBackground(new Color(0, 124, 50));
+        finishButton.setBackground(Constants.CONFIRMGREEN);
         finishButton.setForeground(Color.WHITE);
         finishPanel.add(finishButton);
 
