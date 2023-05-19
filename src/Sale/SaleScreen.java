@@ -130,7 +130,7 @@ public class SaleScreen extends HomeScreen {
         pointsPanel.setLayout(null);
 
         JTextField cpfText = new JTextField("CPF");
-        cpfText.setBounds(66, 36, 181, 27);
+        cpfText.setBounds(66, 38, 181, 27);
         cpfText.setFont(new Font("Ubuntu", Font.PLAIN, 19));
         cpfText.setForeground(Color.lightGray);
         cpfText.addFocusListener(new FocusListener() {
@@ -150,14 +150,14 @@ public class SaleScreen extends HomeScreen {
         pointsPanel.add(cpfText);
 
         JTextField pointsDisplay = new JTextField("POINTS");
-        pointsDisplay.setBounds(66, 94, 181, 27);
+        pointsDisplay.setBounds(66, 80, 181, 27);
         pointsDisplay.setFont(new Font("Ubuntu", Font.PLAIN, 19));
         pointsDisplay.setEnabled (false);
         pointsDisplay.setDisabledTextColor (Color.BLACK);
         pointsPanel.add(pointsDisplay);
 
         JTextField newPriceDisplay = new JTextField("NEW PRICE");
-        newPriceDisplay.setBounds(66, 155, 181, 27);
+        newPriceDisplay.setBounds(66, 122, 181, 27);
         newPriceDisplay.setFont(new Font("Ubuntu", Font.PLAIN, 19));
         newPriceDisplay.setEnabled (false);
         newPriceDisplay.setDisabledTextColor (new Color(36, 124, 68));
@@ -167,7 +167,7 @@ public class SaleScreen extends HomeScreen {
         pointsCheckBox.setBackground (Color.yellow);
         pointsCheckBox.setOpaque (true);
         pointsCheckBox.setFocusPainted (false);
-        pointsCheckBox.setBounds (100, 194, 115, 30);
+        pointsCheckBox.setBounds (100, 179, 115, 30);
         pointsCheckBox.setFont (new Font("Ubuntu", Font.BOLD, 16));
         pointsCheckBox.setForeground (Color.BLACK);
         pointsPanel.add(pointsCheckBox);
@@ -187,13 +187,13 @@ public class SaleScreen extends HomeScreen {
         finishPanel.setLayout(null);
 
         JLabel cashLabel = new JLabel("CASH");
-        cashLabel.setBounds(52,30,60,24);
+        cashLabel.setBounds(72,48,60,24);
         cashLabel.setForeground(Color.WHITE);
-        cashLabel.setFont(new Font("Ubuntu", Font.PLAIN, 22));
+        cashLabel.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(cashLabel);
 
         JTextField payedField = new JTextField("PAYED");
-        payedField.setBounds(30,90,100,30);
+        payedField.setBounds(36,96,145,30);
         payedField.setFont(new Font("Ubuntu", Font.BOLD, 16));
         payedField.setForeground(Color.lightGray);
         finishPanel.add(payedField);
@@ -212,23 +212,23 @@ public class SaleScreen extends HomeScreen {
         });
 
         JTextField changeDisplay = new JTextField("CHANGE");
-        changeDisplay.setBounds(30,150,100,30);
+        changeDisplay.setBounds(36,154,145,30);
         changeDisplay.setFont(new Font("Ubuntu", Font.BOLD, 16));
         changeDisplay.setDisabledTextColor(Color.BLACK);
         changeDisplay.setEnabled(false);
         finishPanel.add(changeDisplay);
         payedField.addActionListener(e -> changeDisplay.setText("R$ 110,00"));
 
-        JLabel creditCard = new JLabel("CREDIT CARD:");
-        creditCard.setBounds(180,30,144,24);
+        JLabel creditCard = new JLabel("CREDIT CARD");
+        creditCard.setBounds(240,48,154,24);
         creditCard.setForeground(Color.WHITE);
-        creditCard.setFont(new Font("Ubuntu", Font.PLAIN, 22));
+        creditCard.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(creditCard);
 
         RadioButton creditButton = new RadioButton("Credit");
         RadioButton debitButton = new RadioButton("Debit");
-        creditButton.setBounds(210,90,100,30);
-        debitButton.setBounds(210,150,100,30);
+        creditButton.setBounds(262,80,120,60);
+        debitButton.setBounds(262,136,120,60);
         ButtonGroup creditCardButtons = new ButtonGroup();
         creditCardButtons.add(creditButton);
         creditCardButtons.add(debitButton);
@@ -238,14 +238,14 @@ public class SaleScreen extends HomeScreen {
         finishPanel.add(creditButton);
         finishPanel.add(debitButton);
 
-        JLabel toPayLabel = new JLabel("TO PAY:");
-        toPayLabel.setBounds(400,30,80,24);
+        JLabel toPayLabel = new JLabel("TO PAY");
+        toPayLabel.setBounds(480,48,80,24);
         toPayLabel.setForeground(Color.WHITE);
-        toPayLabel.setFont(new Font("Ubuntu", Font.PLAIN, 22));
+        toPayLabel.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(toPayLabel);
 
         JTextField toPayDisplay = new JTextField();
-        toPayDisplay.setBounds(370, 80, 150,40);
+        toPayDisplay.setBounds(446, 92, 150,38);
         toPayDisplay.setText("R$ 1149,90");
         toPayDisplay.setFont(new Font("Ubuntu", Font.BOLD, 24));
         toPayDisplay.setDisabledTextColor(Color.BLACK);
@@ -253,7 +253,7 @@ public class SaleScreen extends HomeScreen {
         finishPanel.add(toPayDisplay);
 
         Button finishButton = new Button("FINISH");
-        finishButton.setBounds(370, 130, 150, 50);
+        finishButton.setBounds(446, 142, 150, 50);
         finishButton.setBackground(new Color(0, 124, 50));
         finishButton.setForeground(Color.WHITE);
         finishPanel.add(finishButton);
