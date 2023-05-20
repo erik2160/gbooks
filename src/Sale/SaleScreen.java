@@ -12,189 +12,39 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class SaleScreen extends HomeScreen {
-    private JPanel cartPanel;
-    private JPanel pointsPanel;
-    private JPanel finishPanel;
-    private TextField codeBarTextField;
-    private TextField unitsTextField;
-    private DefaultTableModel model;
-    private JScrollPane table;
-    private Button buttonAdd;
-    private Button buttonRemove;
-    private Button buttonCancel;
-    private TextField cpfText;
-    private Display pointsDisplay;
-    private Display newPriceDisplay;
-    private JCheckBox pointsCheckBox;
-    private JLabel cashLabel;
-    private TextField payedField;
-    private Display changeDisplay;
-    private JLabel creditCard;
-    private RadioButton creditButton;
-    private RadioButton debitButton;
-    private ButtonGroup creditCardButtons;
-    private JLabel toPayLabel;
-    private Display toPayDisplay;
-    private Button finishButton;
-
-    public JPanel getCartPanel() {
-        return cartPanel;
-    }
-
-    public void setCartPanel(JPanel cartPanel) {
-        this.cartPanel = cartPanel;
-    }
-
-    public JPanel getPointsPanel() {
-        return pointsPanel;
-    }
-
-    public void setPointsPanel(JPanel pointsPanel) {
-        this.pointsPanel = pointsPanel;
-    }
-
-    public JPanel getFinishPanel() {
-        return finishPanel;
-    }
-
-    public void setFinishPanel(JPanel finishPanel) {
-        this.finishPanel = finishPanel;
-    }
+    static SaleScreen saleScreen = new SaleScreen();
+    private static JPanel cartPanel;
+    private static JPanel pointsPanel;
+    private static JPanel finishPanel;
+    private static TextField codeBarTextField;
+    private static TextField unitsTextField;
+    private static DefaultTableModel model;
+    private static JTable table;
+    private static JScrollPane tableScrollPane;
+    private static Button buttonAdd;
+    private static Button buttonRemove;
+    private static Button buttonCancel;
+    private static TextField cpfText;
+    private static Display pointsDisplay;
+    private static Display newPriceDisplay;
+    private static JCheckBox pointsCheckBox;
+    private static JLabel cashLabel;
+    private static TextField payedField;
+    private static Display changeDisplay;
+    private static JLabel creditCard;
+    private static RadioButton creditButton;
+    private static RadioButton debitButton;
+    private static ButtonGroup creditCardButtons;
+    private static JLabel toPayLabel;
+    private static Display toPayDisplay;
+    private static Button finishButton;
 
     public TextField getCodeBarTextField() {
         return codeBarTextField;
     }
 
-    public void setCodeBarTextField(TextField codeBarTextField) {
-        this.codeBarTextField = codeBarTextField;
-    }
-
     public TextField getUnitsTextField() {
         return unitsTextField;
-    }
-
-    public void setUnitsTextField(TextField unitsTextField) {
-        this.unitsTextField = unitsTextField;
-    }
-
-    public Button getButtonAdd() {
-        return buttonAdd;
-    }
-
-    public void setButtonAdd(Button buttonAdd) {
-        this.buttonAdd = buttonAdd;
-    }
-
-    public Button getButtonRemove() {
-        return buttonRemove;
-    }
-
-    public void setButtonRemove(Button buttonRemove) {
-        this.buttonRemove = buttonRemove;
-    }
-
-    public Button getButtonCancel() {
-        return buttonCancel;
-    }
-
-    public void setButtonCancel(Button buttonCancel) {
-        this.buttonCancel = buttonCancel;
-    }
-
-    public TextField getCpfText() {
-        return cpfText;
-    }
-
-    public void setCpfText(TextField cpfText) {
-        this.cpfText = cpfText;
-    }
-
-    public Display getPointsDisplay() {
-        return pointsDisplay;
-    }
-
-    public void setPointsDisplay(Display pointsDisplay) {
-        this.pointsDisplay = pointsDisplay;
-    }
-
-    public Display getNewPriceDisplay() {
-        return newPriceDisplay;
-    }
-
-    public void setNewPriceDisplay(Display newPriceDisplay) {
-        this.newPriceDisplay = newPriceDisplay;
-    }
-
-    public JCheckBox getPointsCheckBox() {
-        return pointsCheckBox;
-    }
-
-    public void setPointsCheckBox(JCheckBox pointsCheckBox) {
-        this.pointsCheckBox = pointsCheckBox;
-    }
-
-    public JLabel getCashLabel() {
-        return cashLabel;
-    }
-
-    public void setCashLabel(JLabel cashLabel) {
-        this.cashLabel = cashLabel;
-    }
-
-    public TextField getPayedField() {
-        return payedField;
-    }
-
-    public void setPayedField(TextField payedField) {
-        this.payedField = payedField;
-    }
-
-    public Display getChangeDisplay() {
-        return changeDisplay;
-    }
-
-    public void setChangeDisplay(Display changeDisplay) {
-        this.changeDisplay = changeDisplay;
-    }
-
-    public JLabel getCreditCard() {
-        return creditCard;
-    }
-
-    public void setCreditCard(JLabel creditCard) {
-        this.creditCard = creditCard;
-    }
-
-    public RadioButton getCreditButton() {
-        return creditButton;
-    }
-
-    public void setCreditButton(RadioButton creditButton) {
-        this.creditButton = creditButton;
-    }
-
-    public RadioButton getDebitButton() {
-        return debitButton;
-    }
-
-    public void setDebitButton(RadioButton debitButton) {
-        this.debitButton = debitButton;
-    }
-
-    public ButtonGroup getCreditCardButtons() {
-        return creditCardButtons;
-    }
-
-    public void setCreditCardButtons(ButtonGroup creditCardButtons) {
-        this.creditCardButtons = creditCardButtons;
-    }
-
-    public JLabel getToPayLabel() {
-        return toPayLabel;
-    }
-
-    public void setToPayLabel(JLabel toPayLabel) {
-        this.toPayLabel = toPayLabel;
     }
 
     public Display getToPayDisplay() {
@@ -202,26 +52,32 @@ public class SaleScreen extends HomeScreen {
     }
 
     public void setToPayDisplay(Display toPayDisplay) {
-        this.toPayDisplay = toPayDisplay;
-    }
-
-    public Button getFinishButton() {
-        return finishButton;
-    }
-
-    public void setFinishButton(Button finishButton) {
-        this.finishButton = finishButton;
+        SaleScreen.toPayDisplay = toPayDisplay;
     }
 
     public DefaultTableModel getModel() {
         return model;
     }
 
-    public void setModel(DefaultTableModel model) {
-        this.model = model;
+    public RadioButton getCreditButton() {
+        return creditButton;
+    }
+
+    public RadioButton getDebitButton() {
+        return debitButton;
+    }
+
+    public TextField getPayedField() {
+        return payedField;
+    }
+
+    public Display getChangeDisplay() {
+        return changeDisplay;
     }
 
     public JPanel insertCartPanel(Sale sale) {
+        sale.addStorage();
+
         cartPanel = new JPanel();
         cartPanel.setLayout(null);
         cartPanel.setBackground(Constants.DARKGRAY);
@@ -239,7 +95,10 @@ public class SaleScreen extends HomeScreen {
 
         buttonAdd = new Button ("ADD");
         buttonAdd.setBounds(366,26, 110, 33);
-//        buttonAdd.addActionListener(addItem -> sale.addToCart());
+        buttonAdd.addActionListener(addItem -> {
+            sale.addToCart();
+            unitsTextField.setText("1");
+        });
         cartPanel.add(buttonAdd);
 
         buttonRemove = new Button("REMOVE");
@@ -261,9 +120,11 @@ public class SaleScreen extends HomeScreen {
         model.addColumn("UNIT VAL.");
         model.addColumn("TOTAL VAL.");
 
-        table = new JScrollPane(new JTable(model));
-        table.setBounds(26, 70, 899, 240);
-        cartPanel.add(table);
+        table = new JTable(model);
+
+        tableScrollPane = new JScrollPane(table);
+        tableScrollPane.setBounds(26, 70, 899, 240);
+        cartPanel.add(tableScrollPane);
 
         return cartPanel;
     }
@@ -317,6 +178,7 @@ public class SaleScreen extends HomeScreen {
 
         payedField = new TextField("PAYED");
         payedField.setBounds(36,96,145,30);
+        payedField.addActionListener(paymentCash -> sale.paymentCash());
         finishPanel.add(payedField);
 
         changeDisplay = new Display("CHANGE");
@@ -333,6 +195,10 @@ public class SaleScreen extends HomeScreen {
         debitButton = new RadioButton("Debit");
         creditButton.setBounds(262,80,120,60);
         debitButton.setBounds(262,136,120,60);
+
+        creditButton.addActionListener(selectCash -> sale.paymentCard());
+        debitButton.addActionListener(selectCard -> sale.paymentCard());
+
         creditCardButtons = new ButtonGroup();
         creditCardButtons.add(creditButton);
         creditCardButtons.add(debitButton);
@@ -349,18 +215,13 @@ public class SaleScreen extends HomeScreen {
         toPayDisplay.setFontSize(22);
         toPayDisplay.setBounds(446, 92, 150,38);
 
-        //APENAS PARA TESTE
-        payedField.addActionListener(e -> {
-            toPayDisplay.setText("R$ 1234,90");
-            changeDisplay.setText("R$ 110,00");
-        });
-
         finishPanel.add(toPayDisplay);
 
         finishButton = new Button("FINISH");
         finishButton.setBounds(446, 142, 150, 50);
         finishButton.setBackground(Constants.CONFIRMGREEN);
         finishButton.setForeground(Color.WHITE);
+        finishButton.addActionListener(finishSale -> sale.finishSale());
         finishPanel.add(finishButton);
 
         return finishPanel;

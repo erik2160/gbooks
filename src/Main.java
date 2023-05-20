@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
-    private HomeScreen screenMain;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -14,7 +13,7 @@ public class Main {
     }
 
     private void run() {
-        screenMain = new HomeScreen();
+        HomeScreen screenMain = new HomeScreen();
         screenMain.insertSaleSection();
 
         screenMain.createPanels();
