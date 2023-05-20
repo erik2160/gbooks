@@ -120,11 +120,12 @@ public class SaleScreen extends HomeScreen {
         model.addColumn("UNIT VAL.");
         model.addColumn("TOTAL VAL.");
 
-        table = new JTable(model);
+        JTable table = new JTable (model);
+        table.getTableHeader().setReorderingAllowed(false);
 
-        tableScrollPane = new JScrollPane(table);
-        tableScrollPane.setBounds(26, 70, 899, 240);
-        cartPanel.add(tableScrollPane);
+        JScrollPane scrollPane = new JScrollPane (table);
+        scrollPane.setBounds(26, 70, 899, 240);
+        cartPanel.add(scrollPane);
 
         return cartPanel;
     }
