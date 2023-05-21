@@ -1,22 +1,15 @@
 package Sale;
 
-import Elements.TextField;
 import Storage.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Sale extends SaleScreen{
+public class Sale extends SaleScreen {
     private final List<SaleCart> saleCart = new ArrayList<>();
     private final List<Storage> storage = new ArrayList<>();
     private final TableCart tableCart = new TableCart(saleCart);
-    public List<SaleCart> getSaleCart() {
-        return saleCart;
-    }
-    public List<Storage> getStorage() {
-        return storage;
-    }
     public void addToCart() {
         for (Storage product : storage) {
             int quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
@@ -31,7 +24,6 @@ public class Sale extends SaleScreen{
                     }
                     updateItemTable();
                 } else {
-                    System.out.println(quantityItem);
                     saleCart.add(new SaleCart(
                         product.getCode(),
                         product.getTitle(),
@@ -71,7 +63,6 @@ public class Sale extends SaleScreen{
         for (SaleCart item : saleCart) {
             if (Objects.equals(item.getCode(), product)) {
                 return true;
-
             }
         }
         return false;
@@ -105,18 +96,31 @@ public class Sale extends SaleScreen{
         try {
             double getPayment = Double.parseDouble(saleScreen.getPayedField().getText().replace(",", "."));
             double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
+            String summing = String.format("%.2f", getPayment + getTotal).replace(",", ".");
+            String subtraction = String.format("%.2f", getPayment - getTotal).replace(",", ".");
 
             if (Objects.equals(typePayment, "cash")) {
                 if (getPayment == getTotal) {
                     saleScreen.getChangeDisplay().setText("0");
+                    saleScreen.getToPayDisplay().setText("0");
+                } else if (getTotal < 0) {
+                    saleScreen.getToPayDisplay().setText(summing);
+                    saleScreen.getChangeDisplay().setText("");
                 } else {
-                    saleScreen.getChangeDisplay().setText(String.format("%.2f", getPayment - getTotal).replace(",", "."));
+                    if (getPayment > getTotal) {
+                        saleScreen.getChangeDisplay().setText(subtraction);
+                        saleScreen.getToPayDisplay().setText("0");
+                    } else {
+                        saleScreen.getToPayDisplay().setText(subtraction);
+                        saleScreen.getChangeDisplay().setText("0");
+                    }
                 }
             } else if (Objects.equals(typePayment, "credit") || Objects.equals(typePayment, "debit")) {
-                saleScreen.getChangeDisplay().setText("0");
+                // ENTER LOGIC FOR PAYMENT WITH CARD
+                System.out.println("Empty");
             }
         } catch (NumberFormatException isEmpty) {
-            System.out.println("Right");
+            // ENTER VALIDATE EXCEPTION
         }
     }
 
@@ -134,16 +138,16 @@ public class Sale extends SaleScreen{
             }
         }
 
-        if (saleScreen.getCreditButton().isSelected()) {
+        saleCart.clear();
+
+        if (saleScreen.getCreditButton().isSelected() || saleScreen.getDebitButton().isSelected()) {
             saleScreen.getCreditButton().setSelected(false);
-        } else if (saleScreen.getDebitButton().isSelected()) {
-            saleScreen.getDebitButton().setSelected(false);
         }
 
         saleScreen.getToPayDisplay().setText("0");
-        saleScreen.getPayedField().setText("0");
-        saleScreen.getChangeDisplay().setText("0");
-        saleScreen.getCodeBarTextField().setText("0");
+        saleScreen.getPayedField().setText("");
+        saleScreen.getChangeDisplay().setText("");
+        saleScreen.getCodeBarTextField().setText("");
     }
 
     public void addStorage() {

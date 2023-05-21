@@ -120,15 +120,16 @@ public class SaleScreen extends HomeScreen {
         model.addColumn("UNIT VAL.");
         model.addColumn("TOTAL VAL.");
 
-        JTable table = new JTable (model);
+        table = new JTable (model);
         table.getTableHeader().setReorderingAllowed(false);
+
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setResizable(false);
         }
 
-        JScrollPane scrollPane = new JScrollPane (table);
-        scrollPane.setBounds(26, 70, 899, 240);
-        cartPanel.add(scrollPane);
+        tableScrollPane = new JScrollPane (table);
+        tableScrollPane.setBounds(26, 70, 899, 240);
+        cartPanel.add(tableScrollPane);
 
         return cartPanel;
     }
