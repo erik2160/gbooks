@@ -42,35 +42,24 @@ public class SaleScreen extends HomeScreen {
     public TextField getCodeBarTextField() {
         return codeBarTextField;
     }
-
     public TextField getUnitsTextField() {
         return unitsTextField;
     }
-
     public Display getToPayDisplay() {
         return toPayDisplay;
     }
-
-    public void setToPayDisplay(Display toPayDisplay) {
-        SaleScreen.toPayDisplay = toPayDisplay;
-    }
-
     public DefaultTableModel getModel() {
         return model;
     }
-
     public RadioButton getCreditButton() {
         return creditButton;
     }
-
     public RadioButton getDebitButton() {
         return debitButton;
     }
-
     public TextField getPayedField() {
         return payedField;
     }
-
     public Display getChangeDisplay() {
         return changeDisplay;
     }
