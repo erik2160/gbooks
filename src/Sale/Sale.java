@@ -139,6 +139,7 @@ public class Sale extends SaleScreen {
         }
 
         saleCart.clear();
+        tableCart.getSaleCart().clear();
 
         if (saleScreen.getCreditButton().isSelected() || saleScreen.getDebitButton().isSelected()) {
             saleScreen.getCreditButton().setSelected(false);
