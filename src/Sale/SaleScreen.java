@@ -65,18 +65,30 @@ public class SaleScreen extends HomeScreen {
         codeBarTextField = new TextField("BARCODE");
         codeBarTextField.setBounds(26, 26, 240, 33);
         codeBarTextField.setFontSize(22);
-        codeBarTextField.addActionListener(enterCode -> sale.addToCart());
+        codeBarTextField.addActionListener(enterCode -> {
+            sale.addToCart();
+            codeBarTextField.setText("");
+            unitsTextField.setText("");
+        });
         cartPanel.add(codeBarTextField);
 
         unitsTextField = new TextField("UNITS");
         unitsTextField.setBounds(276, 26, 80, 33);
         unitsTextField.setFontSize(22);
-        unitsTextField.addActionListener(enterUnit -> sale.addToCart());
+        unitsTextField.addActionListener(enterUnit -> {
+            sale.addToCart();
+            codeBarTextField.setText("");
+            unitsTextField.setText("");
+        });
         cartPanel.add(unitsTextField);
 
         Button buttonAdd = new Button("ADD");
         buttonAdd.setBounds(366,26, 110, 33);
-        buttonAdd.addActionListener(addItem -> sale.addToCart());
+        buttonAdd.addActionListener(addItem -> {
+            sale.addToCart();
+            codeBarTextField.setText("");
+            unitsTextField.setText("");
+        });
         cartPanel.add(buttonAdd);
 
         Button buttonRemove = new Button("REMOVE");
