@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Display extends JTextField {
-
     private Color displayColor = Color.BLACK;
 
     public Display(String placeHolder, Color newDisplayColor){

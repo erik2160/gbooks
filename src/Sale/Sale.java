@@ -12,28 +12,35 @@ public class Sale extends SaleScreen {
     private final TableCart tableCart = new TableCart(saleCart);
     public void addToCart() {
         for (Storage product : storage) {
-            int quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
+            try {
+                int quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
 
-            if (Objects.equals(saleScreen.getCodeBarTextField().getText(), product.getCode())) {
-                if (isExist(product.getCode())) {
-                    for (SaleCart item : tableCart.getSaleCart()) {
-                        if (Objects.equals(item.getCode(), product.getCode())) {
-                            item.setUnits(item.getUnits() + quantityItem);
-                            item.setTotalPrice(product.getPrice() * item.getUnits());
+                if (Objects.equals(saleScreen.getCodeBarTextField().getText(), product.getCode())) {
+                    if (isExist(product.getCode())) {
+                        for (SaleCart item : tableCart.getSaleCart()) {
+                            if (Objects.equals(item.getCode(), product.getCode())) {
+                                item.setUnits(item.getUnits() + quantityItem);
+                                item.setTotalPrice(product.getPrice() * item.getUnits());
+                            }
                         }
+                        updateItemTable();
+                    } else {
+                        saleCart.add(new SaleCart(
+                            product.getCode(),
+                            product.getTitle(),
+                            quantityItem,
+                            product.getPrice(),
+                            product.getPrice() * quantityItem
+                        ));
+                        insertItemTable(saleCart.size() - 1);
                     }
-                    updateItemTable();
-                } else {
-                    saleCart.add(new SaleCart(
-                        product.getCode(),
-                        product.getTitle(),
-                        quantityItem,
-                        product.getPrice(),
-                        product.getPrice() * quantityItem
-                    ));
-                    insertItemTable(saleCart.size() - 1);
+                    saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
                 }
-                saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
+            } catch (NumberFormatException quantityEmpty) {
+                // ENTER EXCEPTION
+                if (saleScreen.getCodeBarTextField().getText() == null) {
+                    System.out.println("Codebar não encontrado");
+                }
             }
         }
     }
@@ -104,8 +111,13 @@ public class Sale extends SaleScreen {
                     saleScreen.getChangeDisplay().setText("0");
                     saleScreen.getToPayDisplay().setText("0");
                 } else if (getTotal < 0) {
-                    saleScreen.getToPayDisplay().setText(summing);
-                    saleScreen.getChangeDisplay().setText("");
+                    if (getPayment > getTotal) {
+                        saleScreen.getChangeDisplay().setText(summing);
+                        saleScreen.getToPayDisplay().setText("0");
+                    } else {
+                        saleScreen.getToPayDisplay().setText(summing);
+                        saleScreen.getChangeDisplay().setText("");
+                    }
                 } else {
                     if (getPayment > getTotal) {
                         saleScreen.getChangeDisplay().setText(subtraction);
@@ -121,34 +133,38 @@ public class Sale extends SaleScreen {
             }
         } catch (NumberFormatException isEmpty) {
             // ENTER VALIDATE EXCEPTION
+            System.out.println("Campo vazio");
         }
     }
 
     public void finishSale() {
-        for (Storage product : storage) {
-            for (SaleCart item : tableCart.getSaleCart()) {
-                if (Objects.equals(item.getCode(), product.getCode())) {
-                    product.setQuantity(product.getQuantity() - item.getUnits());
-                    try {
-                        saleScreen.getModel().removeRow(0);
-                    } catch (ArrayIndexOutOfBoundsException cleanTable) {
-                        break;
+        double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
+
+        if (getTotal > 0 || getTotal < 0) {
+            System.out.println("Block finish sale");
+        } else {
+            for (Storage product : storage) {
+                for (SaleCart item : tableCart.getSaleCart()) {
+                    if (Objects.equals(item.getCode(), product.getCode())) {
+                        product.setQuantity(product.getQuantity() - item.getUnits());
+                        try {
+                            saleScreen.getModel().removeRow(0);
+                        } catch (ArrayIndexOutOfBoundsException cleanTable) {
+                            break;
+                        }
                     }
                 }
             }
+
+            saleCart.clear();
+            tableCart.getSaleCart().clear();
+            saleScreen.getToPayDisplay().setText("0");
+            saleScreen.getPayedField().setText("");
+            saleScreen.getChangeDisplay().setText("");
+            saleScreen.getCodeBarTextField().setText("");
+            saleScreen.getUnitsTextField().setText("");
+            saleScreen.getCardsButtons().clearSelection();
         }
-
-        saleCart.clear();
-        tableCart.getSaleCart().clear();
-
-        if (saleScreen.getCreditButton().isSelected() || saleScreen.getDebitButton().isSelected()) {
-            saleScreen.getCreditButton().setSelected(false);
-        }
-
-        saleScreen.getToPayDisplay().setText("0");
-        saleScreen.getPayedField().setText("");
-        saleScreen.getChangeDisplay().setText("");
-        saleScreen.getCodeBarTextField().setText("");
     }
 
     public void addStorage() {

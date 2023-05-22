@@ -13,32 +13,19 @@ import java.awt.*;
 
 public class SaleScreen extends HomeScreen {
     static SaleScreen saleScreen = new SaleScreen();
-    private static JPanel cartPanel;
-    private static JPanel pointsPanel;
-    private static JPanel finishPanel;
     private static TextField codeBarTextField;
     private static TextField unitsTextField;
     private static DefaultTableModel model;
-    private static JTable table;
-    private static JScrollPane tableScrollPane;
-    private static Button buttonAdd;
-    private static Button buttonRemove;
-    private static Button buttonCancel;
     private static TextField cpfText;
     private static Display pointsDisplay;
     private static Display newPriceDisplay;
     private static JCheckBox pointsCheckBox;
-    private static JLabel cashLabel;
     private static TextField payedField;
     private static Display changeDisplay;
-    private static JLabel creditCard;
     private static RadioButton creditButton;
     private static RadioButton debitButton;
-    private static ButtonGroup creditCardButtons;
-    private static JLabel toPayLabel;
     private static Display toPayDisplay;
-    private static Button finishButton;
-
+    private static ButtonGroup cardsButtons;
     public TextField getCodeBarTextField() {
         return codeBarTextField;
     }
@@ -63,11 +50,14 @@ public class SaleScreen extends HomeScreen {
     public Display getChangeDisplay() {
         return changeDisplay;
     }
+    public ButtonGroup getCardsButtons() {
+        return cardsButtons;
+    }
 
     public JPanel insertCartPanel(Sale sale) {
         sale.addStorage();
 
-        cartPanel = new JPanel();
+        JPanel cartPanel = new JPanel();
         cartPanel.setLayout(null);
         cartPanel.setBackground(Constants.DARKGRAY);
         cartPanel.setBounds(40, 20,950, 335);
@@ -75,28 +65,27 @@ public class SaleScreen extends HomeScreen {
         codeBarTextField = new TextField("BARCODE");
         codeBarTextField.setBounds(26, 26, 240, 33);
         codeBarTextField.setFontSize(22);
+        codeBarTextField.addActionListener(enterCode -> sale.addToCart());
         cartPanel.add(codeBarTextField);
 
         unitsTextField = new TextField("UNITS");
         unitsTextField.setBounds(276, 26, 80, 33);
         unitsTextField.setFontSize(22);
+        unitsTextField.addActionListener(enterUnit -> sale.addToCart());
         cartPanel.add(unitsTextField);
 
-        buttonAdd = new Button ("ADD");
+        Button buttonAdd = new Button("ADD");
         buttonAdd.setBounds(366,26, 110, 33);
-        buttonAdd.addActionListener(addItem -> {
-            sale.addToCart();
-            unitsTextField.setText("1");
-        });
+        buttonAdd.addActionListener(addItem -> sale.addToCart());
         cartPanel.add(buttonAdd);
 
-        buttonRemove = new Button("REMOVE");
+        Button buttonRemove = new Button("REMOVE");
         buttonRemove.setBounds(678,26, 120, 33);
         buttonRemove.setBackground(Constants.CANCELRED);
         buttonRemove.setForeground(Color.WHITE);
         cartPanel.add(buttonRemove);
 
-        buttonCancel = new Button("CANCEL");
+        Button buttonCancel = new Button("CANCEL");
         buttonCancel.setBounds(806,26, 120, 33);
         buttonCancel.setBackground(Constants.CANCELRED);
         buttonCancel.setForeground(Color.WHITE);
@@ -109,14 +98,14 @@ public class SaleScreen extends HomeScreen {
         model.addColumn("UNIT VAL.");
         model.addColumn("TOTAL VAL.");
 
-        table = new JTable (model);
+        JTable table = new JTable(model);
         table.getTableHeader().setReorderingAllowed(false);
 
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setResizable(false);
         }
 
-        tableScrollPane = new JScrollPane (table);
+        JScrollPane tableScrollPane = new JScrollPane(table);
         tableScrollPane.setBounds(26, 70, 899, 240);
         cartPanel.add(tableScrollPane);
 
@@ -124,7 +113,7 @@ public class SaleScreen extends HomeScreen {
     }
 
     public JPanel insertPointsPanel(Sale sale) {
-        pointsPanel = new JPanel();
+        JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(Constants.DARKGRAY);
         pointsPanel.setBounds(40, 366,315, 240);
         pointsPanel.setLayout(null);
@@ -159,12 +148,12 @@ public class SaleScreen extends HomeScreen {
     }
 
     public JPanel insertFinishPanel(Sale sale) {
-        finishPanel = new JPanel();
+        JPanel finishPanel = new JPanel();
         finishPanel.setBackground(Constants.DARKGRAY);
         finishPanel.setBounds(370, 366,620, 240);
         finishPanel.setLayout(null);
 
-        cashLabel = new JLabel("CASH");
+        JLabel cashLabel = new JLabel("CASH");
         cashLabel.setBounds(72,48,60,24);
         cashLabel.setForeground(Color.WHITE);
         cashLabel.setFont(new Font("Ubuntu", Font.BOLD, 20));
@@ -179,7 +168,7 @@ public class SaleScreen extends HomeScreen {
         changeDisplay.setBounds(36,154,145,30);
         finishPanel.add(changeDisplay);
 
-        creditCard = new JLabel("CREDIT CARD");
+        JLabel creditCard = new JLabel("CREDIT CARD");
         creditCard.setBounds(240,48,154,24);
         creditCard.setForeground(Color.WHITE);
         creditCard.setFont(new Font("Ubuntu", Font.BOLD, 20));
@@ -193,13 +182,13 @@ public class SaleScreen extends HomeScreen {
         creditButton.addActionListener(selectCash -> sale.paymentCard());
         debitButton.addActionListener(selectCard -> sale.paymentCard());
 
-        creditCardButtons = new ButtonGroup();
-        creditCardButtons.add(creditButton);
-        creditCardButtons.add(debitButton);
+        cardsButtons = new ButtonGroup();
+        cardsButtons.add(creditButton);
+        cardsButtons.add(debitButton);
         finishPanel.add(creditButton);
         finishPanel.add(debitButton);
 
-        toPayLabel = new JLabel("TO PAY");
+        JLabel toPayLabel = new JLabel("TO PAY");
         toPayLabel.setBounds(480,48,80,24);
         toPayLabel.setForeground(Color.WHITE);
         toPayLabel.setFont(new Font("Ubuntu", Font.BOLD, 20));
@@ -211,7 +200,7 @@ public class SaleScreen extends HomeScreen {
 
         finishPanel.add(toPayDisplay);
 
-        finishButton = new Button("FINISH");
+        Button finishButton = new Button("FINISH");
         finishButton.setBounds(446, 142, 150, 50);
         finishButton.setBackground(Constants.CONFIRMGREEN);
         finishButton.setForeground(Color.WHITE);
