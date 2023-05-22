@@ -13,34 +13,36 @@ public class Sale extends SaleScreen {
     public void addToCart() {
         for (Storage product : storage) {
             try {
-                int quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
+                if (existInStock(saleScreen.getCodeBarTextField().getText())) {
+                    int quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
 
-                if (Objects.equals(saleScreen.getCodeBarTextField().getText(), product.getCode())) {
-                    if (isExist(product.getCode())) {
-                        for (SaleCart item : tableCart.getSaleCart()) {
-                            if (Objects.equals(item.getCode(), product.getCode())) {
-                                item.setUnits(item.getUnits() + quantityItem);
-                                item.setTotalPrice(product.getPrice() * item.getUnits());
+                    if (Objects.equals(saleScreen.getCodeBarTextField().getText(), product.getCode())) {
+                        if (existInCart(product.getCode())) {
+                            for (SaleCart item : tableCart.getSaleCart()) {
+                                if (Objects.equals(item.getCode(), product.getCode())) {
+                                    item.setUnits(item.getUnits() + quantityItem);
+                                    item.setTotalPrice(product.getPrice() * item.getUnits());
+                                }
                             }
+                            updateItemTable();
+                        } else {
+                            saleCart.add(new SaleCart(
+                                product.getCode(),
+                                product.getTitle(),
+                                quantityItem,
+                                product.getPrice(),
+                                product.getPrice() * quantityItem
+                            ));
+                            insertItemTable(saleCart.size() - 1);
                         }
-                        updateItemTable();
-                    } else {
-                        saleCart.add(new SaleCart(
-                            product.getCode(),
-                            product.getTitle(),
-                            quantityItem,
-                            product.getPrice(),
-                            product.getPrice() * quantityItem
-                        ));
-                        insertItemTable(saleCart.size() - 1);
+                        saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
                     }
-                    saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
+                } else {
+
+                    break;
                 }
             } catch (NumberFormatException quantityEmpty) {
-                // ENTER EXCEPTION
-                if (saleScreen.getCodeBarTextField().getText() == null) {
-                    System.out.println("Codebar não encontrado");
-                }
+//                System.out.println("Unit is empty");
             }
         }
     }
@@ -70,7 +72,7 @@ public class Sale extends SaleScreen {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
 
         for (int row = 1; row <= saleScreen.getModel().getRowCount(); row++) {
-            if (isExist(saleScreen.getCodeBarTextField().getText())) {
+            if (existInCart(saleScreen.getCodeBarTextField().getText())) {
                 getTotal -= (double) saleScreen.getModel().getValueAt(row - 1, 4);
                 saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
                 saleCart.remove(row - 1);
@@ -79,7 +81,16 @@ public class Sale extends SaleScreen {
         }
     }
 
-    private boolean isExist(String product) {
+    private boolean existInStock(String product) {
+        for (Storage item : storage) {
+            if (Objects.equals(item.getCode(), product)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean existInCart(String product) {
         for (SaleCart item : saleCart) {
             if (Objects.equals(item.getCode(), product)) {
                 return true;

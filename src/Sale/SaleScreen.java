@@ -104,7 +104,13 @@ public class SaleScreen extends HomeScreen {
         buttonCancel.setForeground(Color.WHITE);
         cartPanel.add(buttonCancel);
 
-        model = new DefaultTableModel();
+        model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
         model.addColumn("CODE");
         model.addColumn("TITLE");
         model.addColumn("UNITS");
