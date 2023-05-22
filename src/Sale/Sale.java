@@ -66,6 +66,19 @@ public class Sale extends SaleScreen {
         }
     }
 
+    public void removeItemTable() {
+        double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
+
+        for (int row = 1; row <= saleScreen.getModel().getRowCount(); row++) {
+            if (isExist(saleScreen.getCodeBarTextField().getText())) {
+                getTotal -= (double) saleScreen.getModel().getValueAt(row - 1, 4);
+                saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
+                saleCart.remove(row - 1);
+                saleScreen.getModel().removeRow(row - 1);
+            }
+        }
+    }
+
     private boolean isExist(String product) {
         for (SaleCart item : saleCart) {
             if (Objects.equals(item.getCode(), product)) {
@@ -127,8 +140,11 @@ public class Sale extends SaleScreen {
                         saleScreen.getChangeDisplay().setText("0");
                     }
                 }
-            } else if (Objects.equals(typePayment, "credit") || Objects.equals(typePayment, "debit")) {
-                // ENTER LOGIC FOR PAYMENT WITH CARD
+            } else if (Objects.equals(typePayment, "credit")) {
+                // ENTER LOGIC FOR PAYMENT WITH CREDIT CARD
+                System.out.println("Empty");
+            } else if (Objects.equals(typePayment, "debit")) {
+                // ENTER LOGIC FOR PAYMENT WITH DEBIT CARD
                 System.out.println("Empty");
             }
         } catch (NumberFormatException isEmpty) {

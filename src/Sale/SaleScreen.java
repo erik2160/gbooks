@@ -83,6 +83,7 @@ public class SaleScreen extends HomeScreen {
         buttonRemove.setBounds(678,26, 120, 33);
         buttonRemove.setBackground(Constants.CANCELRED);
         buttonRemove.setForeground(Color.WHITE);
+        buttonRemove.addActionListener(removeItem -> sale.removeItemTable());
         cartPanel.add(buttonRemove);
 
         Button buttonCancel = new Button("CANCEL");
