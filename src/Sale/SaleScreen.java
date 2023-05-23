@@ -59,26 +59,22 @@ public class SaleScreen extends HomeScreen {
 
         JPanel cartPanel = new JPanel();
         cartPanel.setLayout(null);
-        cartPanel.setBackground(Constants.DARKGRAY);
+        cartPanel.setBackground(Constants.DARK_GRAY);
         cartPanel.setBounds(40, 20,950, 335);
 
         codeBarTextField = new TextField("BARCODE");
         codeBarTextField.setBounds(26, 26, 240, 33);
         codeBarTextField.setFontSize(22);
-        codeBarTextField.addActionListener(enterCode -> {
-            sale.addToCart();
-            codeBarTextField.setText("");
-            unitsTextField.setText("");
-        });
         cartPanel.add(codeBarTextField);
 
         unitsTextField = new TextField("UNITS");
         unitsTextField.setBounds(276, 26, 80, 33);
         unitsTextField.setFontSize(22);
         unitsTextField.addActionListener(enterUnit -> {
+            codeBarTextField.requestFocus();
             sale.addToCart();
-            codeBarTextField.setText("");
-            unitsTextField.setText("");
+            codeBarTextField.reset();
+            unitsTextField.reset();
         });
         cartPanel.add(unitsTextField);
 
@@ -86,21 +82,21 @@ public class SaleScreen extends HomeScreen {
         buttonAdd.setBounds(366,26, 110, 33);
         buttonAdd.addActionListener(addItem -> {
             sale.addToCart();
-            codeBarTextField.setText("");
-            unitsTextField.setText("");
+            codeBarTextField.reset();
+            unitsTextField.reset();
         });
         cartPanel.add(buttonAdd);
 
         Button buttonRemove = new Button("REMOVE");
         buttonRemove.setBounds(678,26, 120, 33);
-        buttonRemove.setBackground(Constants.CANCELRED);
+        buttonRemove.setBackground(Constants.CANCEL_RED);
         buttonRemove.setForeground(Color.WHITE);
         buttonRemove.addActionListener(removeItem -> sale.removeItemTable());
         cartPanel.add(buttonRemove);
 
         Button buttonCancel = new Button("CANCEL");
         buttonCancel.setBounds(806,26, 120, 33);
-        buttonCancel.setBackground(Constants.CANCELRED);
+        buttonCancel.setBackground(Constants.CANCEL_RED);
         buttonCancel.setForeground(Color.WHITE);
         cartPanel.add(buttonCancel);
 
@@ -133,7 +129,7 @@ public class SaleScreen extends HomeScreen {
 
     public JPanel insertPointsPanel(Sale sale) {
         JPanel pointsPanel = new JPanel();
-        pointsPanel.setBackground(Constants.DARKGRAY);
+        pointsPanel.setBackground(Constants.DARK_GRAY);
         pointsPanel.setBounds(40, 366,315, 240);
         pointsPanel.setLayout(null);
 
@@ -145,7 +141,7 @@ public class SaleScreen extends HomeScreen {
         pointsDisplay.setBounds(66, 80, 181, 27);
         pointsPanel.add(pointsDisplay);
 
-        newPriceDisplay = new Display("NEW PRICE", Constants.CONFIRMGREEN);
+        newPriceDisplay = new Display("NEW PRICE", Constants.CONFIRM_GREEN);
         newPriceDisplay.setBounds(66, 122, 181, 27);
         pointsPanel.add(newPriceDisplay);
 
@@ -154,7 +150,7 @@ public class SaleScreen extends HomeScreen {
         pointsCheckBox.setOpaque (true);
         pointsCheckBox.setFocusPainted (false);
         pointsCheckBox.setBounds (100, 179, 115, 30);
-        pointsCheckBox.setFont (new Font(Constants.DEFAULTFONT, Font.BOLD, 16));
+        pointsCheckBox.setFont (new Font(Constants.DEFAULT_FONT, Font.BOLD, 16));
         pointsPanel.add(pointsCheckBox);
 
         //APENAS PARA TESTE
@@ -168,7 +164,7 @@ public class SaleScreen extends HomeScreen {
 
     public JPanel insertFinishPanel(Sale sale) {
         JPanel finishPanel = new JPanel();
-        finishPanel.setBackground(Constants.DARKGRAY);
+        finishPanel.setBackground(Constants.DARK_GRAY);
         finishPanel.setBounds(370, 366,620, 240);
         finishPanel.setLayout(null);
 
@@ -221,7 +217,7 @@ public class SaleScreen extends HomeScreen {
 
         Button finishButton = new Button("FINISH");
         finishButton.setBounds(446, 142, 150, 50);
-        finishButton.setBackground(Constants.CONFIRMGREEN);
+        finishButton.setBackground(Constants.CONFIRM_GREEN);
         finishButton.setForeground(Color.WHITE);
         finishButton.addActionListener(finishSale -> sale.finishSale());
         finishPanel.add(finishButton);

@@ -5,17 +5,20 @@ import java.awt.*;
 
 public class Display extends JTextField {
     private Color displayColor = Color.BLACK;
+    private String displayPlaceHolder;
 
     public Display(String placeHolder, Color newDisplayColor){
         this.displayColor = newDisplayColor;
-        this.setFont(new Font(Constants.DEFAULTFONT, Font.PLAIN, 20));
+        this.displayPlaceHolder = placeHolder;
+        this.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 20));
         this.setText(placeHolder);
         this.setEnabled(false);
         this.setDisabledTextColor(Color.lightGray);
     }
 
     public Display(String placeHolder){
-        this.setFont(new Font(Constants.DEFAULTFONT, Font.PLAIN, 20));
+        this.displayPlaceHolder = placeHolder;
+        this.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 20));
         this.setText(placeHolder);
         this.setEnabled(false);
         this.setDisabledTextColor(Color.lightGray);
@@ -27,8 +30,13 @@ public class Display extends JTextField {
         this.setDisabledTextColor(displayColor);
     }
 
+    public void reset(){
+        setText(displayPlaceHolder);
+        setDisabledTextColor(Color.lightGray);
+    }
+
     public void setFontSize(int size){
-     this.setFont( new Font(Constants.DEFAULTFONT, Font.PLAIN, size));
+     this.setFont( new Font(Constants.DEFAULT_FONT, Font.PLAIN, size));
     }
 
 }
