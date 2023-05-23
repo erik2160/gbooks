@@ -27,10 +27,10 @@ public class HomeScreen {
         frame.setSize(1280, 720);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
-        createPanels(); //chamada do método createPanels() no construtor
-        createButtons(); //chamada do método createButtons() no construtor
-        configureLeftPanel();
-        showDefaultScreen(); //chamada do método showDefaultScreen() no construtor
+        //createPanels(); //chamada do método createPanels() no construtor
+        //createButtons(); //chamada do método createButtons() no construtor
+        //configureLeftPanel();
+        //showDefaultScreen(); //chamada do método showDefaultScreen() no construtor
     }
 
     public void createPanels() {
@@ -43,11 +43,11 @@ public class HomeScreen {
         leftPanel.setLayout(null);
         centerPanel.setLayout(null);
 
-        topPanel.setBackground(Constants.DARKBROWN);
-        leftPanel.setBackground(Constants.DARKGRAY);
-        centerPanel.setBackground(Constants.LIGHTGRAY);
-        rightPanel.setBackground(Constants.LIGHTGRAY);
-        bottomPanel.setBackground(Constants.DARKBROWN);
+        topPanel.setBackground(Constants.DARK_BROWN);
+        leftPanel.setBackground(Constants.DARK_GRAY);
+        centerPanel.setBackground(Constants.LIGHT_GRAY);
+        rightPanel.setBackground(Constants.LIGHT_GRAY);
+        bottomPanel.setBackground(Constants.DARK_BROWN);
 
         topPanel.setPreferredSize(new Dimension(100, 30));
         leftPanel.setPreferredSize(new Dimension(250, 100));
@@ -69,7 +69,7 @@ public class HomeScreen {
         usersButton = new Button("Users");
         logoutButton = new Button("Logout");
 
-        cashierButton.addActionListener(e -> insertSaleSection());
+        cashierButton.addActionListener(e -> showSaleSection());
         logoutButton.addActionListener(e -> showDefaultScreen());
     }
 
@@ -77,7 +77,7 @@ public class HomeScreen {
         menuLabel = new JLabel("MENU");
         menuLabel.setBounds(87,26,80,30);
         menuLabel.setForeground(Color.WHITE);
-        menuLabel.setFont(new Font("Ubuntu", Font.BOLD, 26));
+        menuLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, 26));
 
         cashierButton.setBounds(30, 80, 190, 40);
         stockButton.setBounds(30, 150, 190, 40);
@@ -93,10 +93,6 @@ public class HomeScreen {
         leftPanel.add(logoutButton);
     }
 
-    private void showMainFrame() {
-        frame.setVisible(true);
-    }
-
     public void showDefaultScreen() {
         centerPanel.removeAll();
         centerPanel.setVisible(false);
@@ -106,7 +102,7 @@ public class HomeScreen {
         titleLabel.setBounds(280,200,440,100);
         titleLabel.setOpaque(false);
         titleLabel.setFont(new Font("Ubuntu", Font.PLAIN,100));
-        titleLabel.setForeground(Constants.DARKBROWN);
+        titleLabel.setForeground(Constants.DARK_BROWN);
         centerPanel.add(titleLabel);
 
         Button enterButton = new Button("Login");
@@ -114,7 +110,7 @@ public class HomeScreen {
         centerPanel.add(enterButton);
     }
 
-    public void insertSaleSection() {
+    public void showSaleSection() {
         centerPanel.removeAll();
         centerPanel.setVisible(false);
         centerPanel.setVisible(true);

@@ -185,11 +185,11 @@ public class Sale extends SaleScreen {
 
             saleCart.clear();
             tableCart.getSaleCart().clear();
-            saleScreen.getToPayDisplay().setText("0");
-            saleScreen.getPayedField().setText("");
-            saleScreen.getChangeDisplay().setText("");
-            saleScreen.getCodeBarTextField().setText("");
-            saleScreen.getUnitsTextField().setText("");
+            saleScreen.getToPayDisplay().reset();
+            saleScreen.getPayedField().reset();
+            saleScreen.getChangeDisplay().reset();
+            saleScreen.getCodeBarTextField().reset();
+            saleScreen.getUnitsTextField().reset();
             saleScreen.getCardsButtons().clearSelection();
         }
     }

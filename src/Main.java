@@ -14,7 +14,6 @@ public class Main {
 
     private void run() {
         HomeScreen screenMain = new HomeScreen();
-        screenMain.insertSaleSection();
 
         screenMain.createPanels();
         screenMain.createButtons();
