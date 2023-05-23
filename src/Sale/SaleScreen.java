@@ -117,10 +117,10 @@ public class SaleScreen extends HomeScreen {
 
         JTable table = new JTable(model);
         table.getTableHeader().setReorderingAllowed(false);
-        table.getTableHeader ().setBackground (Constants.LIGHTGRAY);
+        table.getTableHeader ().setBackground (Constants.LIGHT_GRAY);
         table.getTableHeader ().setForeground (Color.WHITE);
-        table.getTableHeader ().setFont (new Font (Constants.DEFAULTFONT, Font.BOLD, 18));
-        table.setRowHeight (Constants.ROWHEIGHT);
+        table.getTableHeader ().setFont (new Font (Constants.DEFAULT_FONT, Font.BOLD, 18));
+        table.setRowHeight (Constants.ROW_HEIGHT);
 
         TableCellRenderer cellRenderer = new DefaultTableCellRenderer (){
             @Override
@@ -135,7 +135,7 @@ public class SaleScreen extends HomeScreen {
                 } else {
                     component.setBackground(table.getBackground()); // Restaura a cor de fundo padrão para as outras linhas
                 }
-                component.setFont (new Font (Constants.DEFAULTFONT,Font.PLAIN, 16));// Altera a fonte
+                component.setFont (new Font (Constants.DEFAULT_FONT,Font.PLAIN, 16));// Altera a fonte
                 return component;
             }
         };
