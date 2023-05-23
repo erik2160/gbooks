@@ -5,7 +5,6 @@ import Elements.Constants;
 import Elements.Display;
 import Elements.RadioButton;
 import Elements.TextField;
-import Home.HomeScreen;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -13,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
-public class SaleScreen extends HomeScreen {
+public class SaleScreen {
     static SaleScreen saleScreen = new SaleScreen();
     private static TextField codeBarTextField;
     private static TextField unitsTextField;
@@ -100,6 +99,7 @@ public class SaleScreen extends HomeScreen {
         buttonCancel.setBounds(806,26, 120, 33);
         buttonCancel.setBackground(Constants.CANCEL_RED);
         buttonCancel.setForeground(Color.WHITE);
+        buttonCancel.addActionListener(finishSale -> sale.finishSale("cancel"));
         cartPanel.add(buttonCancel);
 
         model = new DefaultTableModel() {
@@ -250,7 +250,7 @@ public class SaleScreen extends HomeScreen {
         finishButton.setBounds(446, 142, 150, 50);
         finishButton.setBackground(Constants.CONFIRM_GREEN);
         finishButton.setForeground(Color.WHITE);
-        finishButton.addActionListener(finishSale -> sale.finishSale());
+        finishButton.addActionListener(finishSale -> sale.finishSale("finish"));
         finishPanel.add(finishButton);
 
         return finishPanel;

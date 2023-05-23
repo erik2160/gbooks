@@ -38,11 +38,11 @@ public class Sale extends SaleScreen {
                         saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
                     }
                 } else {
-
+                    // ENTER VALIDATION OF CODE BAR NOT FOUND
                     break;
                 }
             } catch (NumberFormatException quantityEmpty) {
-//                System.out.println("Unit is empty");
+                // ENTER VALIDATION OF EMPTY FIELD
             }
         }
     }
@@ -71,12 +71,16 @@ public class Sale extends SaleScreen {
     public void removeItemTable() {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
 
-        for (int row = 1; row <= saleScreen.getModel().getRowCount(); row++) {
-            if (existInCart(saleScreen.getCodeBarTextField().getText())) {
-                getTotal -= (double) saleScreen.getModel().getValueAt(row - 1, 4);
+        for (int row = 0; row < saleScreen.getModel().getRowCount(); row++) {
+            if (Objects.equals(saleScreen.getCodeBarTextField().getText(), saleScreen.getModel().getValueAt(row, 0))) {
+                getTotal -= (double) saleScreen.getModel().getValueAt(row, 4);
                 saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
-                saleCart.remove(row - 1);
-                saleScreen.getModel().removeRow(row - 1);
+                saleScreen.getModel().removeRow(row);
+                saleCart.remove(row);
+                break;
+            } else {
+                // ENTER VALIDATION OF CODE BAR NOT FOUND
+                break;
             }
         }
     }
@@ -159,39 +163,47 @@ public class Sale extends SaleScreen {
                 System.out.println("Empty");
             }
         } catch (NumberFormatException isEmpty) {
-            // ENTER VALIDATE EXCEPTION
-            System.out.println("Campo vazio");
+            // ENTER VALIDATION OF EMPTY FIELD
         }
     }
 
-    public void finishSale() {
+    public void finishSale(String getType) {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
 
-        if (getTotal > 0 || getTotal < 0) {
-            System.out.println("Block finish sale");
-        } else {
-            for (Storage product : storage) {
-                for (SaleCart item : tableCart.getSaleCart()) {
-                    if (Objects.equals(item.getCode(), product.getCode())) {
-                        product.setQuantity(product.getQuantity() - item.getUnits());
-                        try {
-                            saleScreen.getModel().removeRow(0);
-                        } catch (ArrayIndexOutOfBoundsException cleanTable) {
-                            break;
+        if (Objects.equals(getType, "cancel")) {
+            // ENTER VALIDATE OF CANCEL SALE
+        } else if (Objects.equals(getType, "finish")) {
+            if (getTotal > 0 || getTotal < 0) {
+                System.out.println("Block finish sale");
+            } else {
+                for (Storage product : storage) {
+                    for (SaleCart item : tableCart.getSaleCart()) {
+                        if (Objects.equals(item.getCode(), product.getCode())) {
+                            product.setQuantity(product.getQuantity() - item.getUnits());
+                            try {
+                                saleScreen.getModel().removeRow(0);
+                            } catch (ArrayIndexOutOfBoundsException cleanTable) {
+                                break;
+                            }
                         }
                     }
                 }
-            }
 
-            saleCart.clear();
-            tableCart.getSaleCart().clear();
-            saleScreen.getToPayDisplay().reset();
-            saleScreen.getPayedField().reset();
-            saleScreen.getChangeDisplay().reset();
-            saleScreen.getCodeBarTextField().reset();
-            saleScreen.getUnitsTextField().reset();
-            saleScreen.getCardsButtons().clearSelection();
+                saleCart.clear();
+                tableCart.getSaleCart().clear();
+                saleScreen.getToPayDisplay().reset();
+                saleScreen.getPayedField().reset();
+                saleScreen.getChangeDisplay().reset();
+                saleScreen.getCodeBarTextField().reset();
+                saleScreen.getUnitsTextField().reset();
+                saleScreen.getCardsButtons().clearSelection();
+            }
         }
+
+
+
+
+
     }
 
     public void addStorage() {
