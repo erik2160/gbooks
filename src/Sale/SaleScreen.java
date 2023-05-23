@@ -119,10 +119,17 @@ public class SaleScreen extends HomeScreen {
 
         JTable table = new JTable(model);
         table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader ().setBackground (Constants.LIGHTGRAY);
+        table.getTableHeader ().setForeground (Constants.DARKBROWN);
+        table.getTableHeader ().setFont (new Font (Constants.DEFAULTFONT, Font.BOLD, 18));
+
+
 
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setResizable(false);
         }
+
+
 
         JScrollPane tableScrollPane = new JScrollPane(table);
         tableScrollPane.setBounds(26, 70, 899, 240);
