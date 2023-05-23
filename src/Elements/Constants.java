@@ -9,4 +9,5 @@ public class Constants {
     public static final Color LIGHTGRAY = new Color(179, 162, 153);
     public static final Color CANCELRED = new Color(139, 0, 0);
     public static final Color CONFIRMGREEN = new Color(0, 124, 50);
+    public static final int ROWHEIGHT = 30;
 }

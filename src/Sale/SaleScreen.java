@@ -8,7 +8,9 @@ import Elements.TextField;
 import Home.HomeScreen;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
 public class SaleScreen extends HomeScreen {
@@ -120,16 +122,33 @@ public class SaleScreen extends HomeScreen {
         JTable table = new JTable(model);
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader ().setBackground (Constants.LIGHTGRAY);
-        table.getTableHeader ().setForeground (Constants.DARKBROWN);
+        table.getTableHeader ().setForeground (Color.WHITE);
         table.getTableHeader ().setFont (new Font (Constants.DEFAULTFONT, Font.BOLD, 18));
+        table.setRowHeight (Constants.ROWHEIGHT);
 
+        TableCellRenderer cellRenderer = new DefaultTableCellRenderer (){
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){
+                Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (component instanceof JLabel label) {
+                    label.setHorizontalAlignment (SwingConstants.CENTER); // Centraliza o conteúdo horizontalmente
+                    label.setVerticalAlignment(SwingConstants.CENTER);// Centraliza o conteúdo verticalmente
+                }
+                component.setFont (new Font (Constants.DEFAULTFONT,Font.PLAIN, 16));// Altera a fonte
+                return component;
+            }
+        };
 
+        table.getColumnModel ().getColumn (0).setPreferredWidth (50); // tamanho horizontal da coluna (code)
+        table.getColumnModel ().getColumn (1).setPreferredWidth (200); // tamanho horizontal da coluna (title)
+        table.getColumnModel ().getColumn (2).setPreferredWidth (10); // tamanho horizontal da coluna  (units)
+        table.getColumnModel ().getColumn (3).setPreferredWidth (40); // tamanho horizontal da coluna  (unit val)
+        table.getColumnModel ().getColumn (4).setPreferredWidth (80); // tamanho horizontal da coluna (total val)
 
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setResizable(false);
+            table.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
-
-
 
         JScrollPane tableScrollPane = new JScrollPane(table);
         tableScrollPane.setBounds(26, 70, 899, 240);
