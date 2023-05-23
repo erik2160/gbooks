@@ -134,6 +134,11 @@ public class SaleScreen extends HomeScreen {
                     label.setHorizontalAlignment (SwingConstants.CENTER); // Centraliza o conteúdo horizontalmente
                     label.setVerticalAlignment(SwingConstants.CENTER);// Centraliza o conteúdo verticalmente
                 }
+                if (row % 2 != 0) {
+                    component.setBackground(new Color (240, 240, 240)); // Define a cor de fundo para linhas pares
+                } else {
+                    component.setBackground(table.getBackground()); // Restaura a cor de fundo padrão para as outras linhas
+                }
                 component.setFont (new Font (Constants.DEFAULTFONT,Font.PLAIN, 16));// Altera a fonte
                 return component;
             }
