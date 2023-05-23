@@ -72,14 +72,13 @@ public class Sale extends SaleScreen {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
 
         for (int row = 0; row < saleScreen.getModel().getRowCount(); row++) {
-            if (Objects.equals(saleScreen.getCodeBarTextField().getText(), saleScreen.getModel().getValueAt(row, 0))) {
+            String itemTable = (String) saleScreen.getModel().getValueAt(row, 0);
+
+            if (Objects.equals(saleScreen.getCodeBarTextField().getText(), itemTable)) {
                 getTotal -= (double) saleScreen.getModel().getValueAt(row, 4);
                 saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
                 saleScreen.getModel().removeRow(row);
                 saleCart.remove(row);
-                break;
-            } else {
-                // ENTER VALIDATION OF CODE BAR NOT FOUND
                 break;
             }
         }
