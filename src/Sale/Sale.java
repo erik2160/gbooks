@@ -45,10 +45,12 @@ public class Sale extends SaleScreen {
                         saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
                     }
                 } else {
-                    // PARA FORMATAÇÃO UTILIZAR A VARIAVEL messageError, manter a parte \"%S\"
-
-                    String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
-                    JOptionPane.showMessageDialog(null, messageError, "Title", JOptionPane.ERROR_MESSAGE);
+                    if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
+                        JOptionPane.showMessageDialog(null, "Message", "Title", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
+                        JOptionPane.showMessageDialog(null, messageError, "Title", JOptionPane.ERROR_MESSAGE);
+                    }
                     break;
                 }
             } catch (NumberFormatException quantityEmpty) {
