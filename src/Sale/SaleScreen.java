@@ -98,18 +98,14 @@ public class SaleScreen {
         });
         cartPanel.add(buttonAdd);
 
-        buttonRemove = new Button("REMOVE");
+        Button buttonRemove = new Button("REMOVE",Constants.CANCEL_RED,Color.WHITE);
         buttonRemove.setBounds(678,26, 120, 33);
-        buttonRemove.setBackground(Constants.CANCEL_RED);
-        buttonRemove.setForeground(Color.WHITE);
         buttonRemove.setEnabled(false);
         buttonRemove.addActionListener(removeItem -> sale.removeItemTable());
         cartPanel.add(buttonRemove);
 
-        buttonCancel = new Button("CANCEL");
+        Button buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
         buttonCancel.setBounds(806,26, 120, 33);
-        buttonCancel.setBackground(Constants.CANCEL_RED);
-        buttonCancel.setForeground(Color.WHITE);
         buttonCancel.setEnabled(false);
         buttonCancel.addActionListener(finishSale -> sale.finishSale("cancel"));
         cartPanel.add(buttonCancel);
@@ -198,8 +194,8 @@ public class SaleScreen {
 
         //APENAS PARA TESTE
         cpfText.addActionListener (e -> {
-            pointsDisplay.setText ("3000");
-            newPriceDisplay.setText ("R$ 2");
+            pointsDisplay.setText ("300");
+            newPriceDisplay.setText ("R$ 20");
         });
 
         return pointsPanel;
