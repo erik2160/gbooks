@@ -7,7 +7,7 @@ import Sale.SaleScreen;
 import Sale.Sale;
 import Elements.Constants;
 
-public class HomeScreen {
+public class MainFrame {
     private JFrame frame;
     private JPanel topPanel;
     private JPanel leftPanel;
@@ -21,19 +21,20 @@ public class HomeScreen {
     private Button usersButton;
     private Button logoutButton;
 
-    public HomeScreen() {
+    public MainFrame() {
         frame = new JFrame("G-Books System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
-        //createPanels(); //chamada do método createPanels() no construtor
-        //createButtons(); //chamada do método createButtons() no construtor
-        //configureLeftPanel();
-        //showDefaultScreen(); //chamada do método showDefaultScreen() no construtor
+        createPanels();
+        createButtons();
+        configureLeftPanel();
+        showHomeScreen();
+        frame.setVisible(true);
     }
 
-    public void createPanels() {
+    private void createPanels() {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         centerPanel = new JPanel();
@@ -62,7 +63,7 @@ public class HomeScreen {
         frame.add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    public void createButtons() {
+    private void createButtons() {
         cashierButton = new Button("Cashier");
         stockButton = new Button("Stock");
         reportButton = new Button("Report");
@@ -70,10 +71,13 @@ public class HomeScreen {
         logoutButton = new Button("Logout");
 
         cashierButton.addActionListener(e -> showSaleSection());
-        logoutButton.addActionListener(e -> showDefaultScreen());
+        stockButton.setEnabled(false);
+        reportButton.setEnabled(false);
+        usersButton.setEnabled(false);
+        logoutButton.addActionListener(e -> showHomeScreen());
     }
 
-    public void configureLeftPanel() {
+    private void configureLeftPanel() {
         menuLabel = new JLabel("MENU");
         menuLabel.setBounds(87,26,80,30);
         menuLabel.setForeground(Color.WHITE);
@@ -93,7 +97,7 @@ public class HomeScreen {
         leftPanel.add(logoutButton);
     }
 
-    public void showDefaultScreen() {
+    private void showHomeScreen() {
         centerPanel.removeAll();
         centerPanel.setVisible(false);
         centerPanel.setVisible(true);
@@ -101,16 +105,17 @@ public class HomeScreen {
         JLabel titleLabel = new JLabel("G-BOOKS");
         titleLabel.setBounds(280,200,440,100);
         titleLabel.setOpaque(false);
-        titleLabel.setFont(new Font("Ubuntu", Font.PLAIN,100));
+        titleLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN,100));
         titleLabel.setForeground(Constants.DARK_BROWN);
         centerPanel.add(titleLabel);
 
-        Button enterButton = new Button("Login");
+        Button enterButton = new Button("Enter");
         enterButton.setBounds(455,330, 90,40);
+        enterButton.addActionListener(e -> showSaleSection());
         centerPanel.add(enterButton);
     }
 
-    public void showSaleSection() {
+    private void showSaleSection() {
         centerPanel.removeAll();
         centerPanel.setVisible(false);
         centerPanel.setVisible(true);
@@ -120,13 +125,5 @@ public class HomeScreen {
         centerPanel.add(screenSale.insertCartPanel(sale));
         centerPanel.add(screenSale.insertPointsPanel(sale));
         centerPanel.add(screenSale.insertFinishPanel(sale));
-    }
-
-    public JFrame getFrame() {
-        return frame;
-    }
-
-    public JPanel getLeftPanel() {
-        return leftPanel;
     }
 }

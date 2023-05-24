@@ -1,7 +1,6 @@
-import Home.HomeScreen;
+import Home.MainFrame;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Main {
 
@@ -13,13 +12,6 @@ public class Main {
     }
 
     private void run() {
-        HomeScreen screenMain = new HomeScreen();
-
-        screenMain.createPanels();
-        screenMain.createButtons();
-        screenMain.configureLeftPanel();
-        screenMain.showDefaultScreen();
-
-        screenMain.getFrame().setVisible(true);
+        new MainFrame();
     }
 }
