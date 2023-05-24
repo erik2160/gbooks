@@ -98,13 +98,13 @@ public class SaleScreen {
         });
         cartPanel.add(buttonAdd);
 
-        Button buttonRemove = new Button("REMOVE",Constants.CANCEL_RED,Color.WHITE);
+        buttonRemove = new Button("REMOVE",Constants.CANCEL_RED,Color.WHITE);
         buttonRemove.setBounds(678,26, 120, 33);
         buttonRemove.setEnabled(false);
         buttonRemove.addActionListener(removeItem -> sale.removeItemTable());
         cartPanel.add(buttonRemove);
 
-        Button buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
+        buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
         buttonCancel.setBounds(806,26, 120, 33);
         buttonCancel.setEnabled(false);
         buttonCancel.addActionListener(finishSale -> sale.finishSale("cancel"));
