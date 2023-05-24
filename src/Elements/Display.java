@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Display extends JTextField {
     private Color displayColor = Color.BLACK;
-    private String displayPlaceHolder;
+    private final String displayPlaceHolder;
 
     public Display(String placeHolder, Color newDisplayColor){
         this.displayColor = newDisplayColor;

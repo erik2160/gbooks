@@ -9,8 +9,12 @@ import java.util.Objects;
 
 public class Sale extends SaleScreen {
     private final List<SaleCart> saleCart = new ArrayList<>();
-    private final List<Storage> storage = new ArrayList<>();
     private final TableCart tableCart = new TableCart(saleCart);
+    private final List<Storage> storage;
+    public Sale(List<Storage> storage) {
+        this.storage = storage;
+    }
+
     public void addToCart() {
         for (Storage product : storage) {
             try {

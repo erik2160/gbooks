@@ -2,19 +2,22 @@ package Home;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import Elements.Button;
 import Sale.SaleScreen;
 import Sale.Sale;
 import Elements.Constants;
+import Storage.Storage;
 
 public class MainFrame {
-    private JFrame frame;
-    private JPanel topPanel;
+    private final JFrame frame;
+    private final SaleScreen screenSale = new SaleScreen();
+    private final List<Storage> storage = new ArrayList<>();
+    private final Sale sale = new Sale(storage);
     private JPanel leftPanel;
     private JPanel centerPanel;
-    private JPanel rightPanel;
-    private JPanel bottomPanel;
-    private JLabel menuLabel;
     private Button cashierButton;
     private Button stockButton;
     private Button reportButton;
@@ -35,11 +38,11 @@ public class MainFrame {
     }
 
     private void createPanels() {
-        topPanel = new JPanel();
+        JPanel topPanel = new JPanel();
         leftPanel = new JPanel();
         centerPanel = new JPanel();
-        rightPanel = new JPanel();
-        bottomPanel = new JPanel();
+        JPanel rightPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
 
         leftPanel.setLayout(null);
         centerPanel.setLayout(null);
@@ -78,7 +81,7 @@ public class MainFrame {
     }
 
     private void configureLeftPanel() {
-        menuLabel = new JLabel("MENU");
+        JLabel menuLabel = new JLabel("MENU");
         menuLabel.setBounds(87,26,80,30);
         menuLabel.setForeground(Color.WHITE);
         menuLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, 26));
@@ -119,8 +122,6 @@ public class MainFrame {
         centerPanel.removeAll();
         centerPanel.setVisible(false);
         centerPanel.setVisible(true);
-        SaleScreen screenSale = new SaleScreen();
-        Sale sale = new Sale();
         centerPanel.setLayout(null);
         centerPanel.add(screenSale.insertCartPanel(sale));
         centerPanel.add(screenSale.insertPointsPanel(sale));
