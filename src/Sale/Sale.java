@@ -17,36 +17,42 @@ public class Sale extends SaleScreen {
                 if (existInStock(saleScreen.getCodeBarTextField().getText())) {
                     int quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
 
-                    if (Objects.equals(saleScreen.getCodeBarTextField().getText(), product.getCode())) {
-                        if (existInCart(product.getCode())) {
-                            for (SaleCart item : tableCart.getSaleCart()) {
-                                if (Objects.equals(item.getCode(), product.getCode())) {
-                                    item.setUnits(item.getUnits() + quantityItem);
-                                    item.setTotalPrice(product.getPrice() * item.getUnits());
+                    if (quantityItem <= product.getQuantity()) {
+                        if (Objects.equals(saleScreen.getCodeBarTextField().getText(), product.getCode())) {
+                            if (existInCart(product.getCode())) {
+                                for (SaleCart item : tableCart.getSaleCart()) {
+                                    if (Objects.equals(item.getCode(), product.getCode())) {
+                                        item.setUnits(item.getUnits() + quantityItem);
+                                        item.setTotalPrice(product.getPrice() * item.getUnits());
+                                    }
                                 }
+                                updateItemTable();
+                            } else {
+                                saleCart.add(new SaleCart(
+                                        product.getCode(),
+                                        product.getTitle(),
+                                        quantityItem,
+                                        product.getPrice(),
+                                        product.getPrice() * quantityItem
+                                ));
+                                insertItemTable(saleCart.size() - 1);
+                                saleScreen.getPayedField().setEnabled(true);
+                                saleScreen.getFinishButton().setEnabled(true);
+                                saleScreen.getCreditButton().setEnabled(true);
+                                saleScreen.getDebitButton().setEnabled(true);
+                                saleScreen.getButtonCancel().setEnabled(true);
+                                saleScreen.getButtonRemove().setEnabled(true);
                             }
-                            updateItemTable();
-                        } else {
-                            saleCart.add(new SaleCart(
-                                product.getCode(),
-                                product.getTitle(),
-                                quantityItem,
-                                product.getPrice(),
-                                product.getPrice() * quantityItem
-                            ));
-                            insertItemTable(saleCart.size() - 1);
-                            saleScreen.getPayedField().setEnabled(true);
-                            saleScreen.getFinishButton().setEnabled(true);
-                            saleScreen.getCreditButton().setEnabled(true);
-                            saleScreen.getDebitButton().setEnabled(true);
-                            saleScreen.getButtonCancel().setEnabled(true);
-                            saleScreen.getButtonRemove().setEnabled(true);
+                            saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
                         }
-                        saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
+                    } else {
+                        String messageError = String.format("Quantity for \"%S\" larger than in stock", saleScreen.getCodeBarTextField().getText());
+                        JOptionPane.showMessageDialog(null, messageError, "Title", JOptionPane.ERROR_MESSAGE);
+                        break;
                     }
                 } else {
                     if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
-                        JOptionPane.showMessageDialog(null, "Message", "Title", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "MessageBarcodeEmpty", "Title", JOptionPane.WARNING_MESSAGE);
                     } else {
                         String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
                         JOptionPane.showMessageDialog(null, messageError, "Title", JOptionPane.ERROR_MESSAGE);
@@ -54,7 +60,7 @@ public class Sale extends SaleScreen {
                     break;
                 }
             } catch (NumberFormatException quantityEmpty) {
-                JOptionPane.showMessageDialog(null, "Message", "Title", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "MessageUnitsEmpty", "Title", JOptionPane.WARNING_MESSAGE);
                 break;
             }
         }
