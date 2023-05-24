@@ -62,7 +62,7 @@ public class Sale extends SaleScreen {
                     }
 
                     if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
-                        JOptionPane.showMessageDialog(null, "The BARCODE is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "The BARCODE field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
                     } else {
                         String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
                         JOptionPane.showMessageDialog(null, messageError, "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -190,7 +190,7 @@ public class Sale extends SaleScreen {
                 saleScreen.getToPayDisplay().setText("0");
             }
         } catch (NumberFormatException isEmpty) {
-            JOptionPane.showMessageDialog(null, "MessagePayedEmpty", "Title", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "The PAYED field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -198,7 +198,7 @@ public class Sale extends SaleScreen {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
 
         if (Objects.equals(getType, "cancel")) {
-            int getOption = JOptionPane.showConfirmDialog(null, "MessageCancelSale", "Title", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            int getOption = JOptionPane.showConfirmDialog(null, "Do you want to cancel your entire purchase?", "WARNING", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (getOption == JOptionPane.YES_OPTION) {
                 cleanTable();
