@@ -2,6 +2,7 @@ package Sale;
 
 import Storage.Storage;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,15 +35,25 @@ public class Sale extends SaleScreen {
                                 product.getPrice() * quantityItem
                             ));
                             insertItemTable(saleCart.size() - 1);
+                            saleScreen.getPayedField().setEnabled(true);
+                            saleScreen.getFinishButton().setEnabled(true);
+                            saleScreen.getCreditButton().setEnabled(true);
+                            saleScreen.getDebitButton().setEnabled(true);
+                            saleScreen.getButtonCancel().setEnabled(true);
+                            saleScreen.getButtonRemove().setEnabled(true);
                         }
                         saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
                     }
                 } else {
-                    // ENTER VALIDATION OF CODE BAR NOT FOUND
+                    // PARA FORMATAÇÃO UTILIZAR A VARIAVEL messageError, manter a parte \"%S\"
+
+                    String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
+                    JOptionPane.showMessageDialog(null, messageError, "Title", JOptionPane.ERROR_MESSAGE);
                     break;
                 }
             } catch (NumberFormatException quantityEmpty) {
-                // ENTER VALIDATION OF EMPTY FIELD
+                JOptionPane.showMessageDialog(null, "Message", "Title", JOptionPane.WARNING_MESSAGE);
+                break;
             }
         }
     }
@@ -73,8 +84,9 @@ public class Sale extends SaleScreen {
 
         for (int row = 0; row < saleScreen.getModel().getRowCount(); row++) {
             String itemTable = (String) saleScreen.getModel().getValueAt(row, 0);
+            String getCodeBar = saleScreen.getCodeBarTextField().getText();
 
-            if (Objects.equals(saleScreen.getCodeBarTextField().getText(), itemTable)) {
+            if (Objects.equals(getCodeBar, itemTable)) {
                 getTotal -= (double) saleScreen.getModel().getValueAt(row, 4);
                 saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
                 saleScreen.getModel().removeRow(row);
@@ -128,41 +140,39 @@ public class Sale extends SaleScreen {
 
     private void verifyPayment(String typePayment) {
         try {
-            double getPayment = Double.parseDouble(saleScreen.getPayedField().getText().replace(",", "."));
-            double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
-            String summing = String.format("%.2f", getPayment + getTotal).replace(",", ".");
-            String subtraction = String.format("%.2f", getPayment - getTotal).replace(",", ".");
+            if (!Objects.equals(saleScreen.getPayedField().getText(), "PAYED")) {
+                double getPayment = Double.parseDouble(saleScreen.getPayedField().getText().replace(",", "."));
+                double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
+                String summing = String.format("%.2f", getPayment + getTotal).replace(",", ".");
+                String subtraction = String.format("%.2f", getPayment - getTotal).replace(",", ".").replace("-", "");
 
-            if (Objects.equals(typePayment, "cash")) {
-                if (getPayment == getTotal) {
-                    saleScreen.getChangeDisplay().setText("0");
-                    saleScreen.getToPayDisplay().setText("0");
-                } else if (getTotal < 0) {
-                    if (getPayment > getTotal) {
-                        saleScreen.getChangeDisplay().setText(summing);
-                        saleScreen.getToPayDisplay().setText("0");
-                    } else {
-                        saleScreen.getToPayDisplay().setText(summing);
-                        saleScreen.getChangeDisplay().setText("");
-                    }
-                } else {
-                    if (getPayment > getTotal) {
-                        saleScreen.getChangeDisplay().setText(subtraction);
-                        saleScreen.getToPayDisplay().setText("0");
-                    } else {
-                        saleScreen.getToPayDisplay().setText(subtraction);
+                if (Objects.equals(typePayment, "cash") || Objects.equals(typePayment, "credit") || Objects.equals(typePayment, "debit")) {
+                    if (getPayment == getTotal) {
                         saleScreen.getChangeDisplay().setText("0");
+                        saleScreen.getToPayDisplay().setText("0");
+                    } else if (getTotal < 0) {
+                        if (getPayment > getTotal) {
+                            saleScreen.getChangeDisplay().setText(summing);
+                            saleScreen.getToPayDisplay().setText("0");
+                        } else {
+                            saleScreen.getToPayDisplay().setText(summing);
+                            saleScreen.getChangeDisplay().setText("");
+                        }
+                    } else {
+                        if (getPayment > getTotal) {
+                            saleScreen.getChangeDisplay().setText(subtraction);
+                            saleScreen.getToPayDisplay().setText("0");
+                        } else {
+                            saleScreen.getToPayDisplay().setText(subtraction);
+                            saleScreen.getChangeDisplay().setText("0");
+                        }
                     }
                 }
-            } else if (Objects.equals(typePayment, "credit")) {
-                // ENTER LOGIC FOR PAYMENT WITH CREDIT CARD
-                System.out.println("Empty");
-            } else if (Objects.equals(typePayment, "debit")) {
-                // ENTER LOGIC FOR PAYMENT WITH DEBIT CARD
-                System.out.println("Empty");
+            } else {
+                saleScreen.getToPayDisplay().setText("0");
             }
         } catch (NumberFormatException isEmpty) {
-            // ENTER VALIDATION OF EMPTY FIELD
+            JOptionPane.showMessageDialog(null, "Message", "Title", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -170,39 +180,48 @@ public class Sale extends SaleScreen {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
 
         if (Objects.equals(getType, "cancel")) {
-            // ENTER VALIDATE OF CANCEL SALE
+            int getOption = JOptionPane.showConfirmDialog(null, "Message", "Title", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (getOption == JOptionPane.YES_OPTION) {
+                cleanTable();
+            }
         } else if (Objects.equals(getType, "finish")) {
             if (getTotal > 0 || getTotal < 0) {
                 System.out.println("Block finish sale");
             } else {
-                for (Storage product : storage) {
-                    for (SaleCart item : tableCart.getSaleCart()) {
-                        if (Objects.equals(item.getCode(), product.getCode())) {
-                            product.setQuantity(product.getQuantity() - item.getUnits());
-                            try {
-                                saleScreen.getModel().removeRow(0);
-                            } catch (ArrayIndexOutOfBoundsException cleanTable) {
-                                break;
-                            }
-                        }
+                cleanTable();
+            }
+        }
+    }
+
+    private void cleanTable() {
+        for (Storage product : storage) {
+            for (SaleCart item : tableCart.getSaleCart()) {
+                if (Objects.equals(item.getCode(), product.getCode())) {
+                    product.setQuantity(product.getQuantity() - item.getUnits());
+                    try {
+                        saleScreen.getModel().removeRow(0);
+                    } catch (ArrayIndexOutOfBoundsException cleanTable) {
+                        break;
                     }
                 }
-
-                saleCart.clear();
-                tableCart.getSaleCart().clear();
-                saleScreen.getToPayDisplay().reset();
-                saleScreen.getPayedField().reset();
-                saleScreen.getChangeDisplay().reset();
-                saleScreen.getCodeBarTextField().reset();
-                saleScreen.getUnitsTextField().reset();
-                saleScreen.getCardsButtons().clearSelection();
             }
         }
 
-
-
-
-
+        saleCart.clear();
+        tableCart.getSaleCart().clear();
+        saleScreen.getToPayDisplay().reset();
+        saleScreen.getPayedField().reset();
+        saleScreen.getChangeDisplay().reset();
+        saleScreen.getCodeBarTextField().reset();
+        saleScreen.getUnitsTextField().reset();
+        saleScreen.getCardsButtons().clearSelection();
+        saleScreen.getPayedField().setEnabled(false);
+        saleScreen.getFinishButton().setEnabled(false);
+        saleScreen.getCreditButton().setEnabled(false);
+        saleScreen.getDebitButton().setEnabled(false);
+        saleScreen.getButtonCancel().setEnabled(false);
+        saleScreen.getButtonRemove().setEnabled(false);
     }
 
     public void addStorage() {
