@@ -14,7 +14,6 @@ public class Sale extends SaleScreen {
     public Sale(List<Storage> storage) {
         this.storage = storage;
     }
-
     public void addToCart() {
         for (Storage product : storage) {
             try {
@@ -99,17 +98,29 @@ public class Sale extends SaleScreen {
 
     public void removeItemTable() {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
+        int quantityItem;
 
         for (int row = 0; row < saleScreen.getModel().getRowCount(); row++) {
             String itemTable = (String) saleScreen.getModel().getValueAt(row, 0);
             String getCodeBar = saleScreen.getCodeBarTextField().getText();
+            if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
+                JOptionPane.showMessageDialog(null, "The BARCODE field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            } else {
+                if (Objects.equals(getCodeBar, itemTable)) {
+                    if (Objects.equals(saleScreen.getUnitsTextField().getText(), "UNITS")) {
+                        getTotal -= (double) saleScreen.getModel().getValueAt(row, 4);
+                        storage.get(row).setQuantity(saleCart.get(row).getUnits() + storage.get(row).getQuantity());
+                        saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
+                        saleScreen.getModel().removeRow(row);
+                        saleCart.remove(row);
+                        break;
+                    } else {
+                        quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
 
-            if (Objects.equals(getCodeBar, itemTable)) {
-                getTotal -= (double) saleScreen.getModel().getValueAt(row, 4);
-                saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
-                saleScreen.getModel().removeRow(row);
-                saleCart.remove(row);
-                break;
+                        saleCart.get(row).setUnits(saleCart.get(row).getUnits() - quantityItem);
+                        updateItemTable();
+                    }
+                }
             }
         }
     }
