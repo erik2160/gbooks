@@ -14,7 +14,7 @@ public class Sale extends SaleScreen {
     public void addToCart() {
         for (Storage product : storage) {
             try {
-                if (existInStock(saleScreen.getCodeBarTextField().getText())) {
+                if (existInStock(saleScreen.getCodeBarTextField().getText()) && product.getQuantity() > 0) {
                     int quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
 
                     if (quantityItem <= product.getQuantity()) {
@@ -29,11 +29,11 @@ public class Sale extends SaleScreen {
                                 updateItemTable();
                             } else {
                                 saleCart.add(new SaleCart(
-                                        product.getCode(),
-                                        product.getTitle(),
-                                        quantityItem,
-                                        product.getPrice(),
-                                        product.getPrice() * quantityItem
+                                    product.getCode(),
+                                    product.getTitle(),
+                                    quantityItem,
+                                    product.getPrice(),
+                                    Double.parseDouble(String.format("%.2f", product.getPrice() * quantityItem).replace(",", "."))
                                 ));
                                 insertItemTable(saleCart.size() - 1);
                                 saleScreen.getPayedField().setEnabled(true);
@@ -51,6 +51,12 @@ public class Sale extends SaleScreen {
                         break;
                     }
                 } else {
+                    if (product.getQuantity() <= 0) {
+                        String messageError = String.format("Quantity for \"%S\" is 0 in stock", saleScreen.getCodeBarTextField().getText());
+                        JOptionPane.showMessageDialog(null, messageError, "Title", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+
                     if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
                         JOptionPane.showMessageDialog(null, "MessageBarcodeEmpty", "Title", JOptionPane.WARNING_MESSAGE);
                     } else {
@@ -180,7 +186,7 @@ public class Sale extends SaleScreen {
                 saleScreen.getToPayDisplay().setText("0");
             }
         } catch (NumberFormatException isEmpty) {
-            JOptionPane.showMessageDialog(null, "Message", "Title", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "MessagePayedEmpty", "Title", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -188,14 +194,15 @@ public class Sale extends SaleScreen {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
 
         if (Objects.equals(getType, "cancel")) {
-            int getOption = JOptionPane.showConfirmDialog(null, "Message", "Title", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            int getOption = JOptionPane.showConfirmDialog(null, "MessageCancelSale", "Title", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (getOption == JOptionPane.YES_OPTION) {
                 cleanTable();
             }
         } else if (Objects.equals(getType, "finish")) {
             if (getTotal > 0 || getTotal < 0) {
-                System.out.println("Block finish sale");
+                String messageError = String.format("Purchase cannot be finalized \"%s\" to be paid", saleScreen.getToPayDisplay().getText());
+                JOptionPane.showMessageDialog(null, messageError, "Title", JOptionPane.WARNING_MESSAGE);
             } else {
                 cleanTable();
             }
