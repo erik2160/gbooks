@@ -17,16 +17,17 @@ public class SaleScreen {
     private static TextField codeBarTextField;
     private static TextField unitsTextField;
     private static DefaultTableModel model;
-    private static TextField cpfText;
     private static Display pointsDisplay;
     private static Display newPriceDisplay;
-    private static JCheckBox pointsCheckBox;
     private static TextField payedField;
     private static Display changeDisplay;
     private static RadioButton creditButton;
     private static RadioButton debitButton;
     private static Display toPayDisplay;
     private static ButtonGroup cardsButtons;
+    private static Button finishButton;
+    private static Button buttonCancel;
+    private static Button buttonRemove;
     public TextField getCodeBarTextField() {
         return codeBarTextField;
     }
@@ -53,6 +54,15 @@ public class SaleScreen {
     }
     public ButtonGroup getCardsButtons() {
         return cardsButtons;
+    }
+    public Button getFinishButton() {
+        return finishButton;
+    }
+    public Button getButtonCancel() {
+        return buttonCancel;
+    }
+    public Button getButtonRemove() {
+        return buttonRemove;
     }
 
     public JPanel insertCartPanel(Sale sale) {
@@ -90,11 +100,13 @@ public class SaleScreen {
 
         Button buttonRemove = new Button("REMOVE",Constants.CANCEL_RED,Color.WHITE);
         buttonRemove.setBounds(678,26, 120, 33);
+        buttonRemove.setEnabled(false);
         buttonRemove.addActionListener(removeItem -> sale.removeItemTable());
         cartPanel.add(buttonRemove);
 
         Button buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
         buttonCancel.setBounds(806,26, 120, 33);
+        buttonCancel.setEnabled(false);
         buttonCancel.addActionListener(finishSale -> sale.finishSale("cancel"));
         cartPanel.add(buttonCancel);
 
@@ -121,18 +133,18 @@ public class SaleScreen {
         TableCellRenderer cellRenderer = new DefaultTableCellRenderer (){
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){
-                Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (component instanceof JLabel label) {
-                    label.setHorizontalAlignment (SwingConstants.CENTER); // Centraliza o conteúdo horizontalmente
-                    label.setVerticalAlignment(SwingConstants.CENTER);// Centraliza o conteúdo verticalmente
-                }
-                if (row % 2 != 0) {
-                    component.setBackground(new Color (240, 240, 240)); // Define a cor de fundo para linhas pares
-                } else {
-                    component.setBackground(table.getBackground()); // Restaura a cor de fundo padrão para as outras linhas
-                }
-                component.setFont (new Font (Constants.DEFAULT_FONT,Font.PLAIN, 16));// Altera a fonte
-                return component;
+            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            if (component instanceof JLabel label) {
+                label.setHorizontalAlignment (SwingConstants.CENTER); // Centraliza o conteúdo horizontalmente
+                label.setVerticalAlignment(SwingConstants.CENTER);// Centraliza o conteúdo verticalmente
+            }
+            if (row % 2 != 0) {
+                component.setBackground(new Color (240, 240, 240)); // Define a cor de fundo para linhas pares
+            } else {
+                component.setBackground(table.getBackground()); // Restaura a cor de fundo padrão para as outras linhas
+            }
+            component.setFont (new Font (Constants.DEFAULT_FONT,Font.PLAIN, 16));// Altera a fonte
+            return component;
             }
         };
 
@@ -160,7 +172,7 @@ public class SaleScreen {
         pointsPanel.setBounds(40, 366,315, 240);
         pointsPanel.setLayout(null);
 
-        cpfText = new TextField("CPF");
+        TextField cpfText = new TextField("CPF");
         cpfText.setBounds(66, 38, 181, 27);
         pointsPanel.add(cpfText);
 
@@ -172,7 +184,7 @@ public class SaleScreen {
         newPriceDisplay.setBounds(66, 122, 181, 27);
         pointsPanel.add(newPriceDisplay);
 
-        pointsCheckBox = new JCheckBox ("USE POINTS");
+        JCheckBox pointsCheckBox = new JCheckBox("USE POINTS");
         pointsCheckBox.setBackground (Color.yellow);
         pointsCheckBox.setOpaque (true);
         pointsCheckBox.setFocusPainted (false);
@@ -203,6 +215,7 @@ public class SaleScreen {
 
         payedField = new TextField("PAYED");
         payedField.setBounds(36,96,145,30);
+        payedField.setEnabled(false);
         payedField.addActionListener(paymentCash -> sale.paymentCash());
         finishPanel.add(payedField);
 
@@ -217,7 +230,9 @@ public class SaleScreen {
         finishPanel.add(creditCard);
 
         creditButton = new RadioButton("Credit");
+        creditButton.setEnabled(false);
         debitButton = new RadioButton("Debit");
+        debitButton.setEnabled(false);
         creditButton.setBounds(262,80,120,60);
         debitButton.setBounds(262,136,120,60);
 
@@ -242,10 +257,11 @@ public class SaleScreen {
 
         finishPanel.add(toPayDisplay);
 
-        Button finishButton = new Button("FINISH");
+        finishButton = new Button("FINISH");
         finishButton.setBounds(446, 142, 150, 50);
         finishButton.setBackground(Constants.CONFIRM_GREEN);
         finishButton.setForeground(Color.WHITE);
+        finishButton.setEnabled(false);
         finishButton.addActionListener(finishSale -> sale.finishSale("finish"));
         finishPanel.add(finishButton);
 
