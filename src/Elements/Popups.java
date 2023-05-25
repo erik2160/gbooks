@@ -5,7 +5,7 @@ import java.net.URL;
 
 
 public class Popups {
-    public static void showWarningDialog(Frame parent, String menssage) {
+    public static void showWarningDialog(Frame parent, String message) {
         // Criar um JDialog personalizado
         JDialog dialog = new JDialog(parent, "WARNING", true);
         dialog.setLayout(new BorderLayout());
@@ -16,7 +16,7 @@ public class Popups {
         contentPanel.setBackground(new Color(234, 229, 223));
         contentPanel.setLayout(new BorderLayout());
 
-        JLabel contentLabel = new JLabel(menssage);
+        JLabel contentLabel = new JLabel(message);
         contentLabel.setForeground(Color.BLACK);
         contentLabel.setHorizontalAlignment(JLabel.CENTER);
         contentLabel.setFont(new Font("Ubuntu", Font.BOLD, 16));
