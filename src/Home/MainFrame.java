@@ -9,13 +9,15 @@ import Elements.Button;
 import Sale.SaleScreen;
 import Sale.Sale;
 import Elements.Constants;
-import Storage.Storage;
+import Storage.ListStock;
+import Storage.Stock;
 
 public class MainFrame {
     private final JFrame frame;
     private final SaleScreen screenSale = new SaleScreen();
-    private final List<Storage> storage = new ArrayList<>();
-    private final Sale sale = new Sale(storage);
+    private final List<ListStock> listStock = new ArrayList<>();
+    private final Sale sale = new Sale(listStock);
+    private final Stock stock = new Stock(listStock);
     private JPanel leftPanel;
     private JPanel centerPanel;
     private Button cashierButton;
