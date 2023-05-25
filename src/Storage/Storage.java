@@ -20,47 +20,36 @@ public class Storage {
     public String getCode() {
         return code;
     }
-
     public void setCode(String code) {
         this.code = code;
     }
-
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getEditor() {
         return editor;
     }
-
     public void setEditor(String editor) {
         this.editor = editor;
     }
-
     public String getPublisher() {
         return publisher;
     }
-
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
-
     public int getQuantity() {
         return quantity;
     }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
     public double getPrice() {
         return price;
     }
-
     public void setPrice(double price) {
         this.price = price;
     }
