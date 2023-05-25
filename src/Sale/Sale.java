@@ -1,6 +1,7 @@
 package Sale;
 
 import Storage.Storage;
+import Elements.Popups;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -51,26 +52,26 @@ public class Sale extends SaleScreen {
                         }
                     } else {
                         String messageError = String.format("Quantity for \"%S\" larger than in stock", saleScreen.getCodeBarTextField().getText());
-                        JOptionPane.showMessageDialog(null, messageError, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        Popups.showErrorDialog (null, messageError);
                         break;
                     }
                 } else {
                     if (product.getQuantity() <= 0) {
                         String messageError = String.format("Quantity for \"%S\" is 0 in stock", saleScreen.getCodeBarTextField().getText());
-                        JOptionPane.showMessageDialog(null, messageError, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        Popups.showErrorDialog (null, messageError);
                         break;
                     }
 
                     if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
-                        JOptionPane.showMessageDialog(null, "The BARCODE field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        Popups.showWarningDialog (null, "The BARCODE field is empty!!");
                     } else {
                         String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
-                        JOptionPane.showMessageDialog(null, messageError, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        Popups.showErrorDialog (null, messageError);
                     }
                     break;
                 }
             } catch (NumberFormatException quantityEmpty) {
-                JOptionPane.showMessageDialog(null, "The UNITS field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+                Popups.showWarningDialog (null, "The UNITS field is empty!!");
                 break;
             }
         }
@@ -190,7 +191,7 @@ public class Sale extends SaleScreen {
                 saleScreen.getToPayDisplay().setText("0");
             }
         } catch (NumberFormatException isEmpty) {
-            JOptionPane.showMessageDialog(null, "The PAYED field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            Popups.showWarningDialog (null, "The PAYED field is empty!!");
         }
     }
 
@@ -206,7 +207,7 @@ public class Sale extends SaleScreen {
         } else if (Objects.equals(getType, "finish")) {
             if (getTotal > 0 || getTotal < 0) {
                 String messageError = String.format("Purchase cannot be finalized, missing \"%s\" to be paid", saleScreen.getToPayDisplay().getText());
-                JOptionPane.showMessageDialog(null, messageError, "WARNING", JOptionPane.WARNING_MESSAGE);
+                Popups.showWarningDialog (null, messageError);
             } else {
                 cleanTable();
             }

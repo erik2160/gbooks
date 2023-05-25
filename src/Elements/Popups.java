@@ -2,8 +2,9 @@ package Elements;
 import javax.swing.*;
 import java.awt.*;
 
-public class Popups extends JDialog {
-      public void showWarningDialog(Frame parent, String menssage) {
+
+public class Popups {
+    public static void showWarningDialog(Frame parent, String menssage) {
         // Criar um JDialog personalizado
         JDialog dialog = new JDialog(parent, "WARNING", true);
         dialog.setLayout(new BorderLayout());
@@ -25,13 +26,12 @@ public class Popups extends JDialog {
         buttonPanel.setPreferredSize(new Dimension(100, 40));
         buttonPanel.setBackground(new Color(234, 229, 223));
 
-        Button okButton = new Button("OK");
-        okButton.setFont(new Font("Ubuntu", Font.PLAIN, 15));
-        Button cancelButton = new Button("Cancelar");
-        cancelButton.setFont(new Font("Ubuntu", Font.PLAIN, 15));
+        Button okButton = new Button ("OK");
+
+        // Adicionar ActionListener para fechar a caixa de diálogo
+        okButton.addActionListener(closeWindow -> dialog.dispose());
 
         buttonPanel.add(okButton);
-        buttonPanel.add(cancelButton);
 
         // Configurar ícone
         JPanel iconPanel = new JPanel();
@@ -43,18 +43,28 @@ public class Popups extends JDialog {
         iconLabel.setHorizontalAlignment(JLabel.CENTER);
         iconPanel.add(iconLabel, BorderLayout.CENTER);
 
+        JPanel respiroPanel = new JPanel();
+        respiroPanel.setBackground(new Color(234, 229, 223));
+        respiroPanel.setLayout(new BorderLayout());
+        respiroPanel.setPreferredSize(new Dimension(20, 60)); // Diminui o tamanho do ícone
+
         // Adicionar os componentes ao diálogo
         contentPanel.add(iconPanel, BorderLayout.WEST); // Adiciona o painel do ícone ao contentPanel
         dialog.add(contentPanel, BorderLayout.CENTER);
         dialog.add(buttonPanel, BorderLayout.SOUTH);
+        dialog.add(respiroPanel, BorderLayout.EAST);
+
+        // Ajustar o tamanho da JDialog com base no tamanho preferido do painel de conteúdo
+        dialog.pack();
 
         // Configurar as propriedades do diálogo
-        dialog.setSize(300, 127);
+        int menssageLabelWidth = contentLabel.getPreferredSize ().width;
+        dialog.setPreferredSize (new Dimension (menssageLabelWidth, contentPanel.getPreferredSize().height));
         dialog.setLocationRelativeTo(parent);
         dialog.setVisible(true);
     }
 
-    public static void showErrorDialog(Frame parent, String menssage) {
+    public static void showErrorDialog (Frame parent , String menssage) {
         // Criar um JDialog personalizado
         JDialog dialog = new JDialog(parent, "ERROR", true);
         dialog.setLayout(new BorderLayout());
@@ -76,13 +86,12 @@ public class Popups extends JDialog {
         buttonPanel.setPreferredSize(new Dimension(100, 40));
         buttonPanel.setBackground(new Color(234, 229, 223));
 
-        Button okButton = new Button("OK");
-        okButton.setFont(new Font("Ubuntu", Font.PLAIN, 15));
-        Button cancelButton = new Button("Cancelar");
-        cancelButton.setFont(new Font("Ubuntu", Font.PLAIN, 15));
+        Button okButton = new Button ("OK");
+
+        // Adicionar ActionListener para fechar a caixa de diálogo
+        okButton.addActionListener(closeWindow -> dialog.dispose());
 
         buttonPanel.add(okButton);
-        buttonPanel.add(cancelButton);
 
         // Configurar ícone
         JPanel iconPanel = new JPanel();
@@ -94,13 +103,23 @@ public class Popups extends JDialog {
         iconLabel.setHorizontalAlignment(JLabel.CENTER);
         iconPanel.add(iconLabel, BorderLayout.CENTER);
 
+        JPanel respiroPanel = new JPanel();
+        respiroPanel.setBackground(new Color(234, 229, 223));
+        respiroPanel.setLayout(new BorderLayout());
+        respiroPanel.setPreferredSize(new Dimension(20, 60)); // Diminui o tamanho do ícone
+
         // Adicionar os componentes ao diálogo
         contentPanel.add(iconPanel, BorderLayout.WEST); // Adiciona o painel do ícone ao contentPanel
         dialog.add(contentPanel, BorderLayout.CENTER);
         dialog.add(buttonPanel, BorderLayout.SOUTH);
+        dialog.add(respiroPanel, BorderLayout.EAST);
+
+        // Ajustar o tamanho da JDialog com base no tamanho preferido do painel de conteúdo
+        dialog.pack();
 
         // Configurar as propriedades do diálogo
-        dialog.setSize(300, 127);
+        int menssageLabelWidth = contentLabel.getPreferredSize ().width;
+        dialog.setPreferredSize (new Dimension (menssageLabelWidth, contentPanel.getPreferredSize().height));
         dialog.setLocationRelativeTo(parent);
         dialog.setVisible(true);
     }
