@@ -105,6 +105,9 @@ public class Sale extends SaleScreen {
             String getCodeBar = saleScreen.getCodeBarTextField().getText();
             if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
                 JOptionPane.showMessageDialog(null, "The BARCODE field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            } else if (!existInCart(saleScreen.getCodeBarTextField().getText())) {
+                String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
+                JOptionPane.showMessageDialog(null, messageError, "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
                 if (Objects.equals(getCodeBar, itemTable)) {
                     if (Objects.equals(saleScreen.getUnitsTextField().getText(), "UNITS")) {
