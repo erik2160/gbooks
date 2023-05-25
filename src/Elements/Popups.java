@@ -1,6 +1,7 @@
 package Elements;
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 
 public class Popups {
@@ -39,7 +40,8 @@ public class Popups {
         iconPanel.setLayout(new BorderLayout());
         iconPanel.setPreferredSize(new Dimension(60, 60)); // Diminui o tamanho do ícone
 
-        JLabel iconLabel = new JLabel(new ImageIcon("/home/fabs/Downloads/alert (5)-PhotoRoom.png-PhotoRoom.png")); // Substitua pelo caminho do seu ícone
+        JLabel iconLabel = new JLabel();
+        iconLabel.setIcon (new ImageIcon(Popups.class.getResource("resources/WarningIcon.png")));// Substitua pelo caminho do seu ícone
         iconLabel.setHorizontalAlignment(JLabel.CENTER);
         iconPanel.add(iconLabel, BorderLayout.CENTER);
 
@@ -99,7 +101,8 @@ public class Popups {
         iconPanel.setLayout(new BorderLayout());
         iconPanel.setPreferredSize(new Dimension(60, 60)); // Diminui o tamanho do ícone
 
-        JLabel iconLabel = new JLabel(new ImageIcon("/home/fabs/Downloads/Limites_-Por-que-Te-los_-artigo--PhotoRoom.png-PhotoRoom.png")); // Substitua pelo caminho do seu ícone
+        JLabel iconLabel = new JLabel();
+        iconLabel.setIcon (new ImageIcon(Popups.class.getResource("resources/ErrorIcon.png"))); // Substitua pelo caminho do seu ícone
         iconLabel.setHorizontalAlignment(JLabel.CENTER);
         iconPanel.add(iconLabel, BorderLayout.CENTER);
 
