@@ -17,40 +17,36 @@ public class Popups extends JOptionPane{
         contentLabel.setForeground(Color.BLACK);
         contentLabel.setHorizontalAlignment(JLabel.CENTER);
         contentLabel.setFont(new Font("Ubuntu", Font.BOLD, 16));
-        contentPanel.add(contentLabel, BorderLayout.CENTER);
+        contentPanel.add(contentLabel, BorderLayout.SOUTH);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setPreferredSize(new Dimension(100, 40));
+        buttonPanel.setPreferredSize(new Dimension(100, 50));
         buttonPanel.setBackground(new Color(234, 229, 223));
 
-        JPanel iconPanel = new JPanel();
-        iconPanel.setBackground(new Color(234, 229, 223));
-        iconPanel.setLayout(new BorderLayout());
-        iconPanel.setPreferredSize(new Dimension(60, 60));
+        JPanel marginWestPanel = new JPanel();
+        marginWestPanel.setBackground(new Color(234, 229, 223));
+        marginWestPanel.setLayout(new BorderLayout());
+        marginWestPanel.setPreferredSize(new Dimension(20, 60));
 
-        JLabel iconLabel = new JLabel();
-        iconLabel.setHorizontalAlignment(JLabel.CENTER);
-        iconPanel.add(iconLabel, BorderLayout.CENTER);
-
-        JPanel marginPanel = new JPanel();
-        marginPanel.setBackground(new Color(234, 229, 223));
-        marginPanel.setLayout(new BorderLayout());
-        marginPanel.setPreferredSize(new Dimension(20, 60));
+        JPanel marginEastPanel = new JPanel();
+        marginEastPanel.setBackground(new Color(234, 229, 223));
+        marginEastPanel.setLayout(new BorderLayout());
+        marginEastPanel.setPreferredSize(new Dimension(25, 60));
 
         switch (type) {
             case 1 -> {
                 dialog.setTitle("ERROR");
 
-                iconLabel.setIcon(new ImageIcon(Popups.class.getResource("resources/ErrorIcon.png")));
+                contentLabel.setIcon(new ImageIcon(Popups.class.getResource("resources/ErrorIcon.png")));
 
                 Button okButton = new Button("OK");
                 okButton.addActionListener(closeWindow -> dialog.dispose());
-                buttonPanel.add(okButton);
+                buttonPanel.add(okButton, BorderLayout.NORTH);
             }
             case 2 -> {
                 dialog.setTitle("WARNING");
 
-                iconLabel.setIcon(new ImageIcon(Popups.class.getResource("resources/WarningIcon.png")));
+                contentLabel.setIcon(new ImageIcon(Popups.class.getResource("resources/WarningIcon.png")));
 
                 Button confirmButton = new Button("CONFIRM");
                 confirmButton.addActionListener(confirm -> {
@@ -71,10 +67,10 @@ public class Popups extends JOptionPane{
             }
         }
 
-        contentPanel.add(iconPanel, BorderLayout.WEST);
         dialog.add(contentPanel, BorderLayout.CENTER);
         dialog.add(buttonPanel, BorderLayout.SOUTH);
-        dialog.add(marginPanel, BorderLayout.EAST);
+        dialog.add(marginEastPanel, BorderLayout.EAST);
+        dialog.add(marginWestPanel, BorderLayout.WEST);
 
         dialog.pack();
 
