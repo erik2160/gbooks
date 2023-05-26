@@ -1,9 +1,8 @@
 package Storage;
 
-import Elements.ComboBox;
-import Elements.Constants;
-import Elements.TextField;
+import Elements.*;
 import Elements.Button;
+import Elements.TextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +15,7 @@ public class StockScreen {
         stockPanel.setBackground(Constants.DARK_GRAY);
         stockPanel.setBounds(40,20,950,582);
 
-        String [] itemsList = {"CODE BAR", "TITLE", "AUTHOR", "PUBLISHER"};
+        String [] itemsList = {"BARCODE", "TITLE", "AUTHOR", "PUBLISHER"};
         ComboBox comboBox = new ComboBox(itemsList);
         comboBox.setBounds(26,26,140,33);
         stockPanel.add(comboBox);
@@ -32,6 +31,13 @@ public class StockScreen {
         Button editButton = new Button("EDIT");
         editButton.setBounds(824,26,100,33);
         stockPanel.add(editButton);
+
+        String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","BUY PRICE"};
+        int [] columnsWidth = {90,60,10,10,10,10,10};
+        Table table = new Table(columnsName,columnsWidth);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(26,70,899,485);
+        stockPanel.add(scrollPane);
 
         return stockPanel;
     }
