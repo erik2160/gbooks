@@ -27,6 +27,5 @@ public class ComboBox extends JComboBox<String> {
         setBackground(Color.WHITE);
         setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 20));
         setRenderer(new ComboBoxRenderer());
-
     }
 }
