@@ -1,6 +1,5 @@
-package Storage;
+package br.com.ticotech.gbooks.java.entities;
 
-import br.com.ticotech.gbooks.java.entities.Storage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
