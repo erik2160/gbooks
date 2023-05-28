@@ -1,10 +1,9 @@
-package br.com.gbooks.java.view;
+package br.com.ticotech.gbooks.java.view;
 
-import br.com.gbooks.java.view.shared.Button;
-import br.com.gbooks.java.view.shared.Constants;
-import br.com.gbooks.java.view.shared.Display;
-import br.com.gbooks.java.view.shared.RadioButton;
-import br.com.gbooks.java.view.shared.TextField;
+import br.com.ticotech.gbooks.java.view.shared.Constants;
+import br.com.ticotech.gbooks.java.view.shared.Display;
+import br.com.ticotech.gbooks.java.view.shared.RadioButton;
+import br.com.ticotech.gbooks.java.view.shared.TextField;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -25,9 +24,9 @@ public class SaleScreen {
     private static RadioButton debitButton;
     private static Display toPayDisplay;
     private static ButtonGroup cardsButtons;
-    private static Button finishButton;
-    private static Button buttonCancel;
-    private static Button buttonRemove;
+    private static br.com.ticotech.gbooks.java.view.shared.Button finishButton;
+    private static br.com.ticotech.gbooks.java.view.shared.Button buttonCancel;
+    private static br.com.ticotech.gbooks.java.view.shared.Button buttonRemove;
     public TextField getCodeBarTextField() {
         return codeBarTextField;
     }
@@ -55,13 +54,13 @@ public class SaleScreen {
     public ButtonGroup getCardsButtons() {
         return cardsButtons;
     }
-    public Button getFinishButton() {
+    public br.com.ticotech.gbooks.java.view.shared.Button getFinishButton() {
         return finishButton;
     }
-    public Button getButtonCancel() {
+    public br.com.ticotech.gbooks.java.view.shared.Button getButtonCancel() {
         return buttonCancel;
     }
-    public Button getButtonRemove() {
+    public br.com.ticotech.gbooks.java.view.shared.Button getButtonRemove() {
         return buttonRemove;
     }
 
@@ -89,7 +88,7 @@ public class SaleScreen {
         });
         cartPanel.add(unitsTextField);
 
-        Button buttonAdd = new Button("ADD");
+        br.com.ticotech.gbooks.java.view.shared.Button buttonAdd = new br.com.ticotech.gbooks.java.view.shared.Button("ADD");
         buttonAdd.setBounds(366,26, 110, 33);
         buttonAdd.addActionListener(addItem -> {
             sale.addToCart();
@@ -98,13 +97,13 @@ public class SaleScreen {
         });
         cartPanel.add(buttonAdd);
 
-        buttonRemove = new Button("REMOVE",Constants.CANCEL_RED,Color.WHITE);
+        buttonRemove = new br.com.ticotech.gbooks.java.view.shared.Button("REMOVE",Constants.CANCEL_RED,Color.WHITE);
         buttonRemove.setBounds(678,26, 120, 33);
         buttonRemove.setEnabled(false);
         buttonRemove.addActionListener(removeItem -> sale.removeItemTable());
         cartPanel.add(buttonRemove);
 
-        buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
+        buttonCancel = new br.com.ticotech.gbooks.java.view.shared.Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
         buttonCancel.setBounds(806,26, 120, 33);
         buttonCancel.setEnabled(false);
         buttonCancel.addActionListener(finishSale -> sale.finishSale("cancel"));
@@ -257,7 +256,7 @@ public class SaleScreen {
 
         finishPanel.add(toPayDisplay);
 
-        finishButton = new Button("FINISH");
+        finishButton = new br.com.ticotech.gbooks.java.view.shared.Button("FINISH");
         finishButton.setBounds(446, 142, 150, 50);
         finishButton.setBackground(Constants.CONFIRM_GREEN);
         finishButton.setForeground(Color.WHITE);

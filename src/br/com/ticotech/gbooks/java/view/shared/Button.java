@@ -1,4 +1,4 @@
-package br.com.gbooks.java.view.shared;
+package br.com.ticotech.gbooks.java.view.shared;
 
 import javax.swing.*;
 import javax.swing.border.*;

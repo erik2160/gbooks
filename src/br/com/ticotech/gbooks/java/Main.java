@@ -1,6 +1,6 @@
-package br.com.gbooks.java;
+package br.com.ticotech.gbooks.java;
 
-import br.com.gbooks.java.view.MainFrame;
+import br.com.ticotech.gbooks.java.view.MainFrame;
 
 import javax.swing.*;
 

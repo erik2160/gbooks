@@ -1,15 +1,13 @@
-package br.com.gbooks.java.view;
+package br.com.ticotech.gbooks.java.view;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.gbooks.java.view.shared.Button;
-import br.com.gbooks.java.view.SaleScreen;
-import br.com.gbooks.java.view.Sale;
-import br.com.gbooks.java.view.shared.Constants;
-import br.com.gbooks.java.entities.Storage;
+import br.com.ticotech.gbooks.java.view.shared.Button;
+import br.com.ticotech.gbooks.java.view.shared.Constants;
+import br.com.ticotech.gbooks.java.entities.Storage;
 
 public class MainFrame {
     private final JFrame frame;
@@ -18,11 +16,11 @@ public class MainFrame {
     private final Sale sale = new Sale(storage);
     private JPanel leftPanel;
     private JPanel centerPanel;
-    private Button cashierButton;
-    private Button stockButton;
-    private Button reportButton;
-    private Button usersButton;
-    private Button logoutButton;
+    private br.com.ticotech.gbooks.java.view.shared.Button cashierButton;
+    private br.com.ticotech.gbooks.java.view.shared.Button stockButton;
+    private br.com.ticotech.gbooks.java.view.shared.Button reportButton;
+    private br.com.ticotech.gbooks.java.view.shared.Button usersButton;
+    private br.com.ticotech.gbooks.java.view.shared.Button logoutButton;
 
     public MainFrame() {
         frame = new JFrame("G-Books System");
@@ -67,11 +65,11 @@ public class MainFrame {
     }
 
     private void createButtons() {
-        cashierButton = new Button("Cashier");
-        stockButton = new Button("Stock");
-        reportButton = new Button("Report");
-        usersButton = new Button("Users");
-        logoutButton = new Button("Logout");
+        cashierButton = new br.com.ticotech.gbooks.java.view.shared.Button("Cashier");
+        stockButton = new br.com.ticotech.gbooks.java.view.shared.Button("Stock");
+        reportButton = new br.com.ticotech.gbooks.java.view.shared.Button("Report");
+        usersButton = new br.com.ticotech.gbooks.java.view.shared.Button("Users");
+        logoutButton = new br.com.ticotech.gbooks.java.view.shared.Button("Logout");
 
         cashierButton.addActionListener(e -> showSaleSection());
         stockButton.setEnabled(false);
@@ -112,7 +110,7 @@ public class MainFrame {
         titleLabel.setForeground(Constants.DARK_BROWN);
         centerPanel.add(titleLabel);
 
-        Button enterButton = new Button("Enter");
+        br.com.ticotech.gbooks.java.view.shared.Button enterButton = new Button("Enter");
         enterButton.setBounds(455,330, 90,40);
         enterButton.addActionListener(e -> showSaleSection());
         centerPanel.add(enterButton);

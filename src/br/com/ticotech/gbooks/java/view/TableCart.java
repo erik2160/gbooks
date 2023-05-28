@@ -1,6 +1,6 @@
-package br.com.gbooks.java.view;
+package br.com.ticotech.gbooks.java.view;
 
-import br.com.gbooks.java.entities.SaleCart;
+import br.com.ticotech.gbooks.java.entities.SaleCart;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;

@@ -1,4 +1,4 @@
-package br.com.gbooks.java.entities;
+package br.com.ticotech.gbooks.java.entities;
 
 public class SaleCart {
     private String code;
