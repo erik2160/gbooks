@@ -1,6 +1,9 @@
-package Sale;
+package br.com.gbooks.java.view;
 
-import Storage.Storage;
+import br.com.gbooks.java.entities.SaleCart;
+import br.com.gbooks.java.entities.Storage;
+import br.com.gbooks.java.view.SaleScreen;
+import br.com.gbooks.java.view.TableCart;
 
 import javax.swing.*;
 import java.util.ArrayList;

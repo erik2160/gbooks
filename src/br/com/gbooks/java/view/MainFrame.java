@@ -1,15 +1,15 @@
-package Home;
+package br.com.gbooks.java.view;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import Elements.Button;
-import Sale.SaleScreen;
-import Sale.Sale;
-import Elements.Constants;
-import Storage.Storage;
+import br.com.gbooks.java.view.shared.Button;
+import br.com.gbooks.java.view.SaleScreen;
+import br.com.gbooks.java.view.Sale;
+import br.com.gbooks.java.view.shared.Constants;
+import br.com.gbooks.java.entities.Storage;
 
 public class MainFrame {
     private final JFrame frame;

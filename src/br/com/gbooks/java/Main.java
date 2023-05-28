@@ -1,4 +1,6 @@
-import Home.MainFrame;
+package br.com.gbooks.java;
+
+import br.com.gbooks.java.view.MainFrame;
 
 import javax.swing.*;
 

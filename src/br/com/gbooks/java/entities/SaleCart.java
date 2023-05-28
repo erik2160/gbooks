@@ -1,4 +1,4 @@
-package Sale;
+package br.com.gbooks.java.entities;
 
 public class SaleCart {
     private String code;

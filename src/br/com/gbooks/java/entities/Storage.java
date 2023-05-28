@@ -1,4 +1,4 @@
-package Storage;
+package br.com.gbooks.java.entities;
 
 public class Storage {
     private String code;

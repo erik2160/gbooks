@@ -1,4 +1,4 @@
-package Elements;
+package br.com.gbooks.java.view.shared;
 
 import java.awt.*;
 

@@ -1,10 +1,10 @@
-package Sale;
+package br.com.gbooks.java.view;
 
-import Elements.Button;
-import Elements.Constants;
-import Elements.Display;
-import Elements.RadioButton;
-import Elements.TextField;
+import br.com.gbooks.java.view.shared.Button;
+import br.com.gbooks.java.view.shared.Constants;
+import br.com.gbooks.java.view.shared.Display;
+import br.com.gbooks.java.view.shared.RadioButton;
+import br.com.gbooks.java.view.shared.TextField;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

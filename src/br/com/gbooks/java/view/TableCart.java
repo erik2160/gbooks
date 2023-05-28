@@ -1,4 +1,6 @@
-package Sale;
+package br.com.gbooks.java.view;
+
+import br.com.gbooks.java.entities.SaleCart;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
