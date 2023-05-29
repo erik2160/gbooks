@@ -9,13 +9,17 @@ import Elements.Button;
 import Sale.SaleScreen;
 import Sale.Sale;
 import Elements.Constants;
-import Storage.Storage;
+import Storage.ListStock;
+import Storage.Stock;
+import Storage.StockScreen;
 
 public class MainFrame {
     private final JFrame frame;
-    private final SaleScreen screenSale = new SaleScreen();
-    private final List<Storage> storage = new ArrayList<>();
-    private final Sale sale = new Sale(storage);
+    private final SaleScreen saleScreen = new SaleScreen();
+    private final StockScreen stockScreen = new StockScreen();
+    private final List<ListStock> listStock = new ArrayList<>();
+    private final Sale sale = new Sale(listStock);
+    private final Stock stock = new Stock(listStock);
     private JPanel leftPanel;
     private JPanel centerPanel;
     private Button cashierButton;
@@ -79,10 +83,10 @@ public class MainFrame {
         logoutButton = new Button("Logout");
 
         cashierButton.addActionListener(e -> showSaleSection());
-        stockButton.setEnabled(false);
+        stockButton.addActionListener(e -> showStockSection());
         reportButton.setEnabled(false);
         usersButton.setEnabled(false);
-        logoutButton.addActionListener(e -> showHomeScreen());
+        logoutButton.setEnabled(false);
     }
 
     private void configureLeftPanel() {
@@ -127,9 +131,15 @@ public class MainFrame {
         centerPanel.removeAll();
         centerPanel.setVisible(false);
         centerPanel.setVisible(true);
-        centerPanel.setLayout(null);
-        centerPanel.add(screenSale.insertCartPanel(sale));
-        centerPanel.add(screenSale.insertPointsPanel(sale));
-        centerPanel.add(screenSale.insertFinishPanel(sale));
+        centerPanel.add(saleScreen.insertCartPanel(sale));
+        centerPanel.add(saleScreen.insertPointsPanel(sale));
+        centerPanel.add(saleScreen.insertFinishPanel(sale));
+    }
+
+    private void showStockSection(){
+        centerPanel.removeAll();
+        centerPanel.setVisible(false);
+        centerPanel.setVisible(true);
+        centerPanel.add(stockScreen.insertStockPanel());
     }
 }

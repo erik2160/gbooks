@@ -1,7 +1,7 @@
 package Sale;
 
-import Storage.Storage;
 import Elements.Popups;
+import Storage.ListStock;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -11,13 +11,12 @@ import java.util.Objects;
 public class Sale extends SaleScreen {
     private final List<SaleCart> saleCart = new ArrayList<>();
     private final TableCart tableCart = new TableCart(saleCart);
-    private final List<Storage> storage;
-    public Sale(List<Storage> storage) {
-        this.storage = storage;
+    private final List<ListStock> listStock;
+    public Sale(List<ListStock> listStock) {
+        this.listStock = listStock;
     }
-
     public void addToCart() {
-        for (Storage product : storage) {
+        for (ListStock product : listStock) {
             try {
                 if (existInStock(saleScreen.getCodeBarTextField().getText()) && product.getQuantity() > 0) {
                     int quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
@@ -100,23 +99,46 @@ public class Sale extends SaleScreen {
 
     public void removeItemTable() {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
+        int quantityItem;
 
         for (int row = 0; row < saleScreen.getModel().getRowCount(); row++) {
             String itemTable = (String) saleScreen.getModel().getValueAt(row, 0);
             String getCodeBar = saleScreen.getCodeBarTextField().getText();
 
-            if (Objects.equals(getCodeBar, itemTable)) {
-                getTotal -= (double) saleScreen.getModel().getValueAt(row, 4);
-                saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
-                saleScreen.getModel().removeRow(row);
-                saleCart.remove(row);
-                break;
+            if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
+                JOptionPane.showMessageDialog(null, "The BARCODE field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            } else if (!existInCart(saleScreen.getCodeBarTextField().getText())) {
+                String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
+                JOptionPane.showMessageDialog(null, messageError, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if (Objects.equals(getCodeBar, itemTable)) {
+                    if (Objects.equals(saleScreen.getUnitsTextField().getText(), "UNITS")) {
+                        getTotal -= (double) saleScreen.getModel().getValueAt(row, 4);
+                        listStock.get(row).setQuantity(saleCart.get(row).getUnits() + listStock.get(row).getQuantity());
+                        saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
+                        saleScreen.getModel().removeRow(row);
+                        saleCart.remove(row);
+                    } else {
+                        quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
+
+                        if (saleCart.get(row).getUnits() - quantityItem <= 0) {
+                            saleScreen.getModel().removeRow(row);
+                            saleCart.remove(row);
+                        } else {
+                            saleCart.get(row).setUnits(saleCart.get(row).getUnits() - quantityItem);
+                        }
+                    }
+                    saleScreen.getCodeBarTextField().reset();
+                    saleScreen.getUnitsTextField().reset();
+                    updateItemTable();
+                    break;
+                }
             }
         }
     }
 
     private boolean existInStock(String product) {
-        for (Storage item : storage) {
+        for (ListStock item : listStock) {
             if (Objects.equals(item.getCode(), product)) {
                 return true;
             }
@@ -202,27 +224,41 @@ public class Sale extends SaleScreen {
             Popups cancelSale = new Popups("Do you want to cancel your entire purchase?",2);
 
             if (cancelSale.getResponse()) {
-                cleanTable();
+                cleanTable("cancel");
             }
         } else if (Objects.equals(getType, "finish")) {
             if (getTotal > 0 || getTotal < 0) {
                 String messageError = String.format("Purchase cannot be finalized, missing \"%s\" to be paid", saleScreen.getToPayDisplay().getText());
                 new Popups (messageError, 1);
             } else {
-                cleanTable();
+                cleanTable("finish");
             }
         }
     }
 
-    private void cleanTable() {
-        for (Storage product : storage) {
-            for (SaleCart item : tableCart.getSaleCart()) {
-                if (Objects.equals(item.getCode(), product.getCode())) {
-                    product.setQuantity(product.getQuantity() - item.getUnits());
-                    try {
-                        saleScreen.getModel().removeRow(0);
-                    } catch (ArrayIndexOutOfBoundsException cleanTable) {
-                        break;
+    private void cleanTable(String type) {
+        if (Objects.equals(type, "finish")) {
+            for (ListStock product : listStock) {
+                for (SaleCart item : tableCart.getSaleCart()) {
+                    if (Objects.equals(item.getCode(), product.getCode())) {
+                        product.setQuantity(product.getQuantity() - item.getUnits());
+                        try {
+                            saleScreen.getModel().removeRow(0);
+                        } catch (ArrayIndexOutOfBoundsException cleanTable) {
+                            break;
+                        }
+                    }
+                }
+            }
+        } else if (Objects.equals(type, "cancel")) {
+            for (ListStock product : listStock) {
+                for (SaleCart item : tableCart.getSaleCart()) {
+                    if (Objects.equals(item.getCode(), product.getCode())) {
+                        try {
+                            saleScreen.getModel().removeRow(0);
+                        } catch (ArrayIndexOutOfBoundsException cleanTable) {
+                            break;
+                        }
                     }
                 }
             }
@@ -245,9 +281,9 @@ public class Sale extends SaleScreen {
     }
 
     public void addStorage() {
-        storage.add(new Storage("CODE1", "Book1", "EDITOR", "PUBLISHER", 10, 25.17));
-        storage.add(new Storage("CODE2", "Book2", "EDITOR", "PUBLISHER", 10, 50.13));
-        storage.add(new Storage("CODE3", "Book3", "EDITOR", "PUBLISHER", 10, 10.21));
-        storage.add(new Storage("CODE4", "Book3", "EDITOR", "PUBLISHER", 10, 10.21));
+        listStock.add(new ListStock("CODE1", "Book1", "EDITOR", "PUBLISHER", 10, 25.17));
+        listStock.add(new ListStock("CODE2", "Book2", "EDITOR", "PUBLISHER", 10, 50.13));
+        listStock.add(new ListStock("CODE3", "Book3", "EDITOR", "PUBLISHER", 10, 10.21));
+        listStock.add(new ListStock("CODE4", "Book3", "EDITOR", "PUBLISHER", 10, 10.21));
     }
 }

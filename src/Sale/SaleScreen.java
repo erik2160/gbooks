@@ -1,22 +1,21 @@
 package Sale;
 
+import Elements.*;
 import Elements.Button;
-import Elements.Constants;
-import Elements.Display;
-import Elements.RadioButton;
 import Elements.TextField;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 import java.awt.*;
 
 public class SaleScreen {
     static SaleScreen saleScreen = new SaleScreen();
     private static TextField codeBarTextField;
     private static TextField unitsTextField;
-    private static DefaultTableModel model;
+    private static Table table;
     private static Display pointsDisplay;
     private static Display newPriceDisplay;
     private static TextField payedField;
@@ -38,7 +37,7 @@ public class SaleScreen {
         return toPayDisplay;
     }
     public DefaultTableModel getModel() {
-        return model;
+        return table.getModel();
     }
     public RadioButton getCreditButton() {
         return creditButton;
@@ -110,55 +109,9 @@ public class SaleScreen {
         buttonCancel.addActionListener(finishSale -> sale.finishSale("cancel"));
         cartPanel.add(buttonCancel);
 
-        model = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        model.addColumn("CODE");
-        model.addColumn("TITLE");
-        model.addColumn("UNITS");
-        model.addColumn("UNIT VAL.");
-        model.addColumn("TOTAL VAL.");
-
-        JTable table = new JTable(model);
-        table.getTableHeader().setReorderingAllowed(false);
-        table.getTableHeader ().setBackground (Constants.LIGHT_GRAY);
-        table.getTableHeader ().setForeground (Color.WHITE);
-        table.getTableHeader ().setFont (new Font (Constants.DEFAULT_FONT, Font.BOLD, 18));
-        table.setRowHeight (Constants.ROW_HEIGHT);
-
-        TableCellRenderer cellRenderer = new DefaultTableCellRenderer (){
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){
-            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            if (component instanceof JLabel label) {
-                label.setHorizontalAlignment (SwingConstants.CENTER); // Centraliza o conteúdo horizontalmente
-                label.setVerticalAlignment(SwingConstants.CENTER);// Centraliza o conteúdo verticalmente
-            }
-            if (row % 2 != 0) {
-                component.setBackground(new Color (240, 240, 240)); // Define a cor de fundo para linhas pares
-            } else {
-                component.setBackground(table.getBackground()); // Restaura a cor de fundo padrão para as outras linhas
-            }
-            component.setFont (new Font (Constants.DEFAULT_FONT,Font.PLAIN, 16));// Altera a fonte
-            return component;
-            }
-        };
-
-        table.getColumnModel ().getColumn (0).setPreferredWidth (50); // tamanho horizontal da coluna (code)
-        table.getColumnModel ().getColumn (1).setPreferredWidth (200); // tamanho horizontal da coluna (title)
-        table.getColumnModel ().getColumn (2).setPreferredWidth (10); // tamanho horizontal da coluna  (units)
-        table.getColumnModel ().getColumn (3).setPreferredWidth (40); // tamanho horizontal da coluna  (unit val)
-        table.getColumnModel ().getColumn (4).setPreferredWidth (80); // tamanho horizontal da coluna (total val)
-
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setResizable(false);
-            table.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-
+        String [] columnsName = {"CODE", "TITLE", "UNITS", "UNIT VAL.", "TOTAL VAL."};
+        int [] columnsWidth = {50, 200, 10, 40, 80};
+        table = new Table(columnsName, columnsWidth);
         JScrollPane tableScrollPane = new JScrollPane(table);
         tableScrollPane.setBounds(26, 70, 899, 240);
         cartPanel.add(tableScrollPane);
