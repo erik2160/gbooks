@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StorageTest {
+class ListStockTest {
 
-    private Storage obj;
+    private ListStock obj;
     @BeforeEach
     void setUp() {
     }
@@ -26,7 +26,7 @@ class StorageTest {
         var publisher = "P1";
         var quantity = 5;
         var price = 123.12;
-        this.obj = new Storage(code, title, editor, publisher, quantity, price);
+        this.obj = new ListStock(code, title, editor, publisher, quantity, price);
         //Assert
         assertEquals(obj.getCode(), code);
     }
@@ -41,7 +41,7 @@ class StorageTest {
         var publisher = "P1";
         var quantity = 5;
         var price = 123.12;
-        this.obj = new Storage(code, title, editor, publisher, quantity, price);
+        this.obj = new ListStock(code, title, editor, publisher, quantity, price);
 
         //Act
         this.obj.setCode(code2);
@@ -58,7 +58,7 @@ class StorageTest {
         var publisher = "P1";
         var quantity = 5;
         var price = 123.12;
-        this.obj = new Storage(code, title, editor, publisher, quantity, price);
+        this.obj = new ListStock(code, title, editor, publisher, quantity, price);
         //Assert
         assertEquals(obj.getTitle(), title);
     }
@@ -73,7 +73,7 @@ class StorageTest {
         var publisher = "P1";
         var quantity = 5;
         var price = 123.12;
-        this.obj = new Storage(code, title, editor, publisher, quantity, price);
+        this.obj = new ListStock(code, title, editor, publisher, quantity, price);
 
         //Act
         this.obj.setTitle(title2);

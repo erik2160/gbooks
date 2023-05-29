@@ -1,7 +1,9 @@
 package br.com.ticotech.gbooks.java.view;
 
 import br.com.ticotech.gbooks.java.entities.SaleCart;
-import br.com.ticotech.gbooks.java.entities.Storage;
+import br.com.ticotech.gbooks.java.entities.ListStock;
+import br.com.ticotech.gbooks.java.entities.TableCart;
+import br.com.ticotech.gbooks.java.view.shared.Popups;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -11,12 +13,12 @@ import java.util.Objects;
 public class Sale extends SaleScreen {
     private final List<SaleCart> saleCart = new ArrayList<>();
     private final TableCart tableCart = new TableCart(saleCart);
-    private final List<Storage> storage;
-    public Sale(List<Storage> storage) {
-        this.storage = storage;
+    private final List<ListStock> listStock;
+    public Sale(List<ListStock> listStock) {
+        this.listStock = listStock;
     }
-    public void addToCart() {
-        for (Storage product : storage) {
+    public boolean addToCart() {
+        for (ListStock product : listStock) {
             try {
                 if (existInStock(saleScreen.getCodeBarTextField().getText()) && product.getQuantity() > 0) {
                     int quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
@@ -40,40 +42,36 @@ public class Sale extends SaleScreen {
                                     Double.parseDouble(String.format("%.2f", product.getPrice() * quantityItem).replace(",", "."))
                                 ));
                                 insertItemTable(saleCart.size() - 1);
-                                saleScreen.getPayedField().setEnabled(true);
-                                saleScreen.getFinishButton().setEnabled(true);
-                                saleScreen.getCreditButton().setEnabled(true);
-                                saleScreen.getDebitButton().setEnabled(true);
-                                saleScreen.getButtonCancel().setEnabled(true);
-                                saleScreen.getButtonRemove().setEnabled(true);
                             }
                             saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
+                            return true;
                         }
                     } else {
                         String messageError = String.format("Quantity for \"%S\" larger than in stock", saleScreen.getCodeBarTextField().getText());
-                        JOptionPane.showMessageDialog(null, messageError, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        Popups.showErrorDialog (null, messageError);
                         break;
                     }
                 } else {
                     if (product.getQuantity() <= 0) {
                         String messageError = String.format("Quantity for \"%S\" is 0 in stock", saleScreen.getCodeBarTextField().getText());
-                        JOptionPane.showMessageDialog(null, messageError, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        Popups.showErrorDialog (null, messageError);
                         break;
                     }
 
                     if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
-                        JOptionPane.showMessageDialog(null, "The BARCODE field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        Popups.showErrorDialog (null, "The BARCODE field is empty!!");
                     } else {
                         String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
-                        JOptionPane.showMessageDialog(null, messageError, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        Popups.showErrorDialog (null, messageError);
                     }
                     break;
                 }
             } catch (NumberFormatException quantityEmpty) {
-                JOptionPane.showMessageDialog(null, "The UNITS field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+                Popups.showErrorDialog (null, "The UNITS field is empty!!");
                 break;
             }
         }
+        return false;
     }
 
     private void insertItemTable(int index) {
@@ -104,33 +102,57 @@ public class Sale extends SaleScreen {
         for (int row = 0; row < saleScreen.getModel().getRowCount(); row++) {
             String itemTable = (String) saleScreen.getModel().getValueAt(row, 0);
             String getCodeBar = saleScreen.getCodeBarTextField().getText();
+
             if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
-                JOptionPane.showMessageDialog(null, "The BARCODE field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+                Popups.showWarningDialog (null, "The BARCODE field is empty!!");
             } else if (!existInCart(saleScreen.getCodeBarTextField().getText())) {
                 String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
-                JOptionPane.showMessageDialog(null, messageError, "ERROR", JOptionPane.ERROR_MESSAGE);
+                Popups.showErrorDialog (null, messageError);
             } else {
                 if (Objects.equals(getCodeBar, itemTable)) {
                     if (Objects.equals(saleScreen.getUnitsTextField().getText(), "UNITS")) {
                         getTotal -= (double) saleScreen.getModel().getValueAt(row, 4);
-                        storage.get(row).setQuantity(saleCart.get(row).getUnits() + storage.get(row).getQuantity());
+                        listStock.get(row).setQuantity(saleCart.get(row).getUnits() + listStock.get(row).getQuantity());
                         saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
                         saleScreen.getModel().removeRow(row);
                         saleCart.remove(row);
-                        break;
                     } else {
                         quantityItem = Integer.parseInt(saleScreen.getUnitsTextField().getText());
 
-                        saleCart.get(row).setUnits(saleCart.get(row).getUnits() - quantityItem);
-                        updateItemTable();
+                        if (quantityItem > (int) saleScreen.getModel().getValueAt(row, 2)) {
+                            String messageError = String.format("Quantity for \"%S\" larger than in cart", saleScreen.getCodeBarTextField().getText());
+                            Popups.showErrorDialog (null, messageError);
+                            break;
+                        } else {
+                            if (saleCart.get(row).getUnits() - quantityItem <= 0) {
+                                getTotal -= (double) saleScreen.getModel().getValueAt(row, 4);
+                                saleScreen.getModel().removeRow(row);
+                                saleCart.remove(row);
+                            } else {
+                                saleCart.get(row).setUnits(saleCart.get(row).getUnits() - quantityItem);
+                                getTotal -= (double) saleScreen.getModel().getValueAt(row, 3) * quantityItem;
+                                saleCart.get(row).setTotalPrice(
+                                    Double.parseDouble(
+                                        String.format(
+                                            "%.2f",
+                                            saleCart.get(row).getTotalPrice() - (saleCart.get(row).getUnitPrice() * quantityItem)).replace(",", "."))
+                                );
+                                updateItemTable();
+                            }
+                            saleScreen.getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
+                        }
                     }
+                    saleScreen.getCodeBarTextField().reset();
+                    saleScreen.getUnitsTextField().reset();
+                    updateItemTable();
+                    break;
                 }
             }
         }
     }
 
     private boolean existInStock(String product) {
-        for (Storage item : storage) {
+        for (ListStock item : listStock) {
             if (Objects.equals(item.getCode(), product)) {
                 return true;
             }
@@ -197,6 +219,7 @@ public class Sale extends SaleScreen {
                             saleScreen.getToPayDisplay().setText("0");
                         } else {
                             saleScreen.getToPayDisplay().setText(subtraction);
+                            saleScreen.getPayedField().setText("");
                             saleScreen.getChangeDisplay().setText("0");
                         }
                     }
@@ -205,36 +228,43 @@ public class Sale extends SaleScreen {
                 saleScreen.getToPayDisplay().setText("0");
             }
         } catch (NumberFormatException isEmpty) {
-            JOptionPane.showMessageDialog(null, "The PAYED field is empty!!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            Popups.showErrorDialog (null, "The PAYED field is empty!!");
         }
     }
 
-    public void finishSale(String getType) {
+    public boolean finishSale(String getType) {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
 
         if (Objects.equals(getType, "cancel")) {
             int getOption = JOptionPane.showConfirmDialog(null, "Do you want to cancel your entire purchase?", "WARNING", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (getOption == JOptionPane.YES_OPTION) {
-                cleanTable();
+                cleanTable("cancel");
+                return true;
             }
         } else if (Objects.equals(getType, "finish")) {
             if (getTotal > 0 || getTotal < 0) {
                 String messageError = String.format("Purchase cannot be finalized, missing \"%s\" to be paid", saleScreen.getToPayDisplay().getText());
-                JOptionPane.showMessageDialog(null, messageError, "WARNING", JOptionPane.WARNING_MESSAGE);
+                Popups.showErrorDialog (null, messageError);
             } else {
-                cleanTable();
+                cleanTable("finish");
+                return true;
             }
         }
+        return false;
     }
 
-    private void cleanTable() {
-        for (Storage product : storage) {
+    private void cleanTable(String type) {
+        for (ListStock product : listStock) {
             for (SaleCart item : tableCart.getSaleCart()) {
                 if (Objects.equals(item.getCode(), product.getCode())) {
-                    product.setQuantity(product.getQuantity() - item.getUnits());
                     try {
-                        saleScreen.getModel().removeRow(0);
+                        if (Objects.equals(type, "finish")) {
+                            product.setQuantity(product.getQuantity() - item.getUnits());
+                            saleScreen.getModel().removeRow(0);
+                        } else if (Objects.equals(type, "cancel")) {
+                            saleScreen.getModel().removeRow(0);
+                        }
                     } catch (ArrayIndexOutOfBoundsException cleanTable) {
                         break;
                     }
@@ -244,24 +274,12 @@ public class Sale extends SaleScreen {
 
         saleCart.clear();
         tableCart.getSaleCart().clear();
-        saleScreen.getToPayDisplay().reset();
-        saleScreen.getPayedField().reset();
-        saleScreen.getChangeDisplay().reset();
-        saleScreen.getCodeBarTextField().reset();
-        saleScreen.getUnitsTextField().reset();
-        saleScreen.getCardsButtons().clearSelection();
-        saleScreen.getPayedField().setEnabled(false);
-        saleScreen.getFinishButton().setEnabled(false);
-        saleScreen.getCreditButton().setEnabled(false);
-        saleScreen.getDebitButton().setEnabled(false);
-        saleScreen.getButtonCancel().setEnabled(false);
-        saleScreen.getButtonRemove().setEnabled(false);
     }
 
     public void addStorage() {
-        storage.add(new Storage("CODE1", "Book1", "EDITOR", "PUBLISHER", 10, 25.17));
-        storage.add(new Storage("CODE2", "Book2", "EDITOR", "PUBLISHER", 10, 50.13));
-        storage.add(new Storage("CODE3", "Book3", "EDITOR", "PUBLISHER", 10, 10.21));
-        storage.add(new Storage("CODE4", "Book3", "EDITOR", "PUBLISHER", 10, 10.21));
+        listStock.add(new ListStock("CODE1", "Book1", "EDITOR", "PUBLISHER", 10, 25.17));
+        listStock.add(new ListStock("CODE2", "Book2", "EDITOR", "PUBLISHER", 10, 50.13));
+        listStock.add(new ListStock("CODE3", "Book3", "EDITOR", "PUBLISHER", 10, 10.21));
+        listStock.add(new ListStock("CODE4", "Book3", "EDITOR", "PUBLISHER", 10, 10.21));
     }
 }

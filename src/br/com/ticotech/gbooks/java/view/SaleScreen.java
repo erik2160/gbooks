@@ -1,21 +1,19 @@
 package br.com.ticotech.gbooks.java.view;
 
-import br.com.ticotech.gbooks.java.view.shared.Constants;
-import br.com.ticotech.gbooks.java.view.shared.Display;
-import br.com.ticotech.gbooks.java.view.shared.RadioButton;
+import br.com.ticotech.gbooks.java.view.shared.*;
+import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.util.Objects;
 
 public class SaleScreen {
     static SaleScreen saleScreen = new SaleScreen();
     private static TextField codeBarTextField;
     private static TextField unitsTextField;
-    private static DefaultTableModel model;
+    private static Table table;
     private static Display pointsDisplay;
     private static Display newPriceDisplay;
     private static TextField payedField;
@@ -24,9 +22,9 @@ public class SaleScreen {
     private static RadioButton debitButton;
     private static Display toPayDisplay;
     private static ButtonGroup cardsButtons;
-    private static br.com.ticotech.gbooks.java.view.shared.Button finishButton;
-    private static br.com.ticotech.gbooks.java.view.shared.Button buttonCancel;
-    private static br.com.ticotech.gbooks.java.view.shared.Button buttonRemove;
+    private static Button finishButton;
+    private static Button buttonCancel;
+    private static Button buttonRemove;
     public TextField getCodeBarTextField() {
         return codeBarTextField;
     }
@@ -37,7 +35,7 @@ public class SaleScreen {
         return toPayDisplay;
     }
     public DefaultTableModel getModel() {
-        return model;
+        return table.getModel();
     }
     public RadioButton getCreditButton() {
         return creditButton;
@@ -54,13 +52,13 @@ public class SaleScreen {
     public ButtonGroup getCardsButtons() {
         return cardsButtons;
     }
-    public br.com.ticotech.gbooks.java.view.shared.Button getFinishButton() {
+    public Button getFinishButton() {
         return finishButton;
     }
-    public br.com.ticotech.gbooks.java.view.shared.Button getButtonCancel() {
+    public Button getButtonCancel() {
         return buttonCancel;
     }
-    public br.com.ticotech.gbooks.java.view.shared.Button getButtonRemove() {
+    public Button getButtonRemove() {
         return buttonRemove;
     }
 
@@ -82,81 +80,41 @@ public class SaleScreen {
         unitsTextField.setFontSize(22);
         unitsTextField.addActionListener(enterUnit -> {
             codeBarTextField.requestFocus();
-            sale.addToCart();
-            codeBarTextField.reset();
-            unitsTextField.reset();
+            if (sale.addToCart()) {
+                disableElements("add");
+            }
         });
         cartPanel.add(unitsTextField);
 
-        br.com.ticotech.gbooks.java.view.shared.Button buttonAdd = new br.com.ticotech.gbooks.java.view.shared.Button("ADD");
+        Button buttonAdd = new Button("ADD");
         buttonAdd.setBounds(366,26, 110, 33);
         buttonAdd.addActionListener(addItem -> {
-            sale.addToCart();
-            codeBarTextField.reset();
-            unitsTextField.reset();
+            codeBarTextField.requestFocus();
+            if (sale.addToCart()) {
+                disableElements("add");
+            }
         });
         cartPanel.add(buttonAdd);
 
-        buttonRemove = new br.com.ticotech.gbooks.java.view.shared.Button("REMOVE",Constants.CANCEL_RED,Color.WHITE);
+        buttonRemove = new Button("REMOVE",Constants.CANCEL_RED,Color.WHITE);
         buttonRemove.setBounds(678,26, 120, 33);
         buttonRemove.setEnabled(false);
         buttonRemove.addActionListener(removeItem -> sale.removeItemTable());
         cartPanel.add(buttonRemove);
 
-        buttonCancel = new br.com.ticotech.gbooks.java.view.shared.Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
+        buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
         buttonCancel.setBounds(806,26, 120, 33);
         buttonCancel.setEnabled(false);
-        buttonCancel.addActionListener(finishSale -> sale.finishSale("cancel"));
+        buttonCancel.addActionListener(finishSale -> {
+            if (sale.finishSale("cancel")) {
+                disableElements("cancel");
+            }
+        });
         cartPanel.add(buttonCancel);
 
-        model = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        model.addColumn("CODE");
-        model.addColumn("TITLE");
-        model.addColumn("UNITS");
-        model.addColumn("UNIT VAL.");
-        model.addColumn("TOTAL VAL.");
-
-        JTable table = new JTable(model);
-        table.getTableHeader().setReorderingAllowed(false);
-        table.getTableHeader ().setBackground (Constants.LIGHT_GRAY);
-        table.getTableHeader ().setForeground (Color.WHITE);
-        table.getTableHeader ().setFont (new Font (Constants.DEFAULT_FONT, Font.BOLD, 18));
-        table.setRowHeight (Constants.ROW_HEIGHT);
-
-        TableCellRenderer cellRenderer = new DefaultTableCellRenderer (){
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){
-            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            if (component instanceof JLabel label) {
-                label.setHorizontalAlignment (SwingConstants.CENTER); // Centraliza o conteúdo horizontalmente
-                label.setVerticalAlignment(SwingConstants.CENTER);// Centraliza o conteúdo verticalmente
-            }
-            if (row % 2 != 0) {
-                component.setBackground(new Color (240, 240, 240)); // Define a cor de fundo para linhas pares
-            } else {
-                component.setBackground(table.getBackground()); // Restaura a cor de fundo padrão para as outras linhas
-            }
-            component.setFont (new Font (Constants.DEFAULT_FONT,Font.PLAIN, 16));// Altera a fonte
-            return component;
-            }
-        };
-
-        table.getColumnModel ().getColumn (0).setPreferredWidth (50); // tamanho horizontal da coluna (code)
-        table.getColumnModel ().getColumn (1).setPreferredWidth (200); // tamanho horizontal da coluna (title)
-        table.getColumnModel ().getColumn (2).setPreferredWidth (10); // tamanho horizontal da coluna  (units)
-        table.getColumnModel ().getColumn (3).setPreferredWidth (40); // tamanho horizontal da coluna  (unit val)
-        table.getColumnModel ().getColumn (4).setPreferredWidth (80); // tamanho horizontal da coluna (total val)
-
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setResizable(false);
-            table.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
+        String [] columnsName = {"CODE", "TITLE", "UNITS", "UNIT VAL.", "TOTAL VAL."};
+        int [] columnsWidth = {50, 200, 10, 40, 80};
+        table = new Table(columnsName, columnsWidth);
 
         JScrollPane tableScrollPane = new JScrollPane(table);
         tableScrollPane.setBounds(26, 70, 899, 240);
@@ -253,7 +211,6 @@ public class SaleScreen {
         toPayDisplay = new Display("");
         toPayDisplay.setFontSize(22);
         toPayDisplay.setBounds(446, 92, 150,38);
-
         finishPanel.add(toPayDisplay);
 
         finishButton = new br.com.ticotech.gbooks.java.view.shared.Button("FINISH");
@@ -261,9 +218,39 @@ public class SaleScreen {
         finishButton.setBackground(Constants.CONFIRM_GREEN);
         finishButton.setForeground(Color.WHITE);
         finishButton.setEnabled(false);
-        finishButton.addActionListener(finishSale -> sale.finishSale("finish"));
+        finishButton.addActionListener(finishSale -> {
+            if (sale.finishSale("finish")) {
+                disableElements("finish");
+            }
+        });
         finishPanel.add(finishButton);
 
         return finishPanel;
+    }
+
+    private void disableElements(String getType) {
+        if (Objects.equals(getType, "finish") || Objects.equals(getType, "cancel")) {
+            saleScreen.getToPayDisplay().reset();
+            saleScreen.getPayedField().reset();
+            saleScreen.getChangeDisplay().reset();
+            saleScreen.getCodeBarTextField().reset();
+            saleScreen.getUnitsTextField().reset();
+            saleScreen.getCardsButtons().clearSelection();
+            saleScreen.getPayedField().setEnabled(false);
+            saleScreen.getFinishButton().setEnabled(false);
+            saleScreen.getCreditButton().setEnabled(false);
+            saleScreen.getDebitButton().setEnabled(false);
+            saleScreen.getButtonCancel().setEnabled(false);
+            saleScreen.getButtonRemove().setEnabled(false);
+        } else if (Objects.equals(getType, "add")) {
+            saleScreen.getPayedField().setEnabled(true);
+            saleScreen.getFinishButton().setEnabled(true);
+            saleScreen.getCreditButton().setEnabled(true);
+            saleScreen.getDebitButton().setEnabled(true);
+            saleScreen.getButtonCancel().setEnabled(true);
+            saleScreen.getButtonRemove().setEnabled(true);
+        }
+
+
     }
 }
