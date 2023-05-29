@@ -31,6 +31,10 @@ public class MainFrame {
         frame.setSize(1280, 720);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - 1280) / 2;
+        int y = (screenSize.height - 720) / 2;
+        frame.setLocation(x, y);
         createPanels();
         createButtons();
         configureLeftPanel();

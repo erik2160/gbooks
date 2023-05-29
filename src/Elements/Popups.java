@@ -5,7 +5,7 @@ import java.awt.*;
 public class Popups extends JOptionPane{
     private boolean response;
     public Popups(String message, int type) {
-        JDialog dialog = new JDialog((Frame) super.getParent(), "title", true);
+        JDialog dialog = new JDialog((Frame) super.getParent(), "", true);
         dialog.setLayout(new BorderLayout());
         dialog.setResizable(false);
 
@@ -16,7 +16,7 @@ public class Popups extends JOptionPane{
         JLabel contentLabel = new JLabel(message);
         contentLabel.setForeground(Color.BLACK);
         contentLabel.setHorizontalAlignment(JLabel.CENTER);
-        contentLabel.setFont(new Font("Ubuntu", Font.BOLD, 16));
+        contentLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, 16));
         contentPanel.add(contentLabel, BorderLayout.SOUTH);
 
         JPanel buttonPanel = new JPanel();
@@ -39,7 +39,7 @@ public class Popups extends JOptionPane{
 
                 contentLabel.setIcon(new ImageIcon(Popups.class.getResource("resources/ErrorIcon.png")));
 
-                Button okButton = new Button("OK");
+                Button okButton = new Button(" OK ");
                 okButton.addActionListener(closeWindow -> dialog.dispose());
                 buttonPanel.add(okButton, BorderLayout.NORTH);
             }
@@ -48,22 +48,20 @@ public class Popups extends JOptionPane{
 
                 contentLabel.setIcon(new ImageIcon(Popups.class.getResource("resources/WarningIcon.png")));
 
-                Button confirmButton = new Button("CONFIRM");
+                Button confirmButton = new Button(" YES ",Constants.CONFIRM_GREEN, Color.white);
                 confirmButton.addActionListener(confirm -> {
                     response = true;
                     dialog.dispose();
                 });
                 buttonPanel.add(confirmButton);
 
-                Button cancelButton = new Button("CANCEL");
+                Button cancelButton = new Button(" NO ", Constants.CANCEL_RED, Color.WHITE);
                 cancelButton.addActionListener(cancel -> {
                     response = false;
                     dialog.dispose();
                 });
                 buttonPanel.add(confirmButton);
                 buttonPanel.add(cancelButton);
-            }
-            case 3 -> {
             }
         }
 
