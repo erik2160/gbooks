@@ -5,7 +5,6 @@ import br.com.ticotech.gbooks.java.entities.ListStock;
 import br.com.ticotech.gbooks.java.entities.TableCart;
 import br.com.ticotech.gbooks.java.view.shared.Popups;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -48,26 +47,26 @@ public class Sale extends SaleScreen {
                         }
                     } else {
                         String messageError = String.format("Quantity for \"%S\" larger than in stock", saleScreen.getCodeBarTextField().getText());
-                        Popups.showErrorDialog (null, messageError);
+                        new Popups (messageError, 1);
                         break;
                     }
                 } else {
                     if (product.getQuantity() <= 0) {
                         String messageError = String.format("Quantity for \"%S\" is 0 in stock", saleScreen.getCodeBarTextField().getText());
-                        Popups.showErrorDialog (null, messageError);
+                        new Popups (messageError, 1);
                         break;
                     }
 
                     if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
-                        Popups.showErrorDialog (null, "The BARCODE field is empty!!");
+                        new Popups ("The BARCODE field is empty!!", 1);
                     } else {
                         String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
-                        Popups.showErrorDialog (null, messageError);
+                        new Popups (messageError, 1);
                     }
                     break;
                 }
             } catch (NumberFormatException quantityEmpty) {
-                Popups.showErrorDialog (null, "The UNITS field is empty!!");
+                new Popups ("The UNITS field is empty!!", 1);
                 break;
             }
         }
@@ -104,10 +103,10 @@ public class Sale extends SaleScreen {
             String getCodeBar = saleScreen.getCodeBarTextField().getText();
 
             if (Objects.equals(saleScreen.getCodeBarTextField().getText(), "BARCODE")) {
-                Popups.showWarningDialog (null, "The BARCODE field is empty!!");
+                new Popups ("The BARCODE field is empty!" ,1);
             } else if (!existInCart(saleScreen.getCodeBarTextField().getText())) {
                 String messageError = String.format("Code bar \"%S\" not found", saleScreen.getCodeBarTextField().getText());
-                Popups.showErrorDialog (null, messageError);
+                new Popups (messageError, 1);
             } else {
                 if (Objects.equals(getCodeBar, itemTable)) {
                     if (Objects.equals(saleScreen.getUnitsTextField().getText(), "UNITS")) {
@@ -121,7 +120,7 @@ public class Sale extends SaleScreen {
 
                         if (quantityItem > (int) saleScreen.getModel().getValueAt(row, 2)) {
                             String messageError = String.format("Quantity for \"%S\" larger than in cart", saleScreen.getCodeBarTextField().getText());
-                            Popups.showErrorDialog (null, messageError);
+                            new Popups(messageError, 1);
                             break;
                         } else {
                             if (saleCart.get(row).getUnits() - quantityItem <= 0) {
@@ -219,7 +218,6 @@ public class Sale extends SaleScreen {
                             saleScreen.getToPayDisplay().setText("0");
                         } else {
                             saleScreen.getToPayDisplay().setText(subtraction);
-                            saleScreen.getPayedField().setText("");
                             saleScreen.getChangeDisplay().setText("0");
                         }
                     }
@@ -228,7 +226,7 @@ public class Sale extends SaleScreen {
                 saleScreen.getToPayDisplay().setText("0");
             }
         } catch (NumberFormatException isEmpty) {
-            Popups.showErrorDialog (null, "The PAYED field is empty!!");
+            new Popups("The PAYED field is empty!!",1);
         }
     }
 
@@ -236,16 +234,16 @@ public class Sale extends SaleScreen {
         double getTotal = Double.parseDouble(saleScreen.getToPayDisplay().getText().replace(",", "."));
 
         if (Objects.equals(getType, "cancel")) {
-            int getOption = JOptionPane.showConfirmDialog(null, "Do you want to cancel your entire purchase?", "WARNING", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            Popups cancelSale = new Popups("Do you want to cancel your entire purchase?",2);
 
-            if (getOption == JOptionPane.YES_OPTION) {
+            if (cancelSale.getResponse()) {
                 cleanTable("cancel");
                 return true;
             }
         } else if (Objects.equals(getType, "finish")) {
             if (getTotal > 0 || getTotal < 0) {
                 String messageError = String.format("Purchase cannot be finalized, missing \"%s\" to be paid", saleScreen.getToPayDisplay().getText());
-                Popups.showErrorDialog (null, messageError);
+                new Popups (messageError, 1);
             } else {
                 cleanTable("finish");
                 return true;

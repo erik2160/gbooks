@@ -1,17 +1,16 @@
 package br.com.ticotech.gbooks.java.view;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ticotech.gbooks.java.entities.ListStock;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.Constants;
-import br.com.ticotech.gbooks.java.entities.ListStock;
 
 public class MainFrame {
     private final JFrame frame;
-    private final SaleScreen screenSale = new SaleScreen();
+    private final SaleScreen saleScreen = new SaleScreen();
     private final StockScreen stockScreen = new StockScreen();
     private final List<ListStock> listStock = new ArrayList<>();
     private final Sale sale = new Sale(listStock);
@@ -29,6 +28,10 @@ public class MainFrame {
         frame.setSize(1280, 720);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - 1280) / 2;
+        int y = (screenSize.height - 720) / 2;
+        frame.setLocation(x, y);
         createPanels();
         createButtons();
         configureLeftPanel();
@@ -76,7 +79,7 @@ public class MainFrame {
         stockButton.addActionListener(e -> showStockSection());
         reportButton.setEnabled(false);
         usersButton.setEnabled(false);
-        logoutButton.addActionListener(e -> showHomeScreen());
+        logoutButton.setEnabled(false);
     }
 
     private void configureLeftPanel() {
@@ -121,10 +124,9 @@ public class MainFrame {
         centerPanel.removeAll();
         centerPanel.setVisible(false);
         centerPanel.setVisible(true);
-        centerPanel.setLayout(null);
-        centerPanel.add(screenSale.insertCartPanel(sale));
-        centerPanel.add(screenSale.insertPointsPanel(sale));
-        centerPanel.add(screenSale.insertFinishPanel(sale));
+        centerPanel.add(saleScreen.insertCartPanel(sale));
+        centerPanel.add(saleScreen.insertPointsPanel(sale));
+        centerPanel.add(saleScreen.insertFinishPanel(sale));
     }
 
     private void showStockSection(){
