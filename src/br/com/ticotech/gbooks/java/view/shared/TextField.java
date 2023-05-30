@@ -14,7 +14,7 @@ public class TextField extends JTextField {
     public TextField(String placeHolder) {
         fieldPlaceHolder = placeHolder;
         this.setText(placeHolder);
-        this.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 20));
+        this.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 22));
         this.setForeground(Color.lightGray);
         BevelBorder border = new BevelBorder(BevelBorder.RAISED);
         this.setBorder(border);

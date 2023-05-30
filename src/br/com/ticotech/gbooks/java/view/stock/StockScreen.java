@@ -27,6 +27,7 @@ public class StockScreen {
         Button addButton = new Button("ADD");
         addButton.setBounds(714,26,100,33);
         stockPanel.add(addButton);
+        addButton.addActionListener(e -> new EditStock("ADD BOOK"));
 
         Button editButton = new Button("EDIT");
         editButton.setBounds(824,26,100,33);
