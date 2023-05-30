@@ -1,4 +1,4 @@
-package br.com.ticotech.gbooks.java.view;
+package br.com.ticotech.gbooks.java.view.sale;
 
 import br.com.ticotech.gbooks.java.entities.SaleCart;
 import br.com.ticotech.gbooks.java.entities.ListStock;

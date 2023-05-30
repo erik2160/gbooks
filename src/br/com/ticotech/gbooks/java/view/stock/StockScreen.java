@@ -1,4 +1,4 @@
-package br.com.ticotech.gbooks.java.view;
+package br.com.ticotech.gbooks.java.view.stock;
 
 import br.com.ticotech.gbooks.java.view.shared.ComboBox;
 import br.com.ticotech.gbooks.java.view.shared.Constants;

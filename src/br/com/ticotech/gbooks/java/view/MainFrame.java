@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ticotech.gbooks.java.entities.ListStock;
+import br.com.ticotech.gbooks.java.view.sale.Sale;
+import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.Constants;
+import br.com.ticotech.gbooks.java.view.stock.StockScreen;
 
 public class MainFrame {
     private final JFrame frame;
