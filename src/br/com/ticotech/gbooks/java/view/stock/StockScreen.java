@@ -27,13 +27,15 @@ public class StockScreen {
         Button addButton = new Button("ADD");
         addButton.setBounds(714,26,100,33);
         stockPanel.add(addButton);
+        addButton.addActionListener(e -> new EditStock("ADD BOOK"));
 
         Button editButton = new Button("EDIT");
         editButton.setBounds(824,26,100,33);
         stockPanel.add(editButton);
+        editButton.addActionListener(e -> new EditStock("EDIT BOOK"));
 
-        String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","BUY PRICE"};
-        int [] columnsWidth = {90,60,10,10,10,10,10};
+        String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","INVOICE PRICE"};
+        int [] columnsWidth = {60,60,12,12,12,12,16};
         Table table = new Table(columnsName,columnsWidth);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(26,70,899,485);
