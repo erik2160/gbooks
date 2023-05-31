@@ -125,6 +125,8 @@ public class SaleScreen {
 
     public JPanel insertPointsPanel(Sale sale) {
         JPanel pointsPanel = new JPanel();
+        //Alterado para demo
+        pointsPanel.setVisible(false);
         pointsPanel.setBackground(Constants.DARK_GRAY);
         pointsPanel.setBounds(40, 366,315, 240);
         pointsPanel.setLayout(null);
@@ -148,12 +150,6 @@ public class SaleScreen {
         pointsCheckBox.setBounds (100, 179, 115, 30);
         pointsCheckBox.setFont (new Font(Constants.DEFAULT_FONT, Font.BOLD, 16));
         pointsPanel.add(pointsCheckBox);
-
-        //APENAS PARA TESTE
-        cpfText.addActionListener (e -> {
-            pointsDisplay.setText ("300");
-            newPriceDisplay.setText ("R$ 20");
-        });
 
         return pointsPanel;
     }

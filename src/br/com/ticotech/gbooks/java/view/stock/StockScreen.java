@@ -7,6 +7,7 @@ import br.com.ticotech.gbooks.java.view.shared.TextField;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class StockScreen {
     public JPanel insertStockPanel(){
@@ -24,15 +25,19 @@ public class StockScreen {
         search.setBounds(176,26,240,33);
         stockPanel.add(search);
 
+        Button editButton = new Button("EDIT");
+        editButton.setBounds(604,26,100,33);
+        stockPanel.add(editButton);
+        editButton.addActionListener(e -> new EditStock("EDIT BOOK"));
+
         Button addButton = new Button("ADD");
         addButton.setBounds(714,26,100,33);
         stockPanel.add(addButton);
         addButton.addActionListener(e -> new EditStock("ADD BOOK"));
 
-        Button editButton = new Button("EDIT");
-        editButton.setBounds(824,26,100,33);
-        stockPanel.add(editButton);
-        editButton.addActionListener(e -> new EditStock("EDIT BOOK"));
+        Button removeButton = new Button("REMOVE", Constants.CANCEL_RED, Color.WHITE);
+        removeButton.setBounds(824,26,100,33);
+        stockPanel.add(removeButton);
 
         String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","INVOICE PRICE"};
         int [] columnsWidth = {60,60,12,12,12,12,16};
