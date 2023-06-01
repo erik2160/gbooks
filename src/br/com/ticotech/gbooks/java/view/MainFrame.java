@@ -30,7 +30,7 @@ public class MainFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
         frame.setLayout(new BorderLayout());
-        frame.setResizable(false);
+        frame.setResizable(true);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screenSize.width - 1280) / 2;
         int y = (screenSize.height - 720) / 2;
@@ -52,11 +52,11 @@ public class MainFrame {
         leftPanel.setLayout(null);
         centerPanel.setLayout(null);
 
-        topPanel.setBackground(Constants.DARK_BROWN);
-        leftPanel.setBackground(Constants.DARK_GRAY);
+        topPanel.setBackground(Constants.DARK_GRAY);
+        leftPanel.setBackground(Constants.MID_GRAY);
         centerPanel.setBackground(Constants.LIGHT_GRAY);
         rightPanel.setBackground(Constants.LIGHT_GRAY);
-        bottomPanel.setBackground(Constants.DARK_BROWN);
+        bottomPanel.setBackground(Constants.DARK_GRAY);
 
         topPanel.setPreferredSize(new Dimension(100, 30));
         leftPanel.setPreferredSize(new Dimension(250, 100));
@@ -114,7 +114,7 @@ public class MainFrame {
         titleLabel.setBounds(280,200,440,100);
         titleLabel.setOpaque(false);
         titleLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN,100));
-        titleLabel.setForeground(Constants.DARK_BROWN);
+        titleLabel.setForeground(Color.black);
         centerPanel.add(titleLabel);
 
         Button enterButton = new Button("Enter");

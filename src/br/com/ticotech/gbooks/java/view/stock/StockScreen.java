@@ -13,7 +13,7 @@ public class StockScreen {
     public JPanel insertStockPanel(){
         JPanel stockPanel = new JPanel();
         stockPanel.setLayout(null);
-        stockPanel.setBackground(Constants.DARK_GRAY);
+        stockPanel.setBackground(Constants.MID_GRAY);
         stockPanel.setBounds(40,20,950,582);
 
         String [] itemsList = {"BARCODE", "TITLE", "AUTHOR", "PUBLISHER"};

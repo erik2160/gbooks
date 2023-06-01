@@ -51,7 +51,7 @@ public class Table extends JTable {
 
         getTableHeader().setReorderingAllowed(false);
         getTableHeader ().setBackground (Constants.LIGHT_GRAY);
-        getTableHeader ().setForeground (Color.WHITE);
+        getTableHeader ().setForeground (Color.black);
         getTableHeader ().setFont (new Font (Constants.DEFAULT_FONT, Font.BOLD, 15));
         setRowHeight (30);
     }

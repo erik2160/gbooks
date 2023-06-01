@@ -67,7 +67,7 @@ public class SaleScreen {
 
         JPanel cartPanel = new JPanel();
         cartPanel.setLayout(null);
-        cartPanel.setBackground(Constants.DARK_GRAY);
+        cartPanel.setBackground(Constants.MID_GRAY);
         cartPanel.setBounds(40, 20,950, 335);
 
         codeBarTextField = new TextField("BARCODE");
@@ -127,7 +127,7 @@ public class SaleScreen {
         JPanel pointsPanel = new JPanel();
         //Alterado para demo
         pointsPanel.setVisible(false);
-        pointsPanel.setBackground(Constants.DARK_GRAY);
+        pointsPanel.setBackground(Constants.MID_GRAY);
         pointsPanel.setBounds(40, 366,315, 240);
         pointsPanel.setLayout(null);
 
@@ -156,7 +156,7 @@ public class SaleScreen {
 
     public JPanel insertFinishPanel(Sale sale) {
         JPanel finishPanel = new JPanel();
-        finishPanel.setBackground(Constants.DARK_GRAY);
+        finishPanel.setBackground(Constants.MID_GRAY);
         finishPanel.setBounds(370, 366,620, 240);
         finishPanel.setLayout(null);
 

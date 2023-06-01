@@ -11,7 +11,7 @@ public class ComboBox extends JComboBox<String> {
 
             if (isSelected) {
                 label.setForeground(Color.WHITE);
-                label.setBackground(Constants.DARK_BROWN);
+                label.setBackground(Constants.DARK_GRAY);
             } else {
                 label.setForeground(Color.BLACK);
                 label.setBackground(Color.WHITE);
