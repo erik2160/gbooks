@@ -39,8 +39,8 @@ public class StockScreen {
         removeButton.setBounds(824,26,100,33);
         stockPanel.add(removeButton);
 
-        String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","INVOICE PRICE"};
-        int [] columnsWidth = {60,60,12,12,12,12,16};
+        String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER", "UNITS","SELL PRICE","INVOICE PRICE"};
+        int [] columnsWidth = {50,50,30,5,30,5,40,40};
         Table table = new Table(columnsName,columnsWidth);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(26,70,899,485);

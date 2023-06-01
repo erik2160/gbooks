@@ -11,11 +11,11 @@ public class EditStock extends JFrame {
 
     public EditStock(String title) {
         setTitle(title);
-        setSize(430, 535);
+        setSize(430, 585);
         setResizable(false);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - 405) / 2;
-        int y = (screenSize.height - 535) / 2;
+        int x = (screenSize.width - 430) / 2;
+        int y = (screenSize.height - 585) / 2;
         setLocation(x,y);
 
         JPanel panel = new JPanel();
@@ -50,44 +50,53 @@ public class EditStock extends JFrame {
         author.setBounds(190,140,220,33);
         panel.add(author);
 
-        JLabel publisherLabel = new JLabel("PUBLISHER:");
-        publisherLabel.setBounds(55,190,125,33);
-        publisherLabel.setFont(new Font(Constants.DEFAULT_FONT,Font.PLAIN,22));
-        panel.add(publisherLabel);
-
-        TextField publisher = new TextField("");
-        publisher.setBounds(190,190,220,33);
-        panel.add(publisher);
-
         JLabel editionLabel = new JLabel("EDITION:");
-        editionLabel.setBounds(83,240,100,33);
+        editionLabel.setBounds(83,190,100,33);
         editionLabel.setFont(new Font(Constants.DEFAULT_FONT,Font.PLAIN,22));
         panel.add(editionLabel);
 
         TextField edition = new TextField("");
-        edition.setBounds(190,240,220,33);
+        edition.setBounds(190,190,220,33);
         panel.add(edition);
 
+        JLabel publisherLabel = new JLabel("PUBLISHER:");
+        publisherLabel.setBounds(55,240,125,33);
+        publisherLabel.setFont(new Font(Constants.DEFAULT_FONT,Font.PLAIN,22));
+        panel.add(publisherLabel);
+
+        TextField publisher = new TextField("");
+        publisher.setBounds(190,240,220,33);
+        panel.add(publisher);
+
+        JLabel unitsLabel = new JLabel("UNITS:");
+        unitsLabel.setBounds(108,290,100,33);
+        unitsLabel.setFont(new Font(Constants.DEFAULT_FONT,Font.PLAIN,22));
+        panel.add(unitsLabel);
+
+        TextField unitsField = new TextField("");
+        unitsField.setBounds(190,290,220,33);
+        panel.add(unitsField);
+
         JLabel sellPriceLabel = new JLabel("SELL PRICE:");
-        sellPriceLabel.setBounds(57,290,125,33);
+        sellPriceLabel.setBounds(59,340,125,33);
         sellPriceLabel.setFont(new Font(Constants.DEFAULT_FONT,Font.PLAIN,22));
         panel.add(sellPriceLabel);
 
         TextField sellPrice = new TextField("");
-        sellPrice.setBounds(190,290,220,33);
+        sellPrice.setBounds(190,340,220,33);
         panel.add(sellPrice);
 
         JLabel buyPriceLabel = new JLabel("INVOICE PRICE:");
-        buyPriceLabel.setBounds(20,340,160,33);
+        buyPriceLabel.setBounds(22,390,160,33);
         buyPriceLabel.setFont(new Font(Constants.DEFAULT_FONT,Font.PLAIN,22));
         panel.add(buyPriceLabel);
 
         TextField buyPrice = new TextField("");
-        buyPrice.setBounds(190,340,220,33);
+        buyPrice.setBounds(190,390,220,33);
         panel.add(buyPrice);
 
         Button finishButton = new Button("FINISH", Constants.CONFIRM_GREEN, Color.WHITE);
-        finishButton.setBounds(140,410,150,55);
+        finishButton.setBounds(140,460,150,55);
         panel.add(finishButton);
 
         setVisible(true);

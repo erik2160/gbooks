@@ -28,7 +28,7 @@ public class Table extends JTable {
         } else {
             component.setBackground(table.getBackground());
         }
-        component.setFont (new Font (Constants.DEFAULT_FONT,Font.PLAIN, 16));
+        component.setFont (new Font (Constants.DEFAULT_FONT,Font.PLAIN, 14));
         return component;
         }
     };
