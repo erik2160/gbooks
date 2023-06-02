@@ -58,7 +58,7 @@ public class MainFrame {
         bottomPanel.setBackground(Constants.DARK_GRAY);
 
         topPanel.setPreferredSize(new Dimension(100, 30));
-        leftPanel.setPreferredSize(new Dimension(250, 100));
+        leftPanel.setPreferredSize(new Dimension(300, 100));
         centerPanel.setPreferredSize(new Dimension(100, 100));
         bottomPanel.setPreferredSize(new Dimension(100, 30));
 

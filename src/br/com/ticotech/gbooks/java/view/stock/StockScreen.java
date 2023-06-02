@@ -14,7 +14,7 @@ public class StockScreen {
         JPanel stockPanel = new JPanel();
         stockPanel.setLayout(null);
         stockPanel.setBackground(Constants.MID_GRAY);
-        stockPanel.setBounds(40,20,950,582);
+        stockPanel.setBounds(40,20,1540,915);
 
         String [] itemsList = {"BARCODE", "TITLE", "AUTHOR", "PUBLISHER"};
         ComboBox comboBox = new ComboBox(itemsList);
@@ -26,24 +26,24 @@ public class StockScreen {
         stockPanel.add(search);
 
         Button editButton = new Button("EDIT");
-        editButton.setBounds(604,26,100,33);
+        editButton.setBounds(1138,26,120,33);
         stockPanel.add(editButton);
         editButton.addActionListener(e -> new EditStock("EDIT BOOK"));
 
         Button addButton = new Button("ADD");
-        addButton.setBounds(714,26,100,33);
+        addButton.setBounds(1266,26,120,33);
         stockPanel.add(addButton);
         addButton.addActionListener(e -> new EditStock("ADD BOOK"));
 
         Button removeButton = new Button("REMOVE", Constants.CANCEL_RED, Color.WHITE);
-        removeButton.setBounds(824,26,100,33);
+        removeButton.setBounds(1394,26,120,33);
         stockPanel.add(removeButton);
 
         String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER", "UNITS","SELL PRICE","INVOICE PRICE"};
         int [] columnsWidth = {50,50,30,5,30,5,40,40};
         Table table = new Table(columnsName,columnsWidth);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(26,70,899,485);
+        scrollPane.setBounds(26,70,1488,820);
         stockPanel.add(scrollPane);
 
         return stockPanel;

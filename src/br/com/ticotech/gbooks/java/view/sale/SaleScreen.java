@@ -68,7 +68,7 @@ public class SaleScreen {
         JPanel cartPanel = new JPanel();
         cartPanel.setLayout(null);
         cartPanel.setBackground(Constants.MID_GRAY);
-        cartPanel.setBounds(40, 20,950, 335);
+        cartPanel.setBounds(40, 20,1540, 660);
 
         codeBarTextField = new TextField("BARCODE");
         codeBarTextField.setBounds(26, 26, 240, 33);
@@ -97,13 +97,13 @@ public class SaleScreen {
         cartPanel.add(buttonAdd);
 
         buttonRemove = new Button("REMOVE",Constants.CANCEL_RED,Color.WHITE);
-        buttonRemove.setBounds(678,26, 120, 33);
+        buttonRemove.setBounds(1266,26, 120, 33);
         buttonRemove.setEnabled(false);
         buttonRemove.addActionListener(removeItem -> sale.removeItemTable());
         cartPanel.add(buttonRemove);
 
         buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
-        buttonCancel.setBounds(806,26, 120, 33);
+        buttonCancel.setBounds(1394,26, 120, 33);
         buttonCancel.setEnabled(false);
         buttonCancel.addActionListener(finishSale -> {
             if (sale.finishSale("cancel")) {
@@ -117,7 +117,7 @@ public class SaleScreen {
         table = new Table(columnsName, columnsWidth);
 
         JScrollPane tableScrollPane = new JScrollPane(table);
-        tableScrollPane.setBounds(26, 70, 899, 240);
+        tableScrollPane.setBounds(26, 70, 1488, 560);
         cartPanel.add(tableScrollPane);
 
         return cartPanel;
@@ -157,7 +157,7 @@ public class SaleScreen {
     public JPanel insertFinishPanel(Sale sale) {
         JPanel finishPanel = new JPanel();
         finishPanel.setBackground(Constants.MID_GRAY);
-        finishPanel.setBounds(370, 366,620, 240);
+        finishPanel.setBounds(960, 700,620, 240);
         finishPanel.setLayout(null);
 
         JLabel cashLabel = new JLabel("CASH");
