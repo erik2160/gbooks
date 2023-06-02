@@ -30,6 +30,7 @@ public class MainFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
         frame.setLayout(new BorderLayout());
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setResizable(true);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screenSize.width - 1280) / 2;
@@ -46,7 +47,6 @@ public class MainFrame {
         JPanel topPanel = new JPanel();
         leftPanel = new JPanel();
         centerPanel = new JPanel();
-        JPanel rightPanel = new JPanel();
         JPanel bottomPanel = new JPanel();
 
         leftPanel.setLayout(null);
@@ -55,19 +55,16 @@ public class MainFrame {
         topPanel.setBackground(Constants.DARK_GRAY);
         leftPanel.setBackground(Constants.MID_GRAY);
         centerPanel.setBackground(Constants.LIGHT_GRAY);
-        rightPanel.setBackground(Constants.LIGHT_GRAY);
         bottomPanel.setBackground(Constants.DARK_GRAY);
 
         topPanel.setPreferredSize(new Dimension(100, 30));
         leftPanel.setPreferredSize(new Dimension(250, 100));
         centerPanel.setPreferredSize(new Dimension(100, 100));
-        rightPanel.setPreferredSize(new Dimension(30, 100));
         bottomPanel.setPreferredSize(new Dimension(100, 30));
 
         frame.add(topPanel, BorderLayout.NORTH);
         frame.add(leftPanel, BorderLayout.WEST);
         frame.add(centerPanel, BorderLayout.CENTER);
-        frame.add(rightPanel, BorderLayout.EAST);
         frame.add(bottomPanel, BorderLayout.SOUTH);
     }
 
