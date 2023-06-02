@@ -1,13 +1,13 @@
 package br.com.ticotech.gbooks.java.entities;
 
-public class SaleCart {
+public class CartBook {
     private String code;
     private String title;
     private int units;
     private double unitPrice;
     private double totalPrice;
 
-    public SaleCart(String code, String title, int units, double unitPrice, double totalPrice) {
+    public CartBook(String code, String title, int units, double unitPrice, double totalPrice) {
         this.code = code;
         this.title = title;
         this.units = units;

@@ -4,25 +4,25 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.util.List;
 
-public class TableCart implements TableModel {
+public class CartTable implements TableModel {
     private final String[] columns = {"CODE", "TITLE", "UNITS", "UNIT VAL.", "TOTAL VAL."};
-    private final List<SaleCart> saleCart;
-    public TableCart(List<SaleCart> saleCart) {
-        this.saleCart = saleCart;
+    private final List<CartBook> cartBook;
+    public CartTable(List<CartBook> cartBook) {
+        this.cartBook = cartBook;
     }
     public String[] getColumns() {
         return columns;
     }
-    public List<SaleCart> getSaleCart() {
-        return saleCart;
+    public List<CartBook> getSaleCart() {
+        return cartBook;
     }
 
     @Override
     public int getRowCount() {
-        if(this.saleCart == null){
+        if(this.cartBook == null){
             return 0;
         }
-        return this.saleCart.size();
+        return this.cartBook.size();
     }
 
     @Override
@@ -48,11 +48,11 @@ public class TableCart implements TableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         return switch (columnIndex) {
-            case 0 -> this.saleCart.get(rowIndex).getCode();
-            case 1 -> this.saleCart.get(rowIndex).getTitle();
-            case 2 -> this.saleCart.get(rowIndex).getUnits();
-            case 3 -> this.saleCart.get(rowIndex).getUnitPrice();
-            case 4 -> this.saleCart.get(rowIndex).getTotalPrice();
+            case 0 -> this.cartBook.get(rowIndex).getCode();
+            case 1 -> this.cartBook.get(rowIndex).getTitle();
+            case 2 -> this.cartBook.get(rowIndex).getUnits();
+            case 3 -> this.cartBook.get(rowIndex).getUnitPrice();
+            case 4 -> this.cartBook.get(rowIndex).getTotalPrice();
             default -> 0;
         };
     }
@@ -60,11 +60,11 @@ public class TableCart implements TableModel {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         switch (columnIndex) {
-            case 0 -> this.saleCart.get(rowIndex).setCode((String) aValue);
-            case 1 -> this.saleCart.get(rowIndex).setTitle((String) aValue);
-            case 2 -> this.saleCart.get(rowIndex).setUnits((Integer) aValue);
-            case 3 -> this.saleCart.get(rowIndex).setUnitPrice((Double) aValue);
-            case 4 -> this.saleCart.get(rowIndex).setTotalPrice((Double) aValue);
+            case 0 -> this.cartBook.get(rowIndex).setCode((String) aValue);
+            case 1 -> this.cartBook.get(rowIndex).setTitle((String) aValue);
+            case 2 -> this.cartBook.get(rowIndex).setUnits((Integer) aValue);
+            case 3 -> this.cartBook.get(rowIndex).setUnitPrice((Double) aValue);
+            case 4 -> this.cartBook.get(rowIndex).setTotalPrice((Double) aValue);
         }
     }
 

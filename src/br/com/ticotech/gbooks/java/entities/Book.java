@@ -1,6 +1,6 @@
 package br.com.ticotech.gbooks.java.entities;
 
-public class ListStock {
+public class Book {
     private String code;
     private String title;
     private String editor;
@@ -8,7 +8,7 @@ public class ListStock {
     private int quantity;
     private double price;
 
-    public ListStock(String code, String title, String editor, String publisher, int quantity, double price) {
+    public Book(String code, String title, String editor, String publisher, int quantity, double price) {
         this.code = code;
         this.title = title;
         this.editor = editor;

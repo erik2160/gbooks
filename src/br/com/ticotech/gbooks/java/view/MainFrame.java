@@ -4,8 +4,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.ticotech.gbooks.java.entities.ListStock;
-import br.com.ticotech.gbooks.java.view.sale.Sale;
+import br.com.ticotech.gbooks.java.entities.Book;
+import br.com.ticotech.gbooks.java.view.sale.SaleService;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.Constants;
@@ -13,10 +13,10 @@ import br.com.ticotech.gbooks.java.view.stock.StockScreen;
 
 public class MainFrame {
     private final JFrame frame;
-    private final SaleScreen saleScreen = new SaleScreen();
+    private final SaleScreen saleScreen;
     private final StockScreen stockScreen = new StockScreen();
-    private final List<ListStock> listStock = new ArrayList<>();
-    private final Sale sale = new Sale(listStock);
+    private final List<Book> book = new ArrayList<>();
+    private SaleService saleService;
     private JPanel leftPanel;
     private JPanel centerPanel;
     private Button cashierButton;
@@ -38,7 +38,14 @@ public class MainFrame {
         createPanels();
         createButtons();
         configureLeftPanel();
-        showHomeScreen();
+
+        saleScreen = new SaleScreen();
+        saleScreen.setVisible(false);
+        frame.add(saleScreen.getCartPanel());
+
+        saleService= new SaleService(book, saleScreen);
+
+        //showHomeScreen();
         frame.setVisible(true);
     }
 
@@ -124,16 +131,11 @@ public class MainFrame {
     }
 
     private void showSaleSection() {
-        centerPanel.removeAll();
-        centerPanel.setVisible(false);
-        centerPanel.setVisible(true);
-        centerPanel.add(saleScreen.insertCartPanel(sale));
-        centerPanel.add(saleScreen.insertPointsPanel(sale));
-        centerPanel.add(saleScreen.insertFinishPanel(sale));
+        saleScreen.setVisible(true);
     }
 
     private void showStockSection(){
-        centerPanel.removeAll();
+
         centerPanel.setVisible(false);
         centerPanel.setVisible(true);
         centerPanel.add(stockScreen.insertStockPanel());
