@@ -1,6 +1,6 @@
 package br.com.ticotech.gbooks.java.entities;
 
-public class ListStock {
+    public class ListStock {
     private String code;
     private String title;
     private String editor;
