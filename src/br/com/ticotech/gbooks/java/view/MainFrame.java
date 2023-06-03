@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ticotech.gbooks.java.entities.ListStock;
-import br.com.ticotech.gbooks.java.view.report.ReportScreen;
 import br.com.ticotech.gbooks.java.view.sale.Sale;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
@@ -17,8 +16,6 @@ public class MainFrame {
     private final SaleScreen saleScreen = new SaleScreen();
     private final StockScreen stockScreen = new StockScreen();
     private final List<ListStock> listStock = new ArrayList<>();
-
-    private final ReportScreen reportScreen = new ReportScreen();
     private final Sale sale = new Sale(listStock);
     private JPanel leftPanel;
     private JPanel centerPanel;
@@ -80,7 +77,7 @@ public class MainFrame {
 
         cashierButton.addActionListener(e -> showSaleSection());
         stockButton.addActionListener(e -> showStockSection());
-        reportButton.addActionListener(e -> showReportSection());
+        reportButton.setEnabled(false);
         usersButton.setEnabled(false);
         logoutButton.setEnabled(false);
     }
@@ -137,11 +134,5 @@ public class MainFrame {
         centerPanel.setVisible(false);
         centerPanel.setVisible(true);
         centerPanel.add(stockScreen.insertStockPanel());
-    }
-    private void showReportSection(){
-        centerPanel.removeAll();
-        centerPanel.setVisible(false);
-        centerPanel.setVisible(true);
-        centerPanel.add(reportScreen.insertReportPanel());
     }
 }
