@@ -1,5 +1,6 @@
 package br.com.ticotech.gbooks.java.view.sale;
 
+import br.com.ticotech.gbooks.java.controllers.SaleController;
 import br.com.ticotech.gbooks.java.view.shared.*;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
 
@@ -10,7 +11,7 @@ public class PointsPanel {
     private Display pointsDisplay;
     private Display newPriceDisplay;
 
-    public JPanel insertPointsPanel(SaleService saleService) {
+    public JPanel insertPointsPanel(SaleController saleController) {
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(Constants.DARK_GRAY);
         pointsPanel.setBounds(40, 366, 315, 240);

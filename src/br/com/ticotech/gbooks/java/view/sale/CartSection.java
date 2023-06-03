@@ -1,5 +1,6 @@
 package br.com.ticotech.gbooks.java.view.sale;
 
+import br.com.ticotech.gbooks.java.controllers.SaleController;
 import br.com.ticotech.gbooks.java.view.shared.*;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
@@ -7,6 +8,7 @@ import br.com.ticotech.gbooks.java.view.shared.TextField;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.Objects;
 
 public class CartSection {
     private JPanel cartPanel;
@@ -15,7 +17,6 @@ public class CartSection {
     private Table table;
     private Button buttonCancel;
     private Button buttonRemove;
-
     public JPanel getCartPanel(){ return cartPanel;}
     public TextField getCodeBarTextField() {
         return codeBarTextField;
@@ -32,9 +33,12 @@ public class CartSection {
     public DefaultTableModel getModel() {
         return table.getModel();
     }
+    private SaleController saleController;
 
 
-    public CartSection( SaleScreen saleScreen) {
+    public CartSection(SaleController saleController, SaleScreen saleScreen) {
+        this.saleController = saleController;
+
         cartPanel = new JPanel();
         cartPanel.setLayout(null);
         cartPanel.setBackground(Constants.DARK_GRAY);
@@ -50,8 +54,8 @@ public class CartSection {
         unitsTextField.setFontSize(22);
         unitsTextField.addActionListener(enterUnit -> {
             codeBarTextField.requestFocus();
-            //if (saleService.addToCart()) { //TODO
-            //    saleScreen.disableElements("add");}
+            if (addToCart()) {
+                saleScreen.disableElements("add");}
         });
         cartPanel.add(unitsTextField);
 
@@ -59,23 +63,23 @@ public class CartSection {
         buttonAdd.setBounds(366, 26, 110, 33);
         buttonAdd.addActionListener(addItem -> {
             codeBarTextField.requestFocus();
-            //if (saleService.addToCart()) { //TODO
-            //    saleScreen.disableElements("add");}
+            if (addToCart()) {
+                saleScreen.disableElements("add");}
         });
         cartPanel.add(buttonAdd);
 
         buttonRemove = new Button("REMOVE", Constants.CANCEL_RED, Color.WHITE);
         buttonRemove.setBounds(678, 26, 120, 33);
         buttonRemove.setEnabled(false);
-        buttonRemove.addActionListener(removeItem -> saleService.removeItemTable());
+        buttonRemove.addActionListener(removeItem -> saleController.removeItemTable());
         cartPanel.add(buttonRemove);
 
         buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
         buttonCancel.setBounds(806, 26, 120, 33);
         buttonCancel.setEnabled(false);
         buttonCancel.addActionListener(finishSale -> {
-            //if (saleService.finishSale("cancel")) { //TODO
-            //    saleScreen.disableElements("cancel");}
+            if (saleController.finishSale("cancel")) { //TODO
+                saleScreen.disableElements("cancel");}
         });
         cartPanel.add(buttonCancel);
 
@@ -86,5 +90,28 @@ public class CartSection {
         JScrollPane tableScrollPane = new JScrollPane(table);
         tableScrollPane.setBounds(26, 70, 899, 240);
         cartPanel.add(tableScrollPane);
+    }
+
+    private boolean addToCart(){
+        String barcode = codeBarTextField.getText();
+        int units;
+
+        if(Objects.equals(barcode, "BARCODE")){
+            new Popups ("The BARCODE field is empty!", 1);
+            return false;
+        }
+
+        if(Objects.equals(unitsTextField.getText(), "UNITS")){
+            new Popups ("The UNITS field is empty!", 1);
+            return false;
+        }
+        try{
+            units = Integer.parseInt(unitsTextField.getText());
+        } catch (NumberFormatException e){
+            new Popups ("Invalid type! Enter a number in the UNITS field.", 1);
+            return false;
+        }
+
+        return saleController.addToCart(barcode,units);
     }
 }

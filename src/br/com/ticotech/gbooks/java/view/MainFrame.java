@@ -5,18 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ticotech.gbooks.java.entities.Book;
-import br.com.ticotech.gbooks.java.view.sale.SaleService;
+import br.com.ticotech.gbooks.java.controllers.SaleController;
+import br.com.ticotech.gbooks.java.entities.CartBook;
+import br.com.ticotech.gbooks.java.repository.StockRepository;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.Constants;
 import br.com.ticotech.gbooks.java.view.stock.StockScreen;
 
 public class MainFrame {
-    private final JFrame frame;
+    private JFrame frame;
     private final SaleScreen saleScreen;
     private final StockScreen stockScreen = new StockScreen();
-    private final List<Book> book = new ArrayList<>();
-    private SaleService saleService;
+    private final List<Book> bookList = new ArrayList<>();
+    private StockRepository stockRepository = new StockRepository();
+    private List<CartBook> cartList = new ArrayList<>();
+    private SaleController saleController = new SaleController(stockRepository);
     private JPanel leftPanel;
     private JPanel centerPanel;
     private Button cashierButton;
@@ -26,6 +30,22 @@ public class MainFrame {
     private Button logoutButton;
 
     public MainFrame() {
+        createFrame();
+        createPanels();
+        configureLeftPanel();
+
+        saleScreen = new SaleScreen();
+        saleScreen.setVisible(false);
+        frame.add(saleScreen.getCartPanel());
+
+        saleController = new SaleController(stockRepository);
+
+        showHomeScreen();
+
+        frame.setVisible(true);
+    }
+
+    private void createFrame(){
         frame = new JFrame("G-Books System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
@@ -35,25 +55,12 @@ public class MainFrame {
         int x = (screenSize.width - 1280) / 2;
         int y = (screenSize.height - 720) / 2;
         frame.setLocation(x, y);
-        createPanels();
-        createButtons();
-        configureLeftPanel();
-
-        saleScreen = new SaleScreen();
-        saleScreen.setVisible(false);
-        frame.add(saleScreen.getCartPanel());
-
-        saleService= new SaleService(book, saleScreen);
-
-        //showHomeScreen();
-        frame.setVisible(true);
     }
 
     private void createPanels() {
         JPanel topPanel = new JPanel();
         leftPanel = new JPanel();
         centerPanel = new JPanel();
-        JPanel rightPanel = new JPanel();
         JPanel bottomPanel = new JPanel();
 
         leftPanel.setLayout(null);
@@ -62,19 +69,16 @@ public class MainFrame {
         topPanel.setBackground(Constants.DARK_BROWN);
         leftPanel.setBackground(Constants.DARK_GRAY);
         centerPanel.setBackground(Constants.LIGHT_GRAY);
-        rightPanel.setBackground(Constants.LIGHT_GRAY);
         bottomPanel.setBackground(Constants.DARK_BROWN);
 
         topPanel.setPreferredSize(new Dimension(100, 30));
         leftPanel.setPreferredSize(new Dimension(250, 100));
         centerPanel.setPreferredSize(new Dimension(100, 100));
-        rightPanel.setPreferredSize(new Dimension(30, 100));
         bottomPanel.setPreferredSize(new Dimension(100, 30));
 
         frame.add(topPanel, BorderLayout.NORTH);
         frame.add(leftPanel, BorderLayout.WEST);
         frame.add(centerPanel, BorderLayout.CENTER);
-        frame.add(rightPanel, BorderLayout.EAST);
         frame.add(bottomPanel, BorderLayout.SOUTH);
     }
 
@@ -93,6 +97,7 @@ public class MainFrame {
     }
 
     private void configureLeftPanel() {
+        createButtons();
         JLabel menuLabel = new JLabel("MENU");
         menuLabel.setBounds(87,26,80,30);
         menuLabel.setForeground(Color.WHITE);
@@ -113,10 +118,6 @@ public class MainFrame {
     }
 
     private void showHomeScreen() {
-        centerPanel.removeAll();
-        centerPanel.setVisible(false);
-        centerPanel.setVisible(true);
-
         JLabel titleLabel = new JLabel("G-BOOKS");
         titleLabel.setBounds(280,200,440,100);
         titleLabel.setOpaque(false);
@@ -126,7 +127,10 @@ public class MainFrame {
 
         Button enterButton = new Button("Enter");
         enterButton.setBounds(455,330, 90,40);
-        enterButton.addActionListener(e -> showSaleSection());
+        enterButton.addActionListener(e -> {
+            centerPanel.removeAll();
+            showSaleSection();
+        });
         centerPanel.add(enterButton);
     }
 

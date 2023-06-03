@@ -3,18 +3,22 @@ package br.com.ticotech.gbooks.java.entities;
 public class Book {
     private String code;
     private String title;
-    private String editor;
+    private String author;
+    private int edition;
     private String publisher;
-    private int quantity;
-    private double price;
+    private int units;
+    private double invoicePrice;
+    private double finalPrice;
 
-    public Book(String code, String title, String editor, String publisher, int quantity, double price) {
+    public Book(String code, String title, String author,int edition, String publisher, int units, double invoicePrice, double finalPrice) {
         this.code = code;
         this.title = title;
-        this.editor = editor;
+        this.author = author;
+        this.edition = edition;
         this.publisher = publisher;
-        this.quantity = quantity;
-        this.price = price;
+        this.units = units;
+        this.invoicePrice = invoicePrice;
+        this.finalPrice = finalPrice;
     }
 
     public String getCode() {
@@ -33,12 +37,20 @@ public class Book {
         this.title = title;
     }
 
-    public String getEditor() {
-        return editor;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setEditor(String editor) {
-        this.editor = editor;
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getEdition() {
+        return edition;
+    }
+
+    public void setEdition(int edition) {
+        this.edition = edition;
     }
 
     public String getPublisher() {
@@ -49,19 +61,27 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getUnits() {
+        return units;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setUnits(int units) {
+        this.units = units;
     }
 
-    public double getPrice() {
-        return price;
+    public double getInvoicePrice() {
+        return invoicePrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setInvoicePrice(double invoicePrice) {
+        this.invoicePrice = invoicePrice;
+    }
+
+    public void setFinalPrice(double finalPrice) {
+        this.finalPrice = finalPrice;
+    }
+
+    public double getFinalPrice() {
+        return finalPrice;
     }
 }

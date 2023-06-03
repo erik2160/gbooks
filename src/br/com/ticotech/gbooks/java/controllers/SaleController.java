@@ -1,8 +1,11 @@
-package br.com.ticotech.gbooks.java.view.sale;
+package br.com.ticotech.gbooks.java.controllers;
 
 import br.com.ticotech.gbooks.java.entities.CartBook;
 import br.com.ticotech.gbooks.java.entities.Book;
 import br.com.ticotech.gbooks.java.entities.CartTable;
+import br.com.ticotech.gbooks.java.repository.SaleRepository;
+import br.com.ticotech.gbooks.java.repository.StockRepository;
+import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Display;
 import br.com.ticotech.gbooks.java.view.shared.Popups;
 
@@ -10,92 +13,119 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SaleService{
+public class SaleController {
+    private final StockRepository stockRepository;
     private final List<CartBook> cartBookList = new ArrayList<>();
     private final CartTable cartTable = new CartTable(cartBookList);
-    private final List<Book> availableBooksList;
-    private SaleScreen saleScreen;
+    private final SaleScreen saleScreen;
+    private final SaleRepository saleRepository;
 
-    private final String barcode = saleScreen.getCartSection().getCodeBarTextField().getText();
-    private final Display toPayDisplay = saleScreen.getFinishSection().getToPayDisplay();
-
-    public SaleService(List<Book> availableBooksList, SaleScreen saleScreen) {
-        this.availableBooksList = availableBooksList;
+    public SaleController(StockRepository stockRepository, SaleRepository saleRepository, SaleScreen saleScreen) {
+        this.stockRepository = stockRepository;
         this.saleScreen = saleScreen;
+        this.saleRepository = saleRepository;
+        stockRepository.getStock();
     }
-    public boolean addToCart() {
-        // Percorre a lista de livros disponíveis
-        for (Book book : availableBooksList) {
-            try {
-                // Verifica se o livro está em estoque e possui quantidade maior que zero
-                if (existInStock(barcode) && book.getQuantity() > 0) {
-                    // Obtém a quantidade de itens a ser adicionada ao carrinho a partir do campo de texto
-                    int quantityItem = Integer.parseInt(saleScreen.getCartSection().getUnitsTextField().getText());
+    public boolean addToCart(String barcode, int units) {
+        if (existInStock(barcode)) {
+            Book book = stockRepository.getBook(barcode);
 
-                    // Verifica se a quantidade é válida (menor ou igual à quantidade em estoque)
-                    if (quantityItem <= book.getQuantity()) {
-                        // Verifica se o código de barras do livro é igual ao código digitado
-                        if (Objects.equals(barcode, book.getCode())) {
-                            // Verifica se o livro já está no carrinho
-                            if (existInCart(book.getCode())) {
-                                // Atualiza o item no carrinho
-                                for (CartBook item : cartTable.getSaleCart()) {
-                                    if (Objects.equals(item.getCode(), book.getCode())) {
-                                        item.setUnits(item.getUnits() + quantityItem);
-                                        item.setTotalPrice(book.getPrice() * item.getUnits());
-                                    }
-                                }
-                                updateItemTable();
-                            } else {
-                                // Adiciona um novo item ao carrinho
-                                cartBookList.add(new CartBook(
-                                        book.getCode(),
-                                        book.getTitle(),
-                                        quantityItem,
-                                        book.getPrice(),
-                                        Double.parseDouble(String.format("%.2f", book.getPrice() * quantityItem).replace(",", "."))
-                                ));
-                                insertItemTable(cartBookList.size() - 1);
-                            }
-
-                            // Atualiza o valor total a pagar na tela
-                            saleScreen.getFinishSection().getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
-                            return true;
-                        }
-                    } else {
-                        // Exibe uma mensagem de erro informando que a quantidade é maior do que a disponível em estoque
-                        String messageError = String.format("Quantity for \"%S\" larger than in stock", barcode);
-                        new Popups (messageError, 1);
-                        break;
-                    }
-                } else {
-                    // Verifica se a quantidade em estoque é zero
-                    if (book.getQuantity() <= 0) {
-                        // Exibe uma mensagem de erro informando que a quantidade em estoque é zero
-                        String messageError = String.format("Quantity for \"%S\" is 0 in stock", barcode);
-                        new Popups (messageError, 1);
-                        break;
-                    }
-
-                    // Verifica se o código de barras é vazio
-                    if (Objects.equals(barcode, "BARCODE")) {
-                        // Exibe uma mensagem de erro informando que o campo de código de barras está vazio
-                        new Popups ("The BARCODE field is empty!!", 1);
-                    } else {
-                        // Exibe uma mensagem de erro informando que o código de barras não foi encontrado
-                        String messageError = String.format("Code bar \"%S\" not found", barcode);
-                        new Popups (messageError, 1);
-                    }
-                    break;
-                }
-            } catch (NumberFormatException quantityEmpty) {
-                // Exibe uma mensagem de erro informando que o campo de quantidade está vazio
-                new Popups ("The UNITS field is empty!!", 1);
-                break;
+            if (book.getUnits() == 0) {
+                new Popups("There is no more units of this book in the stock", 1);
+                return false;
             }
+
+            if (units > book.getUnits()) {
+                new Popups("Units greater than in stock", 1);
+                return false;
+            }
+
+            if (existInCart(barcode)) {
+                for (CartBook cartBook : cartTable.getSaleCart()) {
+                    if (Objects.equals(cartBook.getCode(), book.getCode())) {
+                        cartBook.setUnits(cartBook.getUnits() + units);
+                        cartBook.setTotalPrice(book.getInvoicePrice() * cartBook.getUnits());
+                    }
+                }
+                updateItemTable();
+            } else {
+                cartBookList.add(new CartBook(
+                        book.getCode(),
+                        book.getTitle(),
+                        units,
+                        book.getFinalPrice(),
+                        Double.parseDouble(String.format("%.2f", book.getFinalPrice() * units).replace(",", "."))
+                ));
+                insertItemTable(cartBookList.size() - 1);
+            }
+
+            String toPay = String.valueOf(String.format("%.2f", sumTotal())).replace(",", ".");
+            saleScreen.getFinishSection().getToPayDisplay().setText(toPay);
+            return true;
+        } else {
+            String messageError = String.format("Barcode \"%S\" not found!", barcode);
+            new Popups(messageError, 1);
+            return false;
         }
-        return false;
     }
+
+
+//        for (Book book : availableBooksList) {
+//            try {
+//                if (existInStock(barcode) && book.getUnits() > 0) {
+//                    int quantityItem = Integer.parseInt(saleScreen.getCartSection().getUnitsTextField().getText());
+//
+//                    if (quantityItem <= book.getUnits()) {
+//                        if (Objects.equals(barcode, book.getCode())) {
+//                            if (existInCart(book.getCode())) {
+//                                for (CartBook cartBook : cartTable.getSaleCart()) {
+//                                    if (Objects.equals(cartBook.getCode(), book.getCode())) {
+//                                        cartBook.setUnits(cartBook.getUnits() + quantityItem);
+//                                        cartBook.setTotalPrice(book.getInvoicePrice() * cartBook.getUnits());
+//                                    }
+//                                }
+//                                updateItemTable();
+//                            } else {
+//                                cartBookList.add(new CartBook(
+//                                        book.getCode(),
+//                                        book.getTitle(),
+//                                        quantityItem,
+//                                        book.getFinalPrice(),
+//                                        Double.parseDouble(String.format("%.2f", book.getFinalPrice() * quantityItem).replace(",", "."))
+//                                ));
+//                                insertItemTable(cartBookList.size() - 1);
+//                            }
+//
+//                            saleScreen.getFinishSection().getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
+//                            return true;
+//                        }
+//                    } else {
+//                        String messageError = String.format("Quantity for \"%S\" larger than in stock", barcode);
+//                        new Popups (messageError, 1);
+//                        break;
+//                    }
+//                } else {
+//                    if (book.getUnits() <= 0) {
+//                        String messageError = String.format("Quantity for \"%S\" is 0 in stock", barcode);
+//                        new Popups (messageError, 1);
+//                        break;
+//                    }
+//
+//                    if (Objects.equals(barcode, "BARCODE")) {
+//                        new Popups ("The BARCODE field is empty!!", 1);
+//                    } else {
+//                        String messageError = String.format("Code bar \"%S\" not found", barcode);
+//                        new Popups (messageError, 1);
+//                    }
+//                    break;
+//                }
+//            } catch (NumberFormatException quantityEmpty) {
+//                new Popups ("The UNITS field is empty!!", 1);
+//                break;
+//            }
+//        }
+//        return false;
+//    }
 
     private void insertItemTable(int index) {
         saleScreen.getCartSection().getModel().addRow(new Object[]{
@@ -119,7 +149,7 @@ public class SaleService{
     }
 
     public void removeItemTable() {
-        double getTotal = Double.parseDouble(saleScreen.getFinishSection().getToPayDisplay().getText().replace(",", "."));
+        double getTotal = Double.parseDouble(saleScreen.getFinishSection().getToPayDisplay().getText());
         int quantityItem;
 
         for (int row = 0; row < saleScreen.getCartSection().getModel().getRowCount(); row++) {
@@ -135,7 +165,7 @@ public class SaleService{
                 if (Objects.equals(getCodeBar, itemTable)) {
                     if (Objects.equals(saleScreen.getCartSection().getUnitsTextField().getText(), "UNITS")) {
                         getTotal -= (double) saleScreen.getCartSection().getModel().getValueAt(row, 4);
-                        availableBooksList.get(row).setQuantity(cartBookList.get(row).getUnits() + availableBooksList.get(row).getQuantity());
+                        availableBooksList.get(row).setUnits(cartBookList.get(row).getUnits() + availableBooksList.get(row).getUnits());
                         saleScreen.getFinishSection().getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
                         saleScreen.getCartSection().getModel().removeRow(row);
                         cartBookList.remove(row);
@@ -174,18 +204,18 @@ public class SaleService{
         }
     }
 
-    private boolean existInStock(String product) {
-        for (Book item : availableBooksList) {
-            if (Objects.equals(item.getCode(), product)) {
+    private boolean existInStock(String barcode) {
+        for (Book book : stockRepository.getStock()) {
+            if (Objects.equals(book.getCode(), barcode)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean existInCart(String product) {
-        for (CartBook item : cartBookList) {
-            if (Objects.equals(item.getCode(), product)) {
+    private boolean existInCart(String barcode) {
+        for (CartBook book : cartBookList) {
+            if (Objects.equals(book.getCode(), barcode)) {
                 return true;
             }
         }
@@ -282,7 +312,7 @@ public class SaleService{
                 if (Objects.equals(item.getCode(), product.getCode())) {
                     try {
                         if (Objects.equals(type, "finish")) {
-                            product.setQuantity(product.getQuantity() - item.getUnits());
+                            product.setUnits(product.getUnits() - item.getUnits());
                             saleScreen.getCartSection().getModel().removeRow(0);
                         } else if (Objects.equals(type, "cancel")) {
                             saleScreen.getCartSection().getModel().removeRow(0);
@@ -298,10 +328,4 @@ public class SaleService{
         cartTable.getSaleCart().clear();
     }
 
-    public void addStorage() {
-        availableBooksList.add(new Book("CODE1", "Book1", "EDITOR", "PUBLISHER", 10, 25.17));
-        availableBooksList.add(new Book("CODE2", "Book2", "EDITOR", "PUBLISHER", 10, 50.13));
-        availableBooksList.add(new Book("CODE3", "Book3", "EDITOR", "PUBLISHER", 10, 10.21));
-        availableBooksList.add(new Book("CODE4", "Book3", "EDITOR", "PUBLISHER", 10, 10.21));
-    }
 }
