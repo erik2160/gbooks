@@ -11,12 +11,12 @@ import java.awt.*;
 import java.util.Objects;
 
 public class CartSection {
-    private JPanel cartPanel;
-    private TextField codeBarTextField;
-    private TextField unitsTextField;
-    private Table table;
-    private Button buttonCancel;
-    private Button buttonRemove;
+    private final JPanel cartPanel;
+    private final TextField codeBarTextField;
+    private final TextField unitsTextField;
+    private final Table table;
+    private final Button buttonCancel;
+    private final Button buttonRemove;
     public JPanel getCartPanel(){ return cartPanel;}
     public TextField getCodeBarTextField() {
         return codeBarTextField;
@@ -33,7 +33,7 @@ public class CartSection {
     public DefaultTableModel getModel() {
         return table.getModel();
     }
-    private SaleController saleController;
+    private final SaleController saleController;
 
 
     public CartSection(SaleController saleController, SaleScreen saleScreen) {
@@ -71,7 +71,7 @@ public class CartSection {
         buttonRemove = new Button("REMOVE", Constants.CANCEL_RED, Color.WHITE);
         buttonRemove.setBounds(678, 26, 120, 33);
         buttonRemove.setEnabled(false);
-        buttonRemove.addActionListener(removeItem -> saleController.removeItemTable());
+        buttonRemove.addActionListener(removeItem -> removeFromCart());
         cartPanel.add(buttonRemove);
 
         buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
@@ -113,5 +113,29 @@ public class CartSection {
         }
 
         return saleController.addToCart(barcode,units);
+    }
+
+    private void removeFromCart(){
+        String barcode = codeBarTextField.getText();
+        String units = unitsTextField.getText();
+        int unitsFormatted = 0;
+        boolean validInput = true;
+
+        if(Objects.equals(barcode, "BARCODE")){
+            validInput = false;
+            new Popups ("The BARCODE field is empty!", 1);
+        }
+
+        if(Objects.equals(units, "UNITS")){
+            units = "0";
+        }
+        try{
+            unitsFormatted = Integer.parseInt(units);
+        } catch (NumberFormatException e){
+            validInput = false;
+            new Popups ("Invalid type! Enter a number in the UNITS field.", 1);
+        }
+
+        if (validInput){saleController.removeItemTable(barcode,unitsFormatted);}
     }
 }

@@ -6,7 +6,6 @@ import br.com.ticotech.gbooks.java.entities.CartTable;
 import br.com.ticotech.gbooks.java.repository.SaleRepository;
 import br.com.ticotech.gbooks.java.repository.StockRepository;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
-import br.com.ticotech.gbooks.java.view.shared.Display;
 import br.com.ticotech.gbooks.java.view.shared.Popups;
 
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ public class SaleController {
         this.stockRepository = stockRepository;
         this.saleScreen = saleScreen;
         this.saleRepository = saleRepository;
-        stockRepository.getStock();
     }
     public boolean addToCart(String barcode, int units) {
         if (existInStock(barcode)) {
@@ -148,51 +146,47 @@ public class SaleController {
         }
     }
 
-    public void removeItemTable() {
-        double getTotal = Double.parseDouble(saleScreen.getFinishSection().getToPayDisplay().getText());
-        int quantityItem;
+    public void removeItemTable(String barcode, int units) {
+        double toPay = Double.parseDouble(saleScreen.getFinishSection().getToPayDisplay().getText());
 
-        for (int row = 0; row < saleScreen.getCartSection().getModel().getRowCount(); row++) {
-            String itemTable = (String) saleScreen.getCartSection().getModel().getValueAt(row, 0);
-            String getCodeBar = barcode;
+        if (!existInCart(barcode)) {
+            String messageError = String.format("Barcode \"%S\" not found", barcode);
+            new Popups(messageError, 1);
+        }
+        else {
+            for (int row = 0; row < saleScreen.getCartSection().getModel().getRowCount(); row++) {
+                String bookBarcode = (String) saleScreen.getCartSection().getModel().getValueAt(row, 0);
 
-            if (Objects.equals(barcode, "BARCODE")) {
-                new Popups ("The BARCODE field is empty!" ,1);
-            } else if (!existInCart(barcode)) {
-                String messageError = String.format("Code bar \"%S\" not found", barcode);
-                new Popups (messageError, 1);
-            } else {
-                if (Objects.equals(getCodeBar, itemTable)) {
-                    if (Objects.equals(saleScreen.getCartSection().getUnitsTextField().getText(), "UNITS")) {
-                        getTotal -= (double) saleScreen.getCartSection().getModel().getValueAt(row, 4);
-                        availableBooksList.get(row).setUnits(cartBookList.get(row).getUnits() + availableBooksList.get(row).getUnits());
-                        saleScreen.getFinishSection().getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
+                if (Objects.equals(barcode, bookBarcode)) {
+                    if (units == 0) {
+                        toPay -= (double) saleScreen.getCartSection().getModel().getValueAt(row, 4);
+                        //stockRepository.getStock().get(row).setUnits(cartBookList.get(row).getUnits() + stockRepository.getStock().get(row).getUnits());
+                        saleScreen.getFinishSection().getToPayDisplay().setText(String.valueOf(String.format("%.2f", toPay)).replace(",", "."));
                         saleScreen.getCartSection().getModel().removeRow(row);
                         cartBookList.remove(row);
                     } else {
-                        quantityItem = Integer.parseInt(saleScreen.getCartSection().getUnitsTextField().getText());
 
-                        if (quantityItem > (int) saleScreen.getCartSection().getModel().getValueAt(row, 2)) {
-                            String messageError = String.format("Quantity for \"%S\" larger than in cart", barcode);
+                        if (units > (int) saleScreen.getCartSection().getModel().getValueAt(row, 2)) {
+                            String messageError = String.format("Quantity for remove of \"%S\" larger than in cart", barcode);
                             new Popups(messageError, 1);
                             break;
                         } else {
-                            if (cartBookList.get(row).getUnits() - quantityItem <= 0) {
-                                getTotal -= (double) saleScreen.getCartSection().getModel().getValueAt(row, 4);
+                            if (cartBookList.get(row).getUnits() - units <= 0) {
+                                toPay -= (double) saleScreen.getCartSection().getModel().getValueAt(row, 4);
                                 saleScreen.getCartSection().getModel().removeRow(row);
                                 cartBookList.remove(row);
                             } else {
-                                cartBookList.get(row).setUnits(cartBookList.get(row).getUnits() - quantityItem);
-                                getTotal -= (double) saleScreen.getCartSection().getModel().getValueAt(row, 3) * quantityItem;
+                                cartBookList.get(row).setUnits(cartBookList.get(row).getUnits() - units);
+                                toPay -= (double) saleScreen.getCartSection().getModel().getValueAt(row, 3) * units;
                                 cartBookList.get(row).setTotalPrice(
-                                    Double.parseDouble(
-                                        String.format(
-                                            "%.2f",
-                                            cartBookList.get(row).getTotalPrice() - (cartBookList.get(row).getUnitPrice() * quantityItem)).replace(",", "."))
+                                        Double.parseDouble(
+                                                String.format(
+                                                        "%.2f",
+                                                        cartBookList.get(row).getTotalPrice() - (cartBookList.get(row).getUnitPrice() * units)).replace(",", "."))
                                 );
                                 updateItemTable();
                             }
-                            saleScreen.getFinishSection().getToPayDisplay().setText(String.valueOf(String.format("%.2f", getTotal)).replace(",", "."));
+                            saleScreen.getFinishSection().getToPayDisplay().setText(String.valueOf(String.format("%.2f", toPay)).replace(",", "."));
                         }
                     }
                     saleScreen.getCartSection().getCodeBarTextField().reset();
@@ -307,7 +301,7 @@ public class SaleController {
     }
 
     private void cleanTable(String type) {
-        for (Book product : availableBooksList) {
+        for (Book product : stockRepository.getStock()) {
             for (CartBook item : cartTable.getSaleCart()) {
                 if (Objects.equals(item.getCode(), product.getCode())) {
                     try {

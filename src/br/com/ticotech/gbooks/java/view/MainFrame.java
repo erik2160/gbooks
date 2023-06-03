@@ -7,6 +7,7 @@ import java.util.List;
 import br.com.ticotech.gbooks.java.entities.Book;
 import br.com.ticotech.gbooks.java.controllers.SaleController;
 import br.com.ticotech.gbooks.java.entities.CartBook;
+import br.com.ticotech.gbooks.java.repository.SaleRepository;
 import br.com.ticotech.gbooks.java.repository.StockRepository;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
@@ -19,8 +20,9 @@ public class MainFrame {
     private final StockScreen stockScreen = new StockScreen();
     private final List<Book> bookList = new ArrayList<>();
     private StockRepository stockRepository = new StockRepository();
+    private SaleRepository saleRepository = new SaleRepository();
     private List<CartBook> cartList = new ArrayList<>();
-    private SaleController saleController = new SaleController(stockRepository);
+    private SaleController saleController;
     private JPanel leftPanel;
     private JPanel centerPanel;
     private Button cashierButton;
@@ -38,7 +40,7 @@ public class MainFrame {
         saleScreen.setVisible(false);
         frame.add(saleScreen.getCartPanel());
 
-        saleController = new SaleController(stockRepository);
+        this.saleController = new SaleController(stockRepository, saleRepository, saleScreen);
 
         showHomeScreen();
 
@@ -90,7 +92,7 @@ public class MainFrame {
         logoutButton = new Button("Logout");
 
         cashierButton.addActionListener(e -> showSaleSection());
-        stockButton.addActionListener(e -> showStockSection());
+        stockButton.setEnabled(false);
         reportButton.setEnabled(false);
         usersButton.setEnabled(false);
         logoutButton.setEnabled(false);
@@ -139,9 +141,6 @@ public class MainFrame {
     }
 
     private void showStockSection(){
-
-        centerPanel.setVisible(false);
-        centerPanel.setVisible(true);
         centerPanel.add(stockScreen.insertStockPanel());
     }
 }

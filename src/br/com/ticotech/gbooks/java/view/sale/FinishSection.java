@@ -1,5 +1,7 @@
 package br.com.ticotech.gbooks.java.view.sale;
 
+import br.com.ticotech.gbooks.java.controllers.SaleController;
+import br.com.ticotech.gbooks.java.entities.Sale;
 import br.com.ticotech.gbooks.java.view.shared.*;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
@@ -8,13 +10,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class FinishSection {
-    private TextField payedField;
-    private Display changeDisplay;
-    private RadioButton creditButton;
-    private RadioButton debitButton;
-    private Display toPayDisplay;
-    private ButtonGroup cardsButtons;
-    private Button finishButton;
+    private final TextField payedField;
+    private final Display changeDisplay;
+    private final RadioButton creditButton;
+    private final RadioButton debitButton;
+    private final Display toPayDisplay;
+    private final ButtonGroup cardsButtons;
+    private final Button finishButton;
 
     public Display getToPayDisplay() {
         return toPayDisplay;
@@ -44,7 +46,8 @@ public class FinishSection {
         return finishButton;
     }
 
-    public FinishSection(SaleScreen saleScreen) {
+    public FinishSection(SaleController saleController, SaleScreen saleScreen) {
+
         JPanel finishPanel = new JPanel();
         finishPanel.setBackground(Constants.DARK_GRAY);
         finishPanel.setBounds(370, 366, 620, 240);
@@ -59,7 +62,7 @@ public class FinishSection {
         payedField = new TextField("PAYED");
         payedField.setBounds(36, 96, 145, 30);
         payedField.setEnabled(false);
-        payedField.addActionListener(paymentCash -> saleService.paymentCash());
+        payedField.addActionListener(paymentCash -> saleController.paymentCash());
         finishPanel.add(payedField);
 
         changeDisplay = new Display("CHANGE");
@@ -79,8 +82,8 @@ public class FinishSection {
         creditButton.setBounds(262, 80, 120, 60);
         debitButton.setBounds(262, 136, 120, 60);
 
-        creditButton.addActionListener(selectCash -> saleService.paymentCard());
-        debitButton.addActionListener(selectCard -> saleService.paymentCard());
+        creditButton.addActionListener(selectCash -> saleController.paymentCard());
+        debitButton.addActionListener(selectCard -> saleController.paymentCard());
 
         cardsButtons = new ButtonGroup();
         cardsButtons.add(creditButton);
@@ -105,7 +108,7 @@ public class FinishSection {
         finishButton.setForeground(Color.WHITE);
         finishButton.setEnabled(false);
         finishButton.addActionListener(finishSale -> {
-            if (saleService.finishSale("finish")) {
+            if (saleController.finishSale("finish")) {
                 saleScreen.disableElements("finish");
             }
         });
