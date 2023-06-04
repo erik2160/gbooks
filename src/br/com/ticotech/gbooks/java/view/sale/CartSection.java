@@ -34,10 +34,13 @@ public class CartSection {
         return table.getModel();
     }
     private final SaleController saleController;
+    private final SaleScreen saleScreen;
 
 
     public CartSection(SaleController saleController, SaleScreen saleScreen) {
         this.saleController = saleController;
+        this.saleScreen = saleScreen;
+
         String[] columnsName = {"CODE", "TITLE", "UNITS", "UNIT VAL.", "TOTAL VAL."};
         int[] columnsWidth = {50, 200, 10, 40, 80};
         table = new Table(saleController.getCartTableModel(),columnsName, columnsWidth);
@@ -58,7 +61,9 @@ public class CartSection {
         unitsTextField.addActionListener(enterUnit -> {
             codeBarTextField.requestFocus();
             if (addToCart()) {
-                saleScreen.disableElements("add");}
+                table.setVisible(false);
+                table.setVisible(true);
+                saleScreen.changeElementsStatus("add");}
         });
         cartPanel.add(unitsTextField);
 
@@ -69,22 +74,28 @@ public class CartSection {
             if (addToCart()) {
                 table.setVisible(false);
                 table.setVisible(true);
-                saleScreen.disableElements("add");}
+                saleScreen.changeElementsStatus("add");}
         });
         cartPanel.add(buttonAdd);
 
         buttonRemove = new Button("REMOVE", Constants.CANCEL_RED, Color.WHITE);
         buttonRemove.setBounds(1266, 26, 120, 33);
         buttonRemove.setEnabled(false);
-        buttonRemove.addActionListener(removeItem -> removeFromCart());
+        buttonRemove.addActionListener(removeItem -> {
+            removeFromCart();
+            table.setVisible(false);
+            table.setVisible(true);
+        });
         cartPanel.add(buttonRemove);
 
         buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
         buttonCancel.setBounds(1394, 26, 120, 33);
         buttonCancel.setEnabled(false);
         buttonCancel.addActionListener(finishSale -> {
-//            if (saleController.finishSale("cancel")) { //TODO
-//                saleScreen.disableElements("cancel");}
+            cancelSale();
+            table.setVisible(false);
+            table.setVisible(true);
+            saleScreen.changeElementsStatus("reset");
         });
         cartPanel.add(buttonCancel);
 
@@ -101,8 +112,7 @@ public class CartSection {
             new Popups ("The BARCODE field is empty!", 1);
             return false;
         }
-
-        if(Objects.equals(unitsTextField.getText(), "UNITS")){
+        else if(Objects.equals(unitsTextField.getText(), "UNITS")){
             new Popups ("The UNITS field is empty!", 1);
             return false;
         }
@@ -113,7 +123,11 @@ public class CartSection {
             return false;
         }
 
-        return saleController.addToCart(barcode,units);
+        if(saleController.addToCart(barcode,units)){
+            saleScreen.getToPayDisplay().setText(saleController.getToPay());
+            return true;
+        }
+        return false;
     }
 
     private void removeFromCart(){
@@ -137,6 +151,15 @@ public class CartSection {
             new Popups ("Invalid type! Enter a number in the UNITS field.", 1);
         }
 
-        if (validInput){saleController.removeItemTable(barcode,unitsFormatted);}
+        if (validInput){
+            saleController.removeFromCart(barcode,unitsFormatted);
+        }
+    }
+
+    private void cancelSale(){
+        Popups cancelPopup = new Popups("Do you want to cancel the purchase?",2);
+        if(cancelPopup.getResponse()){
+            saleController.cancelSale();
+        }
     }
 }

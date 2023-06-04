@@ -13,14 +13,40 @@ import java.util.Objects;
 
 public class SaleController {
     private final StockRepository stockRepository;
-    private final List<CartBook> cartBookList = new ArrayList<>();
+    private List<CartBook> cartBookList = new ArrayList<>();
     private final CartTableModel cartTableModel = new CartTableModel(cartBookList);
     private final SaleRepository saleRepository;
+    private double toPay;
+    private double payedInCash;
+    private double cashChange;
+    private double payedByCard;
+    private double totalPayed = payedInCash+ payedByCard;
+
+    public String getToPay() {
+        double toPayRounded = Math.round(toPay*100.0)/100.0;
+        return String.valueOf(toPayRounded);
+    }
+
+    public double getCashChange() {
+        return cashChange;
+    }
+
+    public String getPayedInCash() {
+        double payedInCashRounded = Math.round(payedInCash*100.0)/100.0;
+        return String.valueOf(payedInCashRounded);
+    }
+    public String getPayedByCard() {
+        double payedByCardRounded = Math.round(payedByCard*100.0)/100.0;
+        return String.valueOf(payedByCardRounded);
+    }
+    public String getTotalPayed() {
+        double totalPayedRounded = Math.round(totalPayed*100.0)/100.0;
+        return String.valueOf(totalPayedRounded);
+    }
 
     public SaleController(StockRepository stockRepository, SaleRepository saleRepository) {
         this.stockRepository = stockRepository;
         this.saleRepository = saleRepository;
-        this.cartBookList.add(new CartBook("999","TITLE",1,10.10,10.10));
     }
 
     public CartTableModel getCartTableModel() {
@@ -48,20 +74,21 @@ public class SaleController {
                         }
                         cartBook.setUnits(cartBook.getUnits() + units);
                         cartBook.setTotalPrice(book.getFinalPrice() * cartBook.getUnits());
+                        toPay += cartBook.getUnitPrice()*units;
                     }
                 }
             } else {
-                cartBookList.add(new CartBook(
+                CartBook newCartBook = new CartBook(
                         book.getCode(),
                         book.getTitle(),
                         units,
                         book.getFinalPrice(),
                         Double.parseDouble(String.format("%.2f", book.getFinalPrice() * units).replace(",", "."))
-                ));
+                );
+                cartBookList.add(newCartBook);
+                toPay +=newCartBook.getTotalPrice();
             }
 
-            //String toPay = String.valueOf(String.format("%.2f", sumTotal())).replace(",", ".");
-            //saleScreen.getFinishSection().getToPayDisplay().setText(toPay); //TODO
             return true;
         } else {
             String messageError = String.format("Barcode \"%S\" not found!", barcode);
@@ -70,119 +97,42 @@ public class SaleController {
         }
     }
 
-
-//        for (Book book : availableBooksList) {
-//            try {
-//                if (existInStock(barcode) && book.getUnits() > 0) {
-//                    int quantityItem = Integer.parseInt(saleScreen.getCartSection().getUnitsTextField().getText());
-//
-//                    if (quantityItem <= book.getUnits()) {
-//                        if (Objects.equals(barcode, book.getCode())) {
-//                            if (existInCart(book.getCode())) {
-//                                for (CartBook cartBook : cartTable.getSaleCart()) {
-//                                    if (Objects.equals(cartBook.getCode(), book.getCode())) {
-//                                        cartBook.setUnits(cartBook.getUnits() + quantityItem);
-//                                        cartBook.setTotalPrice(book.getInvoicePrice() * cartBook.getUnits());
-//                                    }
-//                                }
-//                                updateItemTable();
-//                            } else {
-//                                cartBookList.add(new CartBook(
-//                                        book.getCode(),
-//                                        book.getTitle(),
-//                                        quantityItem,
-//                                        book.getFinalPrice(),
-//                                        Double.parseDouble(String.format("%.2f", book.getFinalPrice() * quantityItem).replace(",", "."))
-//                                ));
-//                                insertItemTable(cartBookList.size() - 1);
-//                            }
-//
-//                            saleScreen.getFinishSection().getToPayDisplay().setText(String.valueOf(String.format("%.2f", sumTotal())).replace(",", "."));
-//                            return true;
-//                        }
-//                    } else {
-//                        String messageError = String.format("Quantity for \"%S\" larger than in stock", barcode);
-//                        new Popups (messageError, 1);
-//                        break;
-//                    }
-//                } else {
-//                    if (book.getUnits() <= 0) {
-//                        String messageError = String.format("Quantity for \"%S\" is 0 in stock", barcode);
-//                        new Popups (messageError, 1);
-//                        break;
-//                    }
-//
-//                    if (Objects.equals(barcode, "BARCODE")) {
-//                        new Popups ("The BARCODE field is empty!!", 1);
-//                    } else {
-//                        String messageError = String.format("Code bar \"%S\" not found", barcode);
-//                        new Popups (messageError, 1);
-//                    }
-//                    break;
-//                }
-//            } catch (NumberFormatException quantityEmpty) {
-//                new Popups ("The UNITS field is empty!!", 1);
-//                break;
-//            }
-//        }
-//        return false;
-//    }
-
-
-    public boolean removeItemTable(String barcode, int units) {
-        //double toPay = Double.parseDouble(saleScreen.getFinishSection().getToPayDisplay().getText());
-
+    public void removeFromCart(String barcode, int units) {
         if (!existInCart(barcode)) {
-            String messageError = String.format("Barcode \"%S\" not found", barcode);
+            String messageError = String.format("Barcode \"%S\" not found!", barcode);
             new Popups(messageError, 1);
-            return false;
         }
         else {
-            for (int row = 0; row < cartTableModel.getRowCount(); row++) {
-                String bookBarcode = (String) cartTableModel.getValueAt(row, 0);
-
-                if (Objects.equals(barcode, bookBarcode)) {
-                    if (units == 0) {
-                        //toPay -= (double) cartTableModel.getValueAt(row, 4);
-                        //stockRepository.getStock().get(row).setUnits(cartBookList.get(row).getUnits() + stockRepository.getStock().get(row).getUnits()); //TODO
-                        //saleScreen.getFinishSection().getToPayDisplay().setText(String.valueOf(String.format("%.2f", toPay)).replace(",", ".")); //TODO
-                        cartTableModel.removeRow(row);
-                        cartBookList.remove(row);
-                        return true;
-                    } else {
-
-                        if (units > (int) cartTableModel.getValueAt(row, 2)) {
-                            String messageError = String.format("Quantity for remove of \"%S\" larger than in cart", barcode);
-                            new Popups(messageError, 1);
-                            return false;
-                        } else {
-                            if (cartBookList.get(row).getUnits() - units <= 0) {
-                                //toPay -= (double) cartTableModel.getValueAt(row, 4);
-                                cartTableModel.removeRow(row);
-                                cartBookList.remove(row);
-                                return true;
-                            } else {
-                                cartBookList.get(row).setUnits(cartBookList.get(row).getUnits() - units);
-                                //toPay -= (double) cartTableModel.getValueAt(row, 3) * units;
-                                cartBookList.get(row).setTotalPrice(
-                                        Double.parseDouble(
-                                                String.format(
-                                                        "%.2f",
-                                                        cartBookList.get(row).getTotalPrice() - (cartBookList.get(row).getUnitPrice() * units)).replace(",", "."))
-                                );
-                                return true;
-                                //updateItemTable();
-                            }
-                            //saleScreen.getFinishSection().getToPayDisplay().setText(String.valueOf(String.format("%.2f", toPay)).replace(",", "."));//TODO
-                        }
+            CartBook book = getBookInCart(barcode);
+            assert book != null;
+            if (units > book.getUnits()) {
+                String messageError = String.format("Quantity for remove of \"%S\" larger than in cart!", barcode);
+                new Popups(messageError, 1);
+            }else {
+                if (units == 0) {
+                    toPay -= book.getTotalPrice();
+                    cartBookList.remove(book);
+                } else {
+                    book.setUnits(book.getUnits() - units);
+                    book.setTotalPrice(book.getUnitPrice() * book.getUnits());
+                    toPay -= book.getUnitPrice() * units;
+                    if (book.getUnits() == 0) {
+                        cartBookList.remove(book);
                     }
-                    //saleScreen.getCartSection().getCodeBarTextField().reset();
-                    //saleScreen.getCartSection().getUnitsTextField().reset();
-                    //updateItemTable();
                 }
             }
         }
-        return false;
+    }
+
+    public void cancelSale() {
+        List<CartBook> booksForRemove = new ArrayList<>();
+        for (CartBook book:cartBookList){
+            System.out.println(book.getCode());
+            toPay -= book.getUnitPrice()*book.getUnits();
+            System.out.println(toPay);
+            booksForRemove.add(book);
+        }
+        cartBookList.removeAll(booksForRemove);
     }
 
     private boolean existInStock(String barcode) {
@@ -202,15 +152,28 @@ public class SaleController {
         }
         return false;
     }
-
-    private double sumTotal() {
-        double total = 0;
-
-        for (CartBook book : cartBookList) {
-            total += book.getTotalPrice();
+    private CartBook getBookInCart(String barcode){
+        for(CartBook book : cartBookList){
+            if (Objects.equals(book.getCode(), barcode)){
+                return book;
+            }
         }
-        return total;
+        return null;
     }
+
+    public void cashPayment(double value){
+        toPay-=value;
+        payedInCash+=value;
+        totalPayed+=value;
+
+    }
+
+    public void creditCardPayment(double value){
+        toPay-=value;
+        payedByCard+=value;
+        totalPayed+=value;
+    }
+
 
 //    public void paymentCash() { //TODO
 //        String typePayment = "cash";
@@ -288,26 +251,5 @@ public class SaleController {
 //        return false;
 //    }
 
-//    private void cleanTable(String type) { //TODO
-//        for (Book book : stockRepository.getStock()) {
-//            for (CartBook cartBook : cartTableModel.getSaleCart()) {
-//                if (Objects.equals(cartBook.getCode(), book.getCode())) {
-//                    try {
-//                        if (Objects.equals(type, "finish")) {
-//                            book.setUnits(book.getUnits() - cartBook.getUnits());
-//                            cartTableModel.removeRow(0);
-//                        } else if (Objects.equals(type, "cancel")) {
-//                            saleScreen.getCartSection().getModel().removeRow(0);
-//                        }
-//                    } catch (ArrayIndexOutOfBoundsException cleanTable) {
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//
-//        cartBookList.clear();
-//        cartTableModel.getSaleCart().clear();
-//    }
 
 }

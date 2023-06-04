@@ -33,7 +33,9 @@ public class MainFrame {
         saleScreen = new SaleScreen(saleController);
         saleScreen.setVisible(false);
         centerPanel.add(saleScreen.getCartPanel());
+        centerPanel.add(saleScreen.getFinishPanel());
 
+        showSaleSection();
         //showHomeScreen();
 
         frame.setVisible(true);

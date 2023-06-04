@@ -1,37 +1,41 @@
 package br.com.ticotech.gbooks.java.view.sale;
 
 import br.com.ticotech.gbooks.java.controllers.SaleController;
+import br.com.ticotech.gbooks.java.view.shared.Display;
 
 import javax.swing.*;
 import java.util.Objects;
 
 public class SaleScreen {
         private final CartSection cartSection;
-        //private PointsPanel pointsPanel;
         private final FinishSection finishSection;
 
         public SaleScreen(SaleController saleController) {
             cartSection = new CartSection(saleController, this);
-            //pointsPanel = new PointsPanel();
             finishSection = new FinishSection(saleController, this);
         }
 
-        public void disableElements(String getType) {
-            if (Objects.equals(getType, "finish") || Objects.equals(getType, "cancel")) {
+        public void changeElementsStatus(String getType) {
+            if (Objects.equals(getType, "reset")) {
                 cartSection.getButtonCancel().setEnabled(false);
                 cartSection.getButtonRemove().setEnabled(false);
-                finishSection.getPayedField().setEnabled(false);
+                cartSection.getCodeBarTextField().reset();
+                cartSection.getUnitsTextField().reset();
+                finishSection.getCashValueField().setEnabled(false);
+                finishSection.getCardValueField().setEnabled(false);
                 finishSection.getFinishButton().setEnabled(false);
                 finishSection.getCreditButton().setEnabled(false);
                 finishSection.getDebitButton().setEnabled(false);
-                cartSection.getCodeBarTextField().reset();
-                cartSection.getUnitsTextField().reset();
+                finishSection.getPayedInCashDisplay().reset();
+                finishSection.getPayedByCardDisplay().reset();
+                finishSection.getTotalPayedDisplay().reset();
                 finishSection.getToPayDisplay().reset();
-                finishSection.getPayedField().reset();
+                finishSection.getCashValueField().reset();
                 finishSection.getChangeDisplay().reset();
                 finishSection.getCardsButtons().clearSelection();
             } else if (Objects.equals(getType, "add")) {
-                finishSection.getPayedField().setEnabled(true);
+                finishSection.getCashValueField().setEnabled(true);
+                finishSection.getCardValueField().setEnabled(true);
                 finishSection.getFinishButton().setEnabled(true);
                 finishSection.getCreditButton().setEnabled(true);
                 finishSection.getDebitButton().setEnabled(true);
@@ -39,17 +43,17 @@ public class SaleScreen {
                 cartSection.getButtonRemove().setEnabled(true);
             }
         }
-
-    public CartSection getCartSection(){
-            return cartSection;
-    }
-    public JPanel getCartPanel() {
+        public Display getToPayDisplay(){return finishSection.getToPayDisplay();}
+        public JPanel getCartPanel() {
             return cartSection.getCartPanel();
-    }
-    public void setVisible(boolean isVisible){
-            cartSection.getCartPanel().setVisible(isVisible);
-    }
-    public FinishSection getFinishSection(){
-            return finishSection;
-    }
+        }
+        public JPanel getFinishPanel() {
+            return finishSection.getFinishPanel();
+        }
+
+        public void setVisible(boolean isVisible){
+                cartSection.getCartPanel().setVisible(isVisible);
+                finishSection.getFinishPanel().setVisible(isVisible);
+        }
+
 }
