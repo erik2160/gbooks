@@ -1,18 +1,29 @@
 package br.com.ticotech.gbooks.java.view.stock;
 
-import br.com.ticotech.gbooks.java.view.shared.ComboBox;
-import br.com.ticotech.gbooks.java.view.shared.Constants;
-import br.com.ticotech.gbooks.java.view.shared.TextField;
+import br.com.ticotech.gbooks.java.controllers.StockController;
+import br.com.ticotech.gbooks.java.view.shared.*;
 import br.com.ticotech.gbooks.java.view.shared.Button;
+import br.com.ticotech.gbooks.java.view.shared.TextField;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class StockScreen {
-    public JPanel insertStockPanel(){
-        JPanel stockPanel = new JPanel();
+    private JPanel stockPanel;
+
+    public JPanel getStockPanel() {
+        return stockPanel;
+    }
+
+    public StockScreen(StockController stockController){
+        String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","BUY PRICE"};
+        int [] columnsWidth = {90,60,10,10,10,10,10};
+        Table table = new Table(columnsName,columnsWidth);
+
+        stockPanel = new JPanel();
         stockPanel.setLayout(null);
         stockPanel.setBackground(Constants.MID_GRAY);
-        stockPanel.setBounds(40,20,950,582);
+        stockPanel.setBounds(40,20,1540,915);
 
         String [] itemsList = {"BARCODE", "TITLE", "AUTHOR", "PUBLISHER"};
         ComboBox comboBox = new ComboBox(itemsList);
@@ -23,21 +34,23 @@ public class StockScreen {
         search.setBounds(176,26,240,33);
         stockPanel.add(search);
 
-        Button addButton = new Button("ADD");
-        addButton.setBounds(714,26,100,33);
-        stockPanel.add(addButton);
-
         Button editButton = new Button("EDIT");
-        editButton.setBounds(824,26,100,33);
+        editButton.setBounds(1138,26,120,33);
         stockPanel.add(editButton);
 
-        String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","BUY PRICE"};
-        int [] columnsWidth = {90,60,10,10,10,10,10};
-//        Table table = new Table(columnsName,columnsWidth); //TODO
-//        JScrollPane scrollPane = new JScrollPane(table);
-//        scrollPane.setBounds(26,70,899,485);
-//        stockPanel.add(scrollPane);
+        Button addButton = new Button("ADD");
+        addButton.setBounds(1266,26,120,33);
+        stockPanel.add(addButton);
 
-        return stockPanel;
+        Button removeButton = new Button("REMOVE", Constants.CANCEL_RED, Color.WHITE);
+        removeButton.setBounds(1394,26,120,33);
+        stockPanel.add(removeButton);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(26,70,1488,820);
+        stockPanel.add(scrollPane);
+    }
+    public void setVisible(boolean isVisible){
+        stockPanel.setVisible(isVisible);
     }
 }

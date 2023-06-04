@@ -13,7 +13,7 @@ import br.com.ticotech.gbooks.java.view.stock.StockScreen;
 public class MainFrame {
     private JFrame frame;
     private final SaleScreen saleScreen;
-    private final StockScreen stockScreen = new StockScreen();
+    private final StockScreen stockScreen;
     private final SaleRepository saleRepository = new SaleRepository();
     private final StockRepository stockRepository = new StockRepository();
     private SaleController saleController = new SaleController(stockRepository, saleRepository);
@@ -31,12 +31,15 @@ public class MainFrame {
         configureLeftPanel();
 
         saleScreen = new SaleScreen(saleController);
-        saleScreen.setVisible(false);
         centerPanel.add(saleScreen.getCartPanel());
         centerPanel.add(saleScreen.getFinishPanel());
+        saleScreen.setVisible(false);
 
-        showSaleSection();
-        //showHomeScreen();
+        stockScreen = new StockScreen();
+        centerPanel.add(stockScreen.getStockPanel());
+        stockScreen.setVisible(false);
+
+        showHomeScreen();
 
         frame.setVisible(true);
     }
@@ -83,10 +86,10 @@ public class MainFrame {
         logoutButton = new Button("Logout");
 
         cashierButton.addActionListener(e -> showSaleSection());
-        stockButton.setEnabled(false);
+        stockButton.addActionListener(e -> showStockSection());
         reportButton.setEnabled(false);
         usersButton.setEnabled(false);
-        logoutButton.setEnabled(false);
+        logoutButton.addActionListener(e -> showHomeScreen());
     }
 
     private void configureLeftPanel() {
@@ -112,16 +115,31 @@ public class MainFrame {
 
     private void showHomeScreen() {
         JLabel titleLabel = new JLabel("G-BOOKS");
-        titleLabel.setBounds(280,200,440,100);
+        titleLabel.setBounds(590,400,440,100);
         titleLabel.setOpaque(false);
         titleLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN,100));
         titleLabel.setForeground(Constants.DARK_GRAY);
         centerPanel.add(titleLabel);
 
+        saleScreen.setVisible(false);
+        stockScreen.setVisible(false);
+
+        cashierButton.setEnabled(false);
+        stockButton.setEnabled(false);
+        reportButton.setEnabled(false);
+        usersButton.setEnabled(false);
+        logoutButton.setEnabled(false);
+
         Button enterButton = new Button("Enter");
-        enterButton.setBounds(455,330, 90,40);
+        enterButton.setBounds(765,530, 90,40);
         enterButton.addActionListener(e -> {
-            centerPanel.removeAll();
+            cashierButton.setEnabled(true);
+            stockButton.setEnabled(true);
+            //reportButton.setEnabled(true); TODO
+            //usersButton.setEnabled(true); TODO
+            logoutButton.setEnabled(true);
+            titleLabel.setVisible(false);
+            enterButton.setVisible(false);
             showSaleSection();
         });
         centerPanel.add(enterButton);
@@ -129,9 +147,11 @@ public class MainFrame {
 
     private void showSaleSection() {
         saleScreen.setVisible(true);
+        stockScreen.setVisible(false);
     }
 
     private void showStockSection(){
-        centerPanel.add(stockScreen.insertStockPanel());
+        saleScreen.setVisible(false);
+        stockScreen.setVisible(true);
     }
 }

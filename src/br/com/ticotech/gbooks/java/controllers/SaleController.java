@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class SaleController {
     private final StockRepository stockRepository;
-    private List<CartBook> cartBookList = new ArrayList<>();
+    private final List<CartBook> cartBookList = new ArrayList<>();
     private final CartTableModel cartTableModel = new CartTableModel(cartBookList);
     private final SaleRepository saleRepository;
     private double toPay;
@@ -27,7 +27,7 @@ public class SaleController {
         return String.valueOf(toPayRounded);
     }
 
-    public double getCashChange() {
+    public double getCashChange() { //TODO
         return cashChange;
     }
 
