@@ -4,16 +4,12 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 import java.awt.*;
 
 public class Table extends JTable {
 
-    DefaultTableModel model = new DefaultTableModel() {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
+    DefaultTableModel model;
 
     TableCellRenderer cellRenderer = new DefaultTableCellRenderer(){
         @Override
@@ -28,12 +24,13 @@ public class Table extends JTable {
         } else {
             component.setBackground(table.getBackground());
         }
-        component.setFont (new Font (Constants.DEFAULT_FONT,Font.PLAIN, 16));
+        component.setFont (new Font (Constants.DEFAULT_FONT,Font.PLAIN, 20));
         return component;
         }
     };
 
-    public Table(String[] columnsName, int [] columnsWidth){
+    public Table(DefaultTableModel model, String[] columnsName, int [] columnsWidth){
+        this.model = model;
         setModel(model);
 
         for(String columnName: columnsName){
@@ -50,9 +47,9 @@ public class Table extends JTable {
         }
 
         getTableHeader().setReorderingAllowed(false);
-        getTableHeader ().setBackground (Constants.LIGHT_GRAY);
-        getTableHeader ().setForeground (Color.WHITE);
-        getTableHeader ().setFont (new Font (Constants.DEFAULT_FONT, Font.BOLD, 18));
+        getTableHeader().setBackground (Constants.LIGHT_GRAY);
+        getTableHeader().setForeground (Color.BLACK);
+        getTableHeader().setFont (new Font (Constants.DEFAULT_FONT, Font.BOLD, 22));
         setRowHeight (30);
     }
 

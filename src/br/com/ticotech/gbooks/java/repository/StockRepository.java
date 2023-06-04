@@ -25,7 +25,7 @@ public class StockRepository {
 
     public Book getBook(String barcode){
         for(Book book : bookList){
-            if (Objects.equals(book.getTitle(), barcode)){
+            if (Objects.equals(book.getCode(), barcode)){
                 return book;
             }
         }

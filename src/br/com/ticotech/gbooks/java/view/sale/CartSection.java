@@ -38,11 +38,14 @@ public class CartSection {
 
     public CartSection(SaleController saleController, SaleScreen saleScreen) {
         this.saleController = saleController;
+        String[] columnsName = {"CODE", "TITLE", "UNITS", "UNIT VAL.", "TOTAL VAL."};
+        int[] columnsWidth = {50, 200, 10, 40, 80};
+        table = new Table(saleController.getCartTableModel(),columnsName, columnsWidth);
 
         cartPanel = new JPanel();
         cartPanel.setLayout(null);
-        cartPanel.setBackground(Constants.DARK_GRAY);
-        cartPanel.setBounds(40, 20, 950, 335);
+        cartPanel.setBackground(Constants.MID_GRAY);
+        cartPanel.setBounds(40, 20, 1540, 660);
 
         codeBarTextField = new TextField("BARCODE");
         codeBarTextField.setBounds(26, 26, 240, 33);
@@ -64,31 +67,29 @@ public class CartSection {
         buttonAdd.addActionListener(addItem -> {
             codeBarTextField.requestFocus();
             if (addToCart()) {
+                table.setVisible(false);
+                table.setVisible(true);
                 saleScreen.disableElements("add");}
         });
         cartPanel.add(buttonAdd);
 
         buttonRemove = new Button("REMOVE", Constants.CANCEL_RED, Color.WHITE);
-        buttonRemove.setBounds(678, 26, 120, 33);
+        buttonRemove.setBounds(1266, 26, 120, 33);
         buttonRemove.setEnabled(false);
         buttonRemove.addActionListener(removeItem -> removeFromCart());
         cartPanel.add(buttonRemove);
 
         buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
-        buttonCancel.setBounds(806, 26, 120, 33);
+        buttonCancel.setBounds(1394, 26, 120, 33);
         buttonCancel.setEnabled(false);
         buttonCancel.addActionListener(finishSale -> {
-            if (saleController.finishSale("cancel")) { //TODO
-                saleScreen.disableElements("cancel");}
+//            if (saleController.finishSale("cancel")) { //TODO
+//                saleScreen.disableElements("cancel");}
         });
         cartPanel.add(buttonCancel);
 
-        String[] columnsName = {"CODE", "TITLE", "UNITS", "UNIT VAL.", "TOTAL VAL."};
-        int[] columnsWidth = {50, 200, 10, 40, 80};
-        table = new Table(columnsName, columnsWidth);
-
         JScrollPane tableScrollPane = new JScrollPane(table);
-        tableScrollPane.setBounds(26, 70, 899, 240);
+        tableScrollPane.setBounds(26, 70, 1488, 560);
         cartPanel.add(tableScrollPane);
     }
 

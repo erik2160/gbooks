@@ -2,7 +2,6 @@ package br.com.ticotech.gbooks.java.view.stock;
 
 import br.com.ticotech.gbooks.java.view.shared.ComboBox;
 import br.com.ticotech.gbooks.java.view.shared.Constants;
-import br.com.ticotech.gbooks.java.view.shared.Table;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 
@@ -12,7 +11,7 @@ public class StockScreen {
     public JPanel insertStockPanel(){
         JPanel stockPanel = new JPanel();
         stockPanel.setLayout(null);
-        stockPanel.setBackground(Constants.DARK_GRAY);
+        stockPanel.setBackground(Constants.MID_GRAY);
         stockPanel.setBounds(40,20,950,582);
 
         String [] itemsList = {"BARCODE", "TITLE", "AUTHOR", "PUBLISHER"};
@@ -34,10 +33,10 @@ public class StockScreen {
 
         String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","BUY PRICE"};
         int [] columnsWidth = {90,60,10,10,10,10,10};
-        Table table = new Table(columnsName,columnsWidth);
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(26,70,899,485);
-        stockPanel.add(scrollPane);
+//        Table table = new Table(columnsName,columnsWidth); //TODO
+//        JScrollPane scrollPane = new JScrollPane(table);
+//        scrollPane.setBounds(26,70,899,485);
+//        stockPanel.add(scrollPane);
 
         return stockPanel;
     }

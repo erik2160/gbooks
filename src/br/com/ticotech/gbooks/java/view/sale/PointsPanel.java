@@ -13,7 +13,7 @@ public class PointsPanel {
 
     public JPanel insertPointsPanel(SaleController saleController) {
         JPanel pointsPanel = new JPanel();
-        pointsPanel.setBackground(Constants.DARK_GRAY);
+        pointsPanel.setBackground(Constants.MID_GRAY);
         pointsPanel.setBounds(40, 366, 315, 240);
         pointsPanel.setLayout(null);
 

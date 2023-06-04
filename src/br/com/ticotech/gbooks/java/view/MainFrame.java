@@ -1,12 +1,8 @@
 package br.com.ticotech.gbooks.java.view;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
-import br.com.ticotech.gbooks.java.entities.Book;
 import br.com.ticotech.gbooks.java.controllers.SaleController;
-import br.com.ticotech.gbooks.java.entities.CartBook;
 import br.com.ticotech.gbooks.java.repository.SaleRepository;
 import br.com.ticotech.gbooks.java.repository.StockRepository;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
@@ -18,11 +14,9 @@ public class MainFrame {
     private JFrame frame;
     private final SaleScreen saleScreen;
     private final StockScreen stockScreen = new StockScreen();
-    private final List<Book> bookList = new ArrayList<>();
-    private StockRepository stockRepository = new StockRepository();
-    private SaleRepository saleRepository = new SaleRepository();
-    private List<CartBook> cartList = new ArrayList<>();
-    private SaleController saleController;
+    private final SaleRepository saleRepository = new SaleRepository();
+    private final StockRepository stockRepository = new StockRepository();
+    private SaleController saleController = new SaleController(stockRepository, saleRepository);
     private JPanel leftPanel;
     private JPanel centerPanel;
     private Button cashierButton;
@@ -36,13 +30,11 @@ public class MainFrame {
         createPanels();
         configureLeftPanel();
 
-        saleScreen = new SaleScreen();
+        saleScreen = new SaleScreen(saleController);
         saleScreen.setVisible(false);
-        frame.add(saleScreen.getCartPanel());
+        centerPanel.add(saleScreen.getCartPanel());
 
-        this.saleController = new SaleController(stockRepository, saleRepository, saleScreen);
-
-        showHomeScreen();
+        //showHomeScreen();
 
         frame.setVisible(true);
     }
@@ -52,11 +44,8 @@ public class MainFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
         frame.setLayout(new BorderLayout());
-        frame.setResizable(false);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - 1280) / 2;
-        int y = (screenSize.height - 720) / 2;
-        frame.setLocation(x, y);
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        frame.setResizable(true);
     }
 
     private void createPanels() {
@@ -68,13 +57,13 @@ public class MainFrame {
         leftPanel.setLayout(null);
         centerPanel.setLayout(null);
 
-        topPanel.setBackground(Constants.DARK_BROWN);
-        leftPanel.setBackground(Constants.DARK_GRAY);
+        topPanel.setBackground(Constants.DARK_GRAY);
+        leftPanel.setBackground(Constants.MID_GRAY);
         centerPanel.setBackground(Constants.LIGHT_GRAY);
-        bottomPanel.setBackground(Constants.DARK_BROWN);
+        bottomPanel.setBackground(Constants.DARK_GRAY);
 
         topPanel.setPreferredSize(new Dimension(100, 30));
-        leftPanel.setPreferredSize(new Dimension(250, 100));
+        leftPanel.setPreferredSize(new Dimension(300, 100));
         centerPanel.setPreferredSize(new Dimension(100, 100));
         bottomPanel.setPreferredSize(new Dimension(100, 30));
 
@@ -124,7 +113,7 @@ public class MainFrame {
         titleLabel.setBounds(280,200,440,100);
         titleLabel.setOpaque(false);
         titleLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN,100));
-        titleLabel.setForeground(Constants.DARK_BROWN);
+        titleLabel.setForeground(Constants.DARK_GRAY);
         centerPanel.add(titleLabel);
 
         Button enterButton = new Button("Enter");

@@ -1,7 +1,6 @@
 package br.com.ticotech.gbooks.java.view.sale;
 
 import br.com.ticotech.gbooks.java.controllers.SaleController;
-import br.com.ticotech.gbooks.java.entities.Sale;
 import br.com.ticotech.gbooks.java.view.shared.*;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
@@ -49,7 +48,7 @@ public class FinishSection {
     public FinishSection(SaleController saleController, SaleScreen saleScreen) {
 
         JPanel finishPanel = new JPanel();
-        finishPanel.setBackground(Constants.DARK_GRAY);
+        finishPanel.setBackground(Constants.MID_GRAY);
         finishPanel.setBounds(370, 366, 620, 240);
         finishPanel.setLayout(null);
 
@@ -62,7 +61,7 @@ public class FinishSection {
         payedField = new TextField("PAYED");
         payedField.setBounds(36, 96, 145, 30);
         payedField.setEnabled(false);
-        payedField.addActionListener(paymentCash -> saleController.paymentCash());
+        //payedField.addActionListener(paymentCash -> saleController.paymentCash());//TODO
         finishPanel.add(payedField);
 
         changeDisplay = new Display("CHANGE");
@@ -82,8 +81,8 @@ public class FinishSection {
         creditButton.setBounds(262, 80, 120, 60);
         debitButton.setBounds(262, 136, 120, 60);
 
-        creditButton.addActionListener(selectCash -> saleController.paymentCard());
-        debitButton.addActionListener(selectCard -> saleController.paymentCard());
+//        creditButton.addActionListener(selectCash -> saleController.paymentCard()); //TODO
+//        debitButton.addActionListener(selectCard -> saleController.paymentCard());
 
         cardsButtons = new ButtonGroup();
         cardsButtons.add(creditButton);
@@ -107,11 +106,11 @@ public class FinishSection {
         finishButton.setBackground(Constants.CONFIRM_GREEN);
         finishButton.setForeground(Color.WHITE);
         finishButton.setEnabled(false);
-        finishButton.addActionListener(finishSale -> {
-            if (saleController.finishSale("finish")) {
-                saleScreen.disableElements("finish");
-            }
-        });
+//        finishButton.addActionListener(finishSale -> { TODO
+//            if (saleController.finishSale("finish")) {
+//                saleScreen.disableElements("finish");
+//            }
+//        });
         finishPanel.add(finishButton);
     }
 }

@@ -1,28 +1,29 @@
 package br.com.ticotech.gbooks.java.entities;
 
 import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
+import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
-public class CartTable implements TableModel {
+public class CartTableModel extends DefaultTableModel {
     private final String[] columns = {"CODE", "TITLE", "UNITS", "UNIT VAL.", "TOTAL VAL."};
-    private final List<CartBook> cartBook;
-    public CartTable(List<CartBook> cartBook) {
-        this.cartBook = cartBook;
+    private final List<CartBook> cartBookList;
+
+    public CartTableModel(List<CartBook> cartBookList) {
+        this.cartBookList = cartBookList;
     }
     public String[] getColumns() {
         return columns;
     }
     public List<CartBook> getSaleCart() {
-        return cartBook;
+        return cartBookList;
     }
 
     @Override
     public int getRowCount() {
-        if(this.cartBook == null){
+        if(this.cartBookList == null){
             return 0;
         }
-        return this.cartBook.size();
+        return this.cartBookList.size();
     }
 
     @Override
@@ -48,11 +49,11 @@ public class CartTable implements TableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         return switch (columnIndex) {
-            case 0 -> this.cartBook.get(rowIndex).getCode();
-            case 1 -> this.cartBook.get(rowIndex).getTitle();
-            case 2 -> this.cartBook.get(rowIndex).getUnits();
-            case 3 -> this.cartBook.get(rowIndex).getUnitPrice();
-            case 4 -> this.cartBook.get(rowIndex).getTotalPrice();
+            case 0 -> this.cartBookList.get(rowIndex).getCode();
+            case 1 -> this.cartBookList.get(rowIndex).getTitle();
+            case 2 -> this.cartBookList.get(rowIndex).getUnits();
+            case 3 -> this.cartBookList.get(rowIndex).getUnitPrice();
+            case 4 -> this.cartBookList.get(rowIndex).getTotalPrice();
             default -> 0;
         };
     }
@@ -60,11 +61,11 @@ public class CartTable implements TableModel {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         switch (columnIndex) {
-            case 0 -> this.cartBook.get(rowIndex).setCode((String) aValue);
-            case 1 -> this.cartBook.get(rowIndex).setTitle((String) aValue);
-            case 2 -> this.cartBook.get(rowIndex).setUnits((Integer) aValue);
-            case 3 -> this.cartBook.get(rowIndex).setUnitPrice((Double) aValue);
-            case 4 -> this.cartBook.get(rowIndex).setTotalPrice((Double) aValue);
+            case 0 -> this.cartBookList.get(rowIndex).setCode((String) aValue);
+            case 1 -> this.cartBookList.get(rowIndex).setTitle((String) aValue);
+            case 2 -> this.cartBookList.get(rowIndex).setUnits((Integer) aValue);
+            case 3 -> this.cartBookList.get(rowIndex).setUnitPrice((Double) aValue);
+            case 4 -> this.cartBookList.get(rowIndex).setTotalPrice((Double) aValue);
         }
     }
 
