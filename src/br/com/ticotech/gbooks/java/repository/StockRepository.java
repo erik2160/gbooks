@@ -39,4 +39,8 @@ public class StockRepository {
             case "remove": book.setUnits(book.getUnits()-units);
         }
     }
+
+    public void deleteBook(String barcode){
+        bookList.remove(getBook(barcode));
+    }
 }

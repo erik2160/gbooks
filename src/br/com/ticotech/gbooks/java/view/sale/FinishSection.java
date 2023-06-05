@@ -269,9 +269,10 @@ public class FinishSection {
         if (Objects.equals(cpf,"CPF")){
             cpf = "unknown";
         }
-        saleController.finishSale(cpf);
-        saleScreen.getCartTable().setVisible(false);
-        saleScreen.getCartTable().setVisible(true);
-        saleScreen.changeElementsStatus("reset");
+        if(saleController.finishSale(cpf)) {
+            saleScreen.getCartTable().setVisible(false);
+            saleScreen.getCartTable().setVisible(true);
+            saleScreen.changeElementsStatus("reset");
+        }
     }
 }

@@ -20,7 +20,7 @@ public class SaleController {
     private final SaleRepository saleRepository;
     private double toPay;
     private double payedInCash;
-    private double cashChange = 00.00;
+    private double cashChange;
     private double payedByCard;
     private double totalPayed = payedInCash+ payedByCard;
 
@@ -166,16 +166,18 @@ public class SaleController {
         }
     }
 
-    public void finishSale(String cpf){
+    public boolean finishSale(String cpf){
         if (toPay==0){
             for(CartBook cartBook: cartBookList){
                 stockRepository.alterUnits("remove", cartBook.getUnits(),cartBook.getCode());
             }
             saleRepository.addSale(new Sale(cpf,new Date(),cartBookList));
             cancelSale();
+            return true;
         }
         else{
             new Popups("The total amount has not yet been paid!",1);
+            return false;
         }
     }
 

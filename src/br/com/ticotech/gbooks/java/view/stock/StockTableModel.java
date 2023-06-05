@@ -9,7 +9,11 @@ import java.util.List;
 public class StockTableModel extends DefaultTableModel {
 
     private final String[] columns = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","UNITS","FINAL PRICE","INVOICE PRICE"};
-    private final List<Book> stockBookList;
+    private List<Book> stockBookList;
+
+    public void setStockBookList(List<Book> stockBookList) {
+        this.stockBookList = stockBookList;
+    }
 
     public List<Book> getStockBookList() {
         return stockBookList;
