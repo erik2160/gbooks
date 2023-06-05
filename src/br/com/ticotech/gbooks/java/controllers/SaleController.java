@@ -3,11 +3,13 @@ package br.com.ticotech.gbooks.java.controllers;
 import br.com.ticotech.gbooks.java.entities.CartBook;
 import br.com.ticotech.gbooks.java.entities.Book;
 import br.com.ticotech.gbooks.java.entities.CartTableModel;
+import br.com.ticotech.gbooks.java.entities.Sale;
 import br.com.ticotech.gbooks.java.repository.SaleRepository;
 import br.com.ticotech.gbooks.java.repository.StockRepository;
 import br.com.ticotech.gbooks.java.view.shared.Popups;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +20,7 @@ public class SaleController {
     private final SaleRepository saleRepository;
     private double toPay;
     private double payedInCash;
-    private double cashChange;
+    private double cashChange = 00.00;
     private double payedByCard;
     private double totalPayed = payedInCash+ payedByCard;
 
@@ -27,8 +29,9 @@ public class SaleController {
         return String.valueOf(toPayRounded);
     }
 
-    public double getCashChange() { //TODO
-        return cashChange;
+    public String getCashChange() {
+        double cashChangeRounded = Math.round(cashChange*100.0)/100.0;
+        return String.valueOf(cashChangeRounded);
     }
 
     public String getPayedInCash() {
@@ -97,10 +100,11 @@ public class SaleController {
         }
     }
 
-    public void removeFromCart(String barcode, int units) {
+    public boolean removeFromCart(String barcode, int units) {
         if (!existInCart(barcode)) {
             String messageError = String.format("Barcode \"%S\" not found!", barcode);
             new Popups(messageError, 1);
+            return false;
         }
         else {
             CartBook book = getBookInCart(barcode);
@@ -108,6 +112,7 @@ public class SaleController {
             if (units > book.getUnits()) {
                 String messageError = String.format("Quantity for remove of \"%S\" larger than in cart!", barcode);
                 new Popups(messageError, 1);
+                return false;
             }else {
                 if (units == 0) {
                     toPay -= book.getTotalPrice();
@@ -120,19 +125,15 @@ public class SaleController {
                         cartBookList.remove(book);
                     }
                 }
+                return true;
             }
         }
     }
 
     public void cancelSale() {
-        List<CartBook> booksForRemove = new ArrayList<>();
-        for (CartBook book:cartBookList){
-            System.out.println(book.getCode());
-            toPay -= book.getUnitPrice()*book.getUnits();
-            System.out.println(toPay);
-            booksForRemove.add(book);
-        }
+        List<CartBook> booksForRemove = new ArrayList<>(cartBookList);
         cartBookList.removeAll(booksForRemove);
+        toPay= 00.00;
     }
 
     private boolean existInStock(String barcode) {
@@ -161,17 +162,47 @@ public class SaleController {
         return null;
     }
 
-    public void cashPayment(double value){
-        toPay-=value;
-        payedInCash+=value;
-        totalPayed+=value;
-
+    public int cashPayment(double value){
+        if(value>toPay){
+            cashChange = value-toPay;
+            payedInCash+=toPay;
+            totalPayed+=toPay;
+            toPay=00.00;
+            return +1;
+        } else if (value ==toPay) {
+            payedInCash+=value;
+            totalPayed+=value;
+            toPay=00.00;
+            return 0;
+        } else {
+            toPay -= value;
+            payedInCash += value;
+            totalPayed += value;
+            return -1;
+        }
     }
 
     public void creditCardPayment(double value){
-        toPay-=value;
-        payedByCard+=value;
-        totalPayed+=value;
+        if(value>toPay){
+            new Popups("Value greater than necessary!",1);
+        }
+        else {
+            toPay -= value;
+            payedByCard += value;
+            totalPayed += value;
+        }
+    }
+
+    public void finishSale(String cpf){
+        if (toPay==0){
+            saleRepository.addSale(
+                    new Sale(cpf,new Date(),cartBookList)
+            );
+            cancelSale();
+        }
+        else{
+            new Popups("The amount has not yet been paid!",1);
+        }
     }
 
 

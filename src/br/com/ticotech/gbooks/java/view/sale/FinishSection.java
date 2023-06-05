@@ -11,7 +11,9 @@ import java.util.Objects;
 
 public class FinishSection {
     private SaleController saleController;
+    private SaleScreen saleScreen;
     private JPanel finishPanel;
+    private TextField cpfField;
     private TextField cashValueField;
     private Display changeDisplay;
     private TextField cardValueField;
@@ -71,15 +73,16 @@ public class FinishSection {
 
     public FinishSection(SaleController saleController, SaleScreen saleScreen) {
         this.saleController = saleController;
+        this.saleScreen = saleScreen;
 
         finishPanel = new JPanel();
         finishPanel.setBackground(Constants.MID_GRAY);
         finishPanel.setBounds(40, 690, 1540, 250);
         finishPanel.setLayout(null);
 
-        TextField cpfText = new TextField("CPF");
-        cpfText.setBounds(66, 38, 181, 27);
-        finishPanel.add(cpfText);
+        cpfField = new TextField("CPF");
+        cpfField.setBounds(66, 38, 181, 27);
+        finishPanel.add(cpfField);
 
         Display pointsDisplay = new Display("POINTS");
         pointsDisplay.setBounds(66, 80, 181, 27);
@@ -208,11 +211,7 @@ public class FinishSection {
         finishButton.setBackground(Constants.CONFIRM_GREEN);
         finishButton.setForeground(Color.WHITE);
         finishButton.setEnabled(false);
-//        finishButton.addActionListener(finishSale -> { TODO
-//            if (saleController.finishSale("finish")) {
-//                saleScreen.disableElements("finish");
-//            }
-//        });
+        finishButton.addActionListener(e -> finishSale());
         finishPanel.add(finishButton);
     }
 
@@ -223,12 +222,22 @@ public class FinishSection {
         else{
             String stringValue = cashValueField.getText();
             double doubleValue;
+
             try {
                 doubleValue = Double.parseDouble(stringValue);
-                saleController.cashPayment(doubleValue);
+                int payment = saleController.cashPayment(doubleValue);
+
+                switch (payment) {
+                    case (-1) -> {
+                        cardValueField.setForeground(Color.BLACK);
+                        cardValueField.setText(saleController.getToPay());
+                    }
+                    case (+1) -> changeDisplay.setText(saleController.getCashChange());
+                }
                 payedInCashDisplay.setText(saleController.getPayedInCash());
                 toPayDisplay.setText(saleController.getToPay());
                 totalPayedDisplay.setText(saleController.getTotalPayed());
+
             } catch (NumberFormatException e) {
                 new Popups("Invalid type! Enter a number in the PAYED field.", 1);
             }
@@ -245,6 +254,7 @@ public class FinishSection {
             try {
                 doubleValue = Double.parseDouble(stringValue);
                 saleController.creditCardPayment(doubleValue);
+
                 payedByCardDisplay.setText(saleController.getPayedByCard());
                 toPayDisplay.setText(saleController.getToPay());
                 totalPayedDisplay.setText(saleController.getTotalPayed());
@@ -252,5 +262,16 @@ public class FinishSection {
                 new Popups("Invalid type! Enter a number in the PAYED field.", 1);
             }
         }
+    }
+
+    private void finishSale(){
+        String cpf = cpfField.getText();
+        if (Objects.equals(cpf,"CPF")){
+            cpf = "unknown";
+        }
+        saleController.finishSale(cpf);
+        saleScreen.getCartTable().setVisible(false);
+        saleScreen.getCartTable().setVisible(true);
+        saleScreen.changeElementsStatus("reset");
     }
 }

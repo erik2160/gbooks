@@ -2,6 +2,7 @@ package br.com.ticotech.gbooks.java.view.sale;
 
 import br.com.ticotech.gbooks.java.controllers.SaleController;
 import br.com.ticotech.gbooks.java.view.shared.Display;
+import br.com.ticotech.gbooks.java.view.shared.Table;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -19,7 +20,7 @@ public class SaleScreen {
             if (Objects.equals(getType, "reset")) {
                 cartSection.getButtonCancel().setEnabled(false);
                 cartSection.getButtonRemove().setEnabled(false);
-                cartSection.getCodeBarTextField().reset();
+                cartSection.getBarcodeTextField().reset();
                 cartSection.getUnitsTextField().reset();
                 finishSection.getCashValueField().setEnabled(false);
                 finishSection.getCardValueField().setEnabled(false);
@@ -31,6 +32,7 @@ public class SaleScreen {
                 finishSection.getTotalPayedDisplay().reset();
                 finishSection.getToPayDisplay().reset();
                 finishSection.getCashValueField().reset();
+                finishSection.getCardValueField().reset();
                 finishSection.getChangeDisplay().reset();
                 finishSection.getCardsButtons().clearSelection();
             } else if (Objects.equals(getType, "add")) {
@@ -44,6 +46,7 @@ public class SaleScreen {
             }
         }
         public Display getToPayDisplay(){return finishSection.getToPayDisplay();}
+        public Table getCartTable(){return cartSection.getTable();}
         public JPanel getCartPanel() {
             return cartSection.getCartPanel();
         }

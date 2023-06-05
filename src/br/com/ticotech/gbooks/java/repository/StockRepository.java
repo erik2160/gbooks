@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class StockRepository {
-    private List<Book> bookList = new ArrayList<>();
+    private final List<Book> bookList = new ArrayList<>();
 
     public StockRepository(){
         addToStock(new Book("111", "Book1", "AUTHOR",1, "PUBLISHER", 10, 25.17, 26.20));
