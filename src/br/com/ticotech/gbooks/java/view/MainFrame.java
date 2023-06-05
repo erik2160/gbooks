@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import br.com.ticotech.gbooks.java.controllers.SaleController;
+import br.com.ticotech.gbooks.java.controllers.StockController;
 import br.com.ticotech.gbooks.java.repository.SaleRepository;
 import br.com.ticotech.gbooks.java.repository.StockRepository;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
@@ -16,6 +17,7 @@ public class MainFrame {
     private final StockScreen stockScreen;
     private final SaleRepository saleRepository = new SaleRepository();
     private final StockRepository stockRepository = new StockRepository();
+    private StockController stockController = new StockController(stockRepository);
     private SaleController saleController = new SaleController(stockRepository, saleRepository);
     private JPanel leftPanel;
     private JPanel centerPanel;
@@ -35,7 +37,7 @@ public class MainFrame {
         centerPanel.add(saleScreen.getFinishPanel());
         saleScreen.setVisible(false);
 
-        stockScreen = new StockScreen();
+        stockScreen = new StockScreen(stockController);
         centerPanel.add(stockScreen.getStockPanel());
         stockScreen.setVisible(false);
 

@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StockScreen {
-    private JPanel stockPanel;
+    private final JPanel stockPanel;
 
     public JPanel getStockPanel() {
         return stockPanel;
@@ -18,7 +18,7 @@ public class StockScreen {
     public StockScreen(StockController stockController){
         String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","BUY PRICE"};
         int [] columnsWidth = {90,60,10,10,10,10,10};
-        Table table = new Table(columnsName,columnsWidth);
+        Table table = new Table(stockController.getStockTableModel() ,columnsName,columnsWidth);
 
         stockPanel = new JPanel();
         stockPanel.setLayout(null);

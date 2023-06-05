@@ -10,6 +10,10 @@ public class StockTableModel extends DefaultTableModel {
     private final String[] columns = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","BUY PRICE"};
     private final List<Book> stockBookList;
 
+    public List<Book> getStockBookList() {
+        return stockBookList;
+    }
+
     public StockTableModel(List<Book> stockBookList){
         this.stockBookList = stockBookList;
     }
