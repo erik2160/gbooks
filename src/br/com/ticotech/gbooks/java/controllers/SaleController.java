@@ -2,7 +2,7 @@ package br.com.ticotech.gbooks.java.controllers;
 
 import br.com.ticotech.gbooks.java.entities.CartBook;
 import br.com.ticotech.gbooks.java.entities.Book;
-import br.com.ticotech.gbooks.java.entities.CartTableModel;
+import br.com.ticotech.gbooks.java.view.sale.CartTableModel;
 import br.com.ticotech.gbooks.java.entities.Sale;
 import br.com.ticotech.gbooks.java.repository.SaleRepository;
 import br.com.ticotech.gbooks.java.repository.StockRepository;
@@ -91,7 +91,6 @@ public class SaleController {
                 cartBookList.add(newCartBook);
                 toPay +=newCartBook.getTotalPrice();
             }
-
             return true;
         } else {
             String messageError = String.format("Barcode \"%S\" not found!", barcode);
@@ -136,32 +135,6 @@ public class SaleController {
         toPay= 00.00;
     }
 
-    private boolean existInStock(String barcode) {
-        for (Book book : stockRepository.getStock()) {
-            if (Objects.equals(book.getCode(), barcode)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean existInCart(String barcode) {
-        for (CartBook book : cartBookList) {
-            if (Objects.equals(book.getCode(), barcode)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    private CartBook getBookInCart(String barcode){
-        for(CartBook book : cartBookList){
-            if (Objects.equals(book.getCode(), barcode)){
-                return book;
-            }
-        }
-        return null;
-    }
-
     public int cashPayment(double value){
         if(value>toPay){
             cashChange = value-toPay;
@@ -195,92 +168,41 @@ public class SaleController {
 
     public void finishSale(String cpf){
         if (toPay==0){
-            saleRepository.addSale(
-                    new Sale(cpf,new Date(),cartBookList)
-            );
+            for(CartBook cartBook: cartBookList){
+                stockRepository.alterUnits("remove", cartBook.getUnits(),cartBook.getCode());
+            }
+            saleRepository.addSale(new Sale(cpf,new Date(),cartBookList));
             cancelSale();
         }
         else{
-            new Popups("The amount has not yet been paid!",1);
+            new Popups("The total amount has not yet been paid!",1);
         }
     }
 
+    private boolean existInStock(String barcode) {
+        for (Book book : stockRepository.getStock()) {
+            if (Objects.equals(book.getCode(), barcode)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean existInCart(String barcode) {
+        for (CartBook book : cartBookList) {
+            if (Objects.equals(book.getCode(), barcode)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-//    public void paymentCash() { //TODO
-//        String typePayment = "cash";
-//        verifyPayment(typePayment);
-//    }
-
-//    public void paymentCard() { //TODO
-//        if (saleScreen.getFinishSection().getCreditButton().isSelected()) {
-//            String typePayment = "credit";
-//            verifyPayment(typePayment);
-//        } else if (saleScreen.getFinishSection().getDebitButton().isSelected()) {
-//            String typePayment = "debit";
-//            verifyPayment(typePayment);
-//        }
-//    }
-
-//    private void verifyPayment(String typePayment) { //TODO
-//        try {
-//            if (!Objects.equals(saleScreen.getFinishSection().getPayedField().getText(), "PAYED")) {
-//                double getPayment = Double.parseDouble(saleScreen.getFinishSection().getPayedField().getText().replace(",", "."));
-//                double getTotal = Double.parseDouble(saleScreen.getFinishSection().getToPayDisplay().getText().replace(",", "."));
-//                String summing = String.format("%.2f", getPayment + getTotal).replace(",", ".");
-//                String subtraction = String.format("%.2f", getPayment - getTotal).replace(",", ".").replace("-", "");
-//
-//                if (Objects.equals(typePayment, "cash") || Objects.equals(typePayment, "credit") || Objects.equals(typePayment, "debit")) {
-//                    if (getPayment == getTotal) {
-//                        saleScreen.getFinishSection().getChangeDisplay().setText("0");
-//                        saleScreen.getFinishSection().getToPayDisplay().setText("0");
-//                    } else if (getTotal < 0) {
-//                        if (getPayment > getTotal) {
-//                            saleScreen.getFinishSection().getChangeDisplay().setText(summing);
-//                            saleScreen.getFinishSection().getToPayDisplay().setText("0");
-//                        } else {
-//                            saleScreen.getFinishSection().getToPayDisplay().setText(summing);
-//                            saleScreen.getFinishSection().getChangeDisplay().setText("");
-//                        }
-//                    } else {
-//                        if (getPayment > getTotal) {
-//                            saleScreen.getFinishSection().getChangeDisplay().setText(subtraction);
-//                            saleScreen.getFinishSection().getToPayDisplay().setText("0");
-//                        } else {
-//                            saleScreen.getFinishSection().getToPayDisplay().setText(subtraction);
-//                            saleScreen.getFinishSection().getChangeDisplay().setText("0");
-//                        }
-//                    }
-//                }
-//            } else {
-//                saleScreen.getFinishSection().getToPayDisplay().setText("0");
-//            }
-//        } catch (NumberFormatException isEmpty) {
-//            new Popups("The PAYED field is empty!!",1);
-//        }
-//    }
-
-//    public boolean finishSale(String getType) { //TODO
-//        //double getTotal = Double.parseDouble(saleScreen.getFinishSection().getToPayDisplay().getText().replace(",", "."));
-//        double getTotal = sumTotal();
-//
-//        if (Objects.equals(getType, "cancel")) {
-//            Popups cancelSale = new Popups("Do you want to cancel your entire purchase?",2);
-//
-//            if (cancelSale.getResponse()) {
-//                cleanTable("cancel");
-//                return true;
-//            }
-//        } else if (Objects.equals(getType, "finish")) {
-//            if (getTotal > 0 || getTotal < 0) {
-//                String messageError = String.format("Purchase cannot be finalized, missing \"%s\" to be paid", saleScreen.getFinishSection().getToPayDisplay().getText());
-//                new Popups (messageError, 1);
-//            } else {
-//                cleanTable("finish");
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
+    private CartBook getBookInCart(String barcode){
+        for(CartBook book : cartBookList){
+            if (Objects.equals(book.getCode(), barcode)){
+                return book;
+            }
+        }
+        return null;
+    }
 
 }

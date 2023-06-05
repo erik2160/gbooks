@@ -29,13 +29,9 @@ public class Table extends JTable {
         }
     };
 
-    public Table(DefaultTableModel model, String[] columnsName, int [] columnsWidth){
+    public Table(DefaultTableModel model, int [] columnsWidth){
         this.model = model;
         setModel(model);
-
-        for(String columnName: columnsName){
-            model.addColumn(columnName);
-        }
 
         for(int i = 0; i<getColumnCount(); i++){
             getColumnModel().getColumn(i).setPreferredWidth(columnsWidth[i]);

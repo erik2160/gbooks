@@ -36,13 +36,13 @@ public class SaleScreen {
                 finishSection.getChangeDisplay().reset();
                 finishSection.getCardsButtons().clearSelection();
             } else if (Objects.equals(getType, "add")) {
+                cartSection.getButtonCancel().setEnabled(true);
+                cartSection.getButtonRemove().setEnabled(true);
                 finishSection.getCashValueField().setEnabled(true);
                 finishSection.getCardValueField().setEnabled(true);
                 finishSection.getFinishButton().setEnabled(true);
                 finishSection.getCreditButton().setEnabled(true);
                 finishSection.getDebitButton().setEnabled(true);
-                cartSection.getButtonCancel().setEnabled(true);
-                cartSection.getButtonRemove().setEnabled(true);
             }
         }
         public Display getToPayDisplay(){return finishSection.getToPayDisplay();}

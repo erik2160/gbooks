@@ -10,21 +10,21 @@ import java.awt.*;
 import java.util.Objects;
 
 public class FinishSection {
-    private SaleController saleController;
-    private SaleScreen saleScreen;
-    private JPanel finishPanel;
-    private TextField cpfField;
-    private TextField cashValueField;
-    private Display changeDisplay;
-    private TextField cardValueField;
-    private RadioButton creditButton;
-    private RadioButton debitButton;
-    private Display payedInCashDisplay;
-    private Display payedByCardDisplay;
-    private Display totalPayedDisplay;
-    private Display toPayDisplay;
-    private ButtonGroup cardsButtons;
-    private Button finishButton;
+    private final SaleController saleController;
+    private final SaleScreen saleScreen;
+    private final JPanel finishPanel;
+    private final TextField cpfField;
+    private final TextField cashValueField;
+    private final Display changeDisplay;
+    private final TextField cardValueField;
+    private final RadioButton creditButton;
+    private final RadioButton debitButton;
+    private final Display payedInCashDisplay;
+    private final Display payedByCardDisplay;
+    private final Display totalPayedDisplay;
+    private final Display toPayDisplay;
+    private final ButtonGroup cardsButtons;
+    private final Button finishButton;
 
     public JPanel getFinishPanel(){return finishPanel;}
     public Display getToPayDisplay() {

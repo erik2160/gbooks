@@ -42,9 +42,8 @@ public class CartSection {
         this.saleController = saleController;
         this.saleScreen = saleScreen;
 
-        String[] columnsName = {"CODE", "TITLE", "UNITS", "UNIT VAL.", "TOTAL VAL."};
         int[] columnsWidth = {50, 200, 10, 40, 80};
-        table = new Table(saleController.getCartTableModel(),columnsName, columnsWidth);
+        table = new Table(saleController.getCartTableModel(), columnsWidth);
 
         cartPanel = new JPanel();
         cartPanel.setLayout(null);

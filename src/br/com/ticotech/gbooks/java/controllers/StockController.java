@@ -4,7 +4,7 @@ import br.com.ticotech.gbooks.java.entities.Book;
 import br.com.ticotech.gbooks.java.repository.StockRepository;
 import br.com.ticotech.gbooks.java.view.stock.StockTableModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class StockController {
     private StockRepository stockRepository;
@@ -16,8 +16,10 @@ public class StockController {
 
     public StockController(StockRepository stockRepository){
         this.stockRepository = stockRepository;
-        stockTableModel = new StockTableModel(new ArrayList<>());
-        stockTableModel.getStockBookList().add(new Book("999","TITLE","AUTHOR",1, "PUBLISHER",1,10.0,10.0));
+        List<Book> stockList = stockRepository.getStock();
+        stockTableModel = new StockTableModel(stockList);
+        //TEST
+        stockRepository.addToStock(new Book("123", "Book1", "AUTHOR",1, "PUBLISHER", 10, 25.17, 26.20));
 
     }
 

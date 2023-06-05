@@ -35,8 +35,8 @@ public class StockRepository {
     public void alterUnits(String type, int units, String barcode){
         Book book = getBook(barcode);
         switch (type){
-            case "add": book.setUnits(++units);
-            case "remove": book.setUnits(--units);
+            case "add": book.setUnits(book.getUnits()+units);
+            case "remove": book.setUnits(book.getUnits()-units);
         }
     }
 }

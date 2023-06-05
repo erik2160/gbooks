@@ -16,9 +16,8 @@ public class StockScreen {
     }
 
     public StockScreen(StockController stockController){
-        String[] columnsName = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","SELL PRICE","BUY PRICE"};
-        int [] columnsWidth = {90,60,10,10,10,10,10};
-        Table table = new Table(stockController.getStockTableModel() ,columnsName,columnsWidth);
+        int [] columnsWidth = {90,60,10,10,10,10,10,10};
+        Table table = new Table(stockController.getStockTableModel() ,columnsWidth);
 
         stockPanel = new JPanel();
         stockPanel.setLayout(null);
