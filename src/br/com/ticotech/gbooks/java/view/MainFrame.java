@@ -67,7 +67,7 @@ public class MainFrame {
         centerPanel.setLayout(null);
 
         topPanel.setBackground(Constants.DARK_GRAY);
-        leftPanel.setBackground(Constants.MID_GRAY);
+        leftPanel.setBackground(Constants.BABY_BLUE);
         centerPanel.setBackground(Constants.BABY_BLUE);
         bottomPanel.setBackground(Constants.DARK_GRAY);
 
@@ -83,11 +83,30 @@ public class MainFrame {
     }
 
     private void createButtons() {
-        cashierButton = new Button("Cashier");
-        stockButton = new Button("Stock");
-        reportButton = new Button("Report");
-        usersButton = new Button("Users");
-        logoutButton = new Button("Logout");
+        cashierButton = new Button("");
+        cashierButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.CASHIER_BUTTON))));
+        cashierButton.setBorderPainted(false);
+        cashierButton.setContentAreaFilled(false);
+
+        stockButton = new Button("");
+        stockButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.STOCK_BUTTON))));
+        stockButton.setBorderPainted(false);
+        stockButton.setContentAreaFilled(false);
+
+        reportButton = new Button("");
+        reportButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.REPORT_BUTTON))));
+        reportButton.setBorderPainted(false);
+        reportButton.setContentAreaFilled(false);
+
+        usersButton = new Button("");
+        usersButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.USERS_BUTTON))));
+        usersButton.setBorderPainted(false);
+        usersButton.setContentAreaFilled(false);
+
+        logoutButton = new Button("");
+        logoutButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGOUT_BUTTON))));
+        logoutButton.setBorderPainted(false);
+        logoutButton.setContentAreaFilled(false);
 
         cashierButton.addActionListener(e -> showSaleSection());
         stockButton.addActionListener(e -> showStockSection());
@@ -98,16 +117,15 @@ public class MainFrame {
 
     private void configureLeftPanel() {
         createButtons();
-        JLabel menuLabel = new JLabel("MENU");
-        menuLabel.setBounds(87,26,80,30);
-        menuLabel.setForeground(Color.WHITE);
-        menuLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, 26));
+        JLabel menuLabel = new JLabel();
+        menuLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGO_ICON))));
+        menuLabel.setBounds(22,26,254,243);
 
-        cashierButton.setBounds(30, 80, 190, 40);
-        stockButton.setBounds(30, 150, 190, 40);
-        reportButton.setBounds(30, 220, 190, 40);
-        usersButton.setBounds(30, 290, 190, 40);
-        logoutButton.setBounds(30, 360, 190, 40);
+        cashierButton.setBounds(38, 320, 222, 45);
+        stockButton.setBounds(38, 390, 222, 45);
+        reportButton.setBounds(38, 460, 222, 45);
+        usersButton.setBounds(38, 530, 222, 45);
+        logoutButton.setBounds(38, 600, 222, 45);
 
         leftPanel.add(menuLabel);
         leftPanel.add(cashierButton);
@@ -118,11 +136,12 @@ public class MainFrame {
     }
 
     private void showHomeScreen() {
+        centerPanel.setBackground(Constants.BABY_BLUE);
         JLabel titleLabel = new JLabel();
         titleLabel.setBounds(840,250,254,243);
         titleLabel.setOpaque(false);
-        titleLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN,100));
-        titleLabel.setForeground(Constants.DARK_GRAY);
+        //titleLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN,100));
+        //titleLabel.setForeground(Constants.DARK_GRAY);
         titleLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGO_ICON))));
         centerPanel.add(titleLabel);
 
@@ -139,7 +158,6 @@ public class MainFrame {
         Button enterButton = new Button("");
         enterButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.JOIN_BUTTON))));
         enterButton.setBorderPainted(false);
-        enterButton.setFocusPainted(false);
         enterButton.setContentAreaFilled(false);
         enterButton.setBounds(867,530, 197,74);
         enterButton.addActionListener(e -> {
@@ -159,11 +177,13 @@ public class MainFrame {
         saleScreen.setVisible(true);
         stockScreen.setVisible(false);
         leftPanel.setVisible(true);
+        centerPanel.setBackground(Color.WHITE);
     }
 
     private void showStockSection(){
         saleScreen.setVisible(false);
         stockScreen.setVisible(true);
         leftPanel.setVisible(true);
+        centerPanel.setBackground(Color.WHITE);
     }
 }

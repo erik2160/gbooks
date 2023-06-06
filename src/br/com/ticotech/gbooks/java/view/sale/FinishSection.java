@@ -6,6 +6,8 @@ import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
 
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.Objects;
 
@@ -76,39 +78,48 @@ public class FinishSection {
         this.saleScreen = saleScreen;
 
         finishPanel = new JPanel();
-        finishPanel.setBackground(Constants.MID_GRAY);
-        finishPanel.setBounds(40, 690, 1540, 250);
+        finishPanel.setBackground(Constants.BABY_BLUE);
+        finishPanel.setBounds(40, 690, 1540, 230);
         finishPanel.setLayout(null);
 
+        JPanel pointsPanel = new JPanel();
+        pointsPanel.setBackground(Color.WHITE);
+        pointsPanel.setBounds(10,10, 380,210);
+        pointsPanel.setLayout(null);
+
         cpfField = new TextField("CPF");
-        cpfField.setBounds(66, 38, 181, 27);
-        finishPanel.add(cpfField);
+        cpfField.setBackground(Constants.BABY_BLUE);
+        cpfField.setBounds(10, 10, 181, 27);
+        pointsPanel.add(cpfField);
 
         Display pointsDisplay = new Display("POINTS");
-        pointsDisplay.setBounds(66, 80, 181, 27);
-        finishPanel.add(pointsDisplay);
+        pointsDisplay.setBackground(Constants.BABY_BLUE);
+        pointsDisplay.setBounds(10, 80, 181, 27);
+        pointsPanel.add(pointsDisplay);
 
         Display newPriceDisplay = new Display("NEW PRICE", Constants.CONFIRM_GREEN);
-        newPriceDisplay.setBounds(66, 122, 181, 27);
-        finishPanel.add(newPriceDisplay);
+        newPriceDisplay.setBackground(Constants.BABY_BLUE);
+        newPriceDisplay.setBounds(10, 122, 181, 27);
+        pointsPanel.add(newPriceDisplay);
 
         JCheckBox pointsCheckBox = new JCheckBox("USE POINTS");
         pointsCheckBox.setBackground(Color.WHITE);
         pointsCheckBox.setOpaque(true);
         pointsCheckBox.setFocusPainted(false);
-        pointsCheckBox.setBounds(100, 179, 115, 30);
+        pointsCheckBox.setBounds(10, 179, 115, 30);
         pointsCheckBox.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, 16));
-        finishPanel.add(pointsCheckBox);
+        pointsPanel.add(pointsCheckBox);
+        finishPanel.add(pointsPanel);
 
         JLabel cashLabel = new JLabel("CASH");
         cashLabel.setBounds(410, 48, 60, 24);
-        cashLabel.setForeground(Color.WHITE);
+        cashLabel.setForeground(Constants.DARK_BLUE);
         cashLabel.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(cashLabel);
 
         JLabel cashPayed = new JLabel("PAYED:");
         cashPayed.setBounds(345, 98, 80, 24);
-        cashPayed.setForeground(Color.WHITE);
+        cashPayed.setForeground(Constants.DARK_BLUE);
         cashPayed.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(cashPayed);
 
@@ -120,7 +131,7 @@ public class FinishSection {
 
         JLabel cashChange = new JLabel("CHANGE:");
         cashChange.setBounds(330, 156, 90, 24);
-        cashChange.setForeground(Color.WHITE);
+        cashChange.setForeground(Constants.DARK_BLUE);
         cashChange.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(cashChange);
 
@@ -130,13 +141,13 @@ public class FinishSection {
 
         JLabel creditCard = new JLabel("CREDIT CARD");
         creditCard.setBounds(670, 48, 154, 24);
-        creditCard.setForeground(Color.WHITE);
+        creditCard.setForeground(Constants.DARK_BLUE);
         creditCard.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(creditCard);
 
         JLabel cardValue = new JLabel("VALUE:");
         cardValue.setBounds(630, 98, 90, 24);
-        cardValue.setForeground(Color.WHITE);
+        cardValue.setForeground(Constants.DARK_BLUE);
         cardValue.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(cardValue);
 
@@ -147,7 +158,7 @@ public class FinishSection {
 
         JLabel cardOption = new JLabel("OPTION:");
         cardOption.setBounds(620, 156, 90, 24);
-        cardOption.setForeground(Color.WHITE);
+        cardOption.setForeground(Constants.DARK_BLUE);
         cardOption.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(cardOption);
 
@@ -167,7 +178,7 @@ public class FinishSection {
 
         JLabel payedInCash = new JLabel("PAYED IN CASH:");
         payedInCash.setBounds(905, 52, 170, 24);
-        payedInCash.setForeground(Color.WHITE);
+        payedInCash.setForeground(Constants.DARK_BLUE);
         payedInCash.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(payedInCash);
 
@@ -177,7 +188,7 @@ public class FinishSection {
 
         JLabel payedByCard = new JLabel("PAYED BY CARD:");
         payedByCard.setBounds(900, 112, 170, 24);
-        payedByCard.setForeground(Color.WHITE);
+        payedByCard.setForeground(Constants.DARK_BLUE);
         payedByCard.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(payedByCard);
 
@@ -187,7 +198,7 @@ public class FinishSection {
 
         JLabel totalPayed = new JLabel("TOTAL PAYED:");
         totalPayed.setBounds(924, 172, 160, 24);
-        totalPayed.setForeground(Color.WHITE);
+        totalPayed.setForeground(Constants.DARK_BLUE);
         totalPayed.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(totalPayed);
 
@@ -197,7 +208,7 @@ public class FinishSection {
 
         JLabel toPayLabel = new JLabel("TO BE PAYED");
         toPayLabel.setBounds(1300, 48, 160, 24);
-        toPayLabel.setForeground(Color.WHITE);
+        toPayLabel.setForeground(Constants.DARK_BLUE);
         toPayLabel.setFont(new Font("Ubuntu", Font.BOLD, 20));
         finishPanel.add(toPayLabel);
 

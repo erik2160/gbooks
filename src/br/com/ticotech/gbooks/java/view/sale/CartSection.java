@@ -47,7 +47,7 @@ public class CartSection {
 
         cartPanel = new JPanel();
         cartPanel.setLayout(null);
-        cartPanel.setBackground(Constants.MID_GRAY);
+        cartPanel.setBackground(Constants.BABY_BLUE);
         cartPanel.setBounds(40, 20, 1540, 660);
 
         barcodeTextField = new TextField("BARCODE");

@@ -33,7 +33,7 @@ public class StockScreen {
 
         stockPanel = new JPanel();
         stockPanel.setLayout(null);
-        stockPanel.setBackground(Constants.MID_GRAY);
+        stockPanel.setBackground(Constants.BABY_BLUE);
         stockPanel.setBounds(40,20,1540,915);
 
         searchField = new TextField("SEARCH");
