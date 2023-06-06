@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BookTest {
 
     private Book obj;
+
     @BeforeEach
     void setUp() {
     }
@@ -22,11 +23,13 @@ class BookTest {
         //Arrange & Act
         var code = "C1";
         var title = "T1";
-        var editor = "E1";
+        var author = "A1";
+        var edition = "E1";
         var publisher = "P1";
-        var quantity = 5;
-        var price = 123.12;
-        this.obj = new Book(code, title, editor, publisher, quantity, price);
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
         //Assert
         assertEquals(obj.getCode(), code);
     }
@@ -37,11 +40,13 @@ class BookTest {
         var code = "C1";
         var code2 = "C2";
         var title = "T1";
-        var editor = "E1";
+        var author = "A1";
+        var edition = "E1";
         var publisher = "P1";
-        var quantity = 5;
-        var price = 123.12;
-        this.obj = new Book(code, title, editor, publisher, quantity, price);
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
 
         //Act
         this.obj.setCode(code2);
@@ -54,11 +59,13 @@ class BookTest {
         //Arrange & Act
         var code = "C1";
         var title = "T1";
-        var editor = "E1";
+        var author = "A1";
+        var edition = "E1";
         var publisher = "P1";
-        var quantity = 5;
-        var price = 123.12;
-        this.obj = new Book(code, title, editor, publisher, quantity, price);
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
         //Assert
         assertEquals(obj.getTitle(), title);
     }
@@ -69,11 +76,13 @@ class BookTest {
         var code = "C1";
         var title = "T1";
         var title2 = "T2";
-        var editor = "E1";
+        var author = "A1";
+        var edition = "E1";
         var publisher = "P1";
-        var quantity = 5;
-        var price = 123.12;
-        this.obj = new Book(code, title, editor, publisher, quantity, price);
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
 
         //Act
         this.obj.setTitle(title2);
@@ -82,42 +91,219 @@ class BookTest {
     }
 
     @Test
-    void getEditor() {
-        //TODO
+    void getAuthor() {
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var publisher = "P1";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+        //Assert
+        assertEquals(obj.getAuthor(), author);
     }
 
     @Test
-    void setEditor() {
-        //TODO
+    void setAuthor() {
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var author2 = "A2";
+        var edition = "E1";
+        var publisher = "P1";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+
+        //Act
+        this.obj.setAuthor(author2);
+        //Assert
+        assertEquals(obj.getAuthor(), author2);
+    }
+
+    @Test
+    void getEdition() {
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var publisher = "P1";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+        //Assert
+        assertEquals(obj.getEdition(), edition);
+    }
+
+    @Test
+    void setEdition() {
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var edition2 = "A2";
+        var publisher = "P1";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+
+        //Act
+        this.obj.setEdition(edition2);
+        //Assert
+        assertEquals(obj.getEdition(), edition2);
     }
 
     @Test
     void getPublisher() {
-        //TODO
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var publisher = "P1";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+        //Assert
+        assertEquals(obj.getPublisher(), publisher);
     }
 
     @Test
     void setPublisher() {
-        //TODO
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var publisher = "P1";
+        var publisher2 = "P2";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+
+        //Act
+        this.obj.setPublisher(publisher2);
+        //Assert
+        assertEquals(obj.getPublisher(), publisher2);
     }
 
     @Test
-    void getQuantity() {
-        //TODO
+    void getUnits() {
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var publisher = "P1";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+        //Assert
+        assertEquals(obj.getUnits(), units);
     }
 
     @Test
-    void setQuantity() {
-        //TODO
+    void setUnits() {
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var publisher = "P1";
+        var units = 5;
+        var units2 = 50;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+
+        //Act
+        this.obj.setUnits(units2);
+        //Assert
+        assertEquals(obj.getUnits(), units2);
     }
 
     @Test
-    void getPrice() {
-        //TODO
+    void getInvoicePrice() {
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var publisher = "P1";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+        //Assert
+        assertEquals(obj.getInvoicePrice(), invoicePrice);
     }
 
     @Test
-    void setPrice() {
-        //TODO
+    void setInvoicePrice() {
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var publisher = "P1";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var invoicePrice2 = 150.11;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+
+        //Act
+        this.obj.setInvoicePrice(invoicePrice2);
+        //Assert
+        assertEquals(obj.getInvoicePrice(), invoicePrice2);
     }
+
+    @Test
+    void getFinalPrice() {
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var publisher = "P1";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+        //Assert
+        assertEquals(obj.getFinalPrice(), finalPrice);
+    }
+
+    @Test
+    void setFinalPrice() {
+        //Arrange & Act
+        var code = "C1";
+        var title = "T1";
+        var author = "A1";
+        var edition = "E1";
+        var publisher = "P1";
+        var units = 5;
+        var invoicePrice = 123.12;
+        var finalPrice = 25.12;
+        var finalPrice2 = 15.10;
+        this.obj = new Book(code, title, author, edition, publisher, units, invoicePrice, finalPrice);
+
+        //Act
+        this.obj.setFinalPrice(finalPrice2);
+        //Assert
+        assertEquals(obj.getFinalPrice(), finalPrice2);
+    }
+
 }
