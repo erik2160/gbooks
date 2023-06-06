@@ -26,4 +26,6 @@ public class Constants {
     public static final String ADD_BUTTON = "../shared/images/AddButton.png";
     public static final String REMOVE_BUTTON = "../shared/images/RemoveButton.png";
     public static final String CANCEL_BUTTON = "../shared/images/CancelButton.png";
+    public static final String POINTS_CHECKED_BOX = "../shared/images/UsePoints (checked).png";
+    public static final String POINTS_NOT_CHECKED_BOX = "../shared/images/UsePoints.png";
 }

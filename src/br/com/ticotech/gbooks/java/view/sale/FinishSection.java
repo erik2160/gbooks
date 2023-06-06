@@ -110,15 +110,21 @@ public class FinishSection {
         newPriceDisplay.setBounds(70, 124, 300, 45);
         pointsPanel.add(newPriceDisplay);
 
-        JCheckBox pointsCheckBox = new JCheckBox("USE POINTS");
-        pointsCheckBox.setBorder(new LineBorder(Constants.DARK_BLUE));
-        pointsCheckBox.setBackground(Color.WHITE);
-        pointsCheckBox.setForeground(Constants.DARK_BLUE);
-        pointsCheckBox.setOpaque(true);
-        pointsCheckBox.setFocusPainted(false);
-        pointsCheckBox.setBounds(148, 177, 215, 45);
-        pointsCheckBox.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, 20));
+//        JCheckBox pointsCheckBox = new JCheckBox("USE POINTS");
+//        pointsCheckBox.setBorder(new LineBorder(Constants.DARK_BLUE));
+//        pointsCheckBox.setBackground(Color.WHITE);
+//        pointsCheckBox.setForeground(Constants.DARK_BLUE);
+//        pointsCheckBox.setOpaque(true);
+//        pointsCheckBox.setFocusPainted(false);
+//        pointsCheckBox.setBounds(148, 177, 215, 45);
+//        pointsCheckBox.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, 20));
+//        pointsPanel.add(pointsCheckBox);
+
+        CheckBox pointsCheckBox = new CheckBox(Constants.POINTS_CHECKED_BOX, Constants.POINTS_NOT_CHECKED_BOX);
+        pointsCheckBox.addActionListener(e-> pointsCheckBox.alterCheck());
+        pointsCheckBox.setBounds(100, 177, 245, 45);
         pointsPanel.add(pointsCheckBox);
+
         finishPanel.add(pointsPanel);
 
         JLabel cashLabel = new JLabel("CASH");
