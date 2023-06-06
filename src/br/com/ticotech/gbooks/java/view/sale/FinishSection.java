@@ -79,34 +79,35 @@ public class FinishSection {
 
         finishPanel = new JPanel();
         finishPanel.setBackground(Constants.BABY_BLUE);
-        finishPanel.setBounds(40, 690, 1540, 230);
+        finishPanel.setBounds(40, 690, 1540, 190);
         finishPanel.setLayout(null);
 
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(Color.WHITE);
-        pointsPanel.setBounds(10,10, 380,210);
+        pointsPanel.setBounds(10,10, 374,170);
         pointsPanel.setLayout(null);
 
         cpfField = new TextField("CPF");
         cpfField.setBackground(Constants.BABY_BLUE);
-        cpfField.setBounds(70, 10, 230, 35);
+        cpfField.setBounds(70, 10, 230, 33);
         pointsPanel.add(cpfField);
 
         Display pointsDisplay = new Display("POINTS");
         pointsDisplay.setBackground(Constants.BABY_BLUE);
-        pointsDisplay.setBounds(70, 58, 230, 35);
+        pointsDisplay.setBounds(70, 52, 230, 33);
         pointsPanel.add(pointsDisplay);
 
         Display newPriceDisplay = new Display("NEW PRICE", Constants.CONFIRM_GREEN);
         newPriceDisplay.setBackground(Constants.BABY_BLUE);
-        newPriceDisplay.setBounds(70, 106, 230, 35);
+        newPriceDisplay.setBounds(70, 94, 230, 33);
         pointsPanel.add(newPriceDisplay);
 
         JCheckBox pointsCheckBox = new JCheckBox("USE POINTS");
         pointsCheckBox.setBackground(Color.WHITE);
+        pointsCheckBox.setForeground(Constants.DARK_BLUE);
         pointsCheckBox.setOpaque(true);
         pointsCheckBox.setFocusPainted(false);
-        pointsCheckBox.setBounds(70, 154, 115, 35);
+        pointsCheckBox.setBounds(120, 132, 115, 35);
         pointsCheckBox.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, 16));
         pointsPanel.add(pointsCheckBox);
         finishPanel.add(pointsPanel);

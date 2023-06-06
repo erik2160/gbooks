@@ -66,10 +66,10 @@ public class MainFrame {
         leftPanel.setLayout(null);
         centerPanel.setLayout(null);
 
-        topPanel.setBackground(Constants.DARK_GRAY);
+        topPanel.setBackground(Constants.BABY_BLUE);
         leftPanel.setBackground(Constants.BABY_BLUE);
         centerPanel.setBackground(Constants.BABY_BLUE);
-        bottomPanel.setBackground(Constants.DARK_GRAY);
+        bottomPanel.setBackground(Constants.BABY_BLUE);
 
         topPanel.setPreferredSize(new Dimension(100, 30));
         leftPanel.setPreferredSize(new Dimension(300, 100));
