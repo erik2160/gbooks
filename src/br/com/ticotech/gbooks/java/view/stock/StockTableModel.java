@@ -8,18 +8,14 @@ import java.util.List;
 
 public class StockTableModel extends DefaultTableModel {
 
-    private final String[] columns = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","UNITS","INVOICE PRICE","FINAL PRICE"};
+    private final String[] columns = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","UNITS","INVOICE PRICE","SELL PRICE"};
     private List<Book> stockBookList;
 
-    public void setStockBookList(List<Book> stockBookList) {
+    public StockTableModel(List<Book> stockBookList){
         this.stockBookList = stockBookList;
     }
 
-    public List<Book> getStockBookList() {
-        return stockBookList;
-    }
-
-    public StockTableModel(List<Book> stockBookList){
+    public void setStockBookList(List<Book> stockBookList) {
         this.stockBookList = stockBookList;
     }
 

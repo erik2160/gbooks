@@ -2,10 +2,12 @@ package br.com.ticotech.gbooks.java.view;
 import javax.swing.*;
 import java.awt.*;
 
+import br.com.ticotech.gbooks.java.controllers.ReportController;
 import br.com.ticotech.gbooks.java.controllers.SaleController;
 import br.com.ticotech.gbooks.java.controllers.StockController;
 import br.com.ticotech.gbooks.java.repository.SaleRepository;
 import br.com.ticotech.gbooks.java.repository.StockRepository;
+import br.com.ticotech.gbooks.java.view.report.ReportScreen;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.Constants;
@@ -15,10 +17,12 @@ public class MainFrame {
     private JFrame frame;
     private final SaleScreen saleScreen;
     private final StockScreen stockScreen;
+    private final ReportScreen reportScreen;
     private final SaleRepository saleRepository = new SaleRepository();
     private final StockRepository stockRepository = new StockRepository();
     private StockController stockController = new StockController(stockRepository);
     private SaleController saleController = new SaleController(stockRepository, saleRepository);
+    private ReportController reportController = new ReportController(stockRepository,saleRepository);
     private JPanel leftPanel;
     private JPanel centerPanel;
     private Button cashierButton;
@@ -40,6 +44,10 @@ public class MainFrame {
         stockScreen = new StockScreen(stockController);
         centerPanel.add(stockScreen.getStockPanel());
         stockScreen.setVisible(false);
+
+        reportScreen = new ReportScreen(reportController);
+        centerPanel.add(reportScreen.getReportPanel());
+        reportScreen.setVisible(false);
 
         showHomeScreen();
 
@@ -89,7 +97,7 @@ public class MainFrame {
 
         cashierButton.addActionListener(e -> showSaleSection());
         stockButton.addActionListener(e -> showStockSection());
-        reportButton.setEnabled(false);
+        reportButton.addActionListener(e -> showReportSection());
         usersButton.setEnabled(false);
         logoutButton.addActionListener(e -> showHomeScreen());
     }
@@ -125,6 +133,7 @@ public class MainFrame {
 
         saleScreen.setVisible(false);
         stockScreen.setVisible(false);
+        reportScreen.setVisible(false);
 
         cashierButton.setEnabled(false);
         stockButton.setEnabled(false);
@@ -137,8 +146,7 @@ public class MainFrame {
         enterButton.addActionListener(e -> {
             cashierButton.setEnabled(true);
             stockButton.setEnabled(true);
-            //reportButton.setEnabled(true); TODO
-            //usersButton.setEnabled(true); TODO
+            reportButton.setEnabled(true);
             logoutButton.setEnabled(true);
             titleLabel.setVisible(false);
             enterButton.setVisible(false);
@@ -150,10 +158,18 @@ public class MainFrame {
     private void showSaleSection() {
         saleScreen.setVisible(true);
         stockScreen.setVisible(false);
+        reportScreen.setVisible(false);
     }
 
     private void showStockSection(){
         saleScreen.setVisible(false);
         stockScreen.setVisible(true);
+        reportScreen.setVisible(false);
+    }
+
+    private void showReportSection(){
+        saleScreen.setVisible(false);
+        stockScreen.setVisible(false);
+        reportScreen.setVisible(true);
     }
 }

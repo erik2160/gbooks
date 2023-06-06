@@ -171,7 +171,9 @@ public class SaleController {
             for(CartBook cartBook: cartBookList){
                 stockRepository.alterUnits("remove", cartBook.getUnits(),cartBook.getCode());
             }
-            saleRepository.addSale(new Sale(cpf,new Date(),cartBookList));
+            List<CartBook> saleList = new ArrayList<>(cartBookList);
+            Sale sale = new Sale(cpf,new Date(),saleList);
+            saleRepository.addSale(sale);
             cancelSale();
             return true;
         }
