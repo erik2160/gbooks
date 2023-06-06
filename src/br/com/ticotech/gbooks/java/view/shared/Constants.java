@@ -23,4 +23,5 @@ public class Constants {
     public static final String REPORT_BUTTON = "shared/images/ReportButton.png";
     public static final String USERS_BUTTON = "shared/images/UsersButton.png";
     public static final String LOGOUT_BUTTON = "shared/images/LogoutButton.png";
+    public static final String ADD_BUTTON = "../shared/images/AddButton.png";
 }

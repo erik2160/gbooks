@@ -89,24 +89,24 @@ public class FinishSection {
 
         cpfField = new TextField("CPF");
         cpfField.setBackground(Constants.BABY_BLUE);
-        cpfField.setBounds(10, 10, 181, 27);
+        cpfField.setBounds(70, 10, 230, 35);
         pointsPanel.add(cpfField);
 
         Display pointsDisplay = new Display("POINTS");
         pointsDisplay.setBackground(Constants.BABY_BLUE);
-        pointsDisplay.setBounds(10, 80, 181, 27);
+        pointsDisplay.setBounds(70, 58, 230, 35);
         pointsPanel.add(pointsDisplay);
 
         Display newPriceDisplay = new Display("NEW PRICE", Constants.CONFIRM_GREEN);
         newPriceDisplay.setBackground(Constants.BABY_BLUE);
-        newPriceDisplay.setBounds(10, 122, 181, 27);
+        newPriceDisplay.setBounds(70, 106, 230, 35);
         pointsPanel.add(newPriceDisplay);
 
         JCheckBox pointsCheckBox = new JCheckBox("USE POINTS");
         pointsCheckBox.setBackground(Color.WHITE);
         pointsCheckBox.setOpaque(true);
         pointsCheckBox.setFocusPainted(false);
-        pointsCheckBox.setBounds(10, 179, 115, 30);
+        pointsCheckBox.setBounds(70, 154, 115, 35);
         pointsCheckBox.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, 16));
         pointsPanel.add(pointsCheckBox);
         finishPanel.add(pointsPanel);

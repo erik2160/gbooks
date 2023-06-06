@@ -3,6 +3,7 @@ package br.com.ticotech.gbooks.java.view.sale;
 import br.com.ticotech.gbooks.java.controllers.SaleController;
 import br.com.ticotech.gbooks.java.view.shared.*;
 import br.com.ticotech.gbooks.java.view.shared.Button;
+import br.com.ticotech.gbooks.java.view.shared.Constants;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
 
 import javax.swing.*;
@@ -61,8 +62,11 @@ public class CartSection {
         unitsTextField.addActionListener(enterUnit -> addToCart());
         cartPanel.add(unitsTextField);
 
-        Button buttonAdd = new Button("ADD");
-        buttonAdd.setBounds(366, 26, 110, 33);
+        Button buttonAdd = new Button();
+        buttonAdd.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.ADD_BUTTON))));
+        buttonAdd.setBorderPainted(false);
+        buttonAdd.setContentAreaFilled(false);
+        buttonAdd.setBounds(366, 24, 166, 50);
         buttonAdd.addActionListener(addItem -> addToCart());
         cartPanel.add(buttonAdd);
 

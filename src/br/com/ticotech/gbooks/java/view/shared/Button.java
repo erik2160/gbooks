@@ -18,6 +18,12 @@ public class Button extends JButton {
         CompoundBorder compoundBorder = new CompoundBorder(bevelBorder,etchedBorder);
         this.setBorder(compoundBorder);
     }
+    public Button() {
+        Cursor cur = new Cursor(Cursor.HAND_CURSOR);
+        this.setCursor(cur);
+        setBorderPainted(false);
+        setContentAreaFilled(false);
+    }
 
     public Button(String text, Color backgroundColor, Color foregroundColor){
         this.setText(text);
