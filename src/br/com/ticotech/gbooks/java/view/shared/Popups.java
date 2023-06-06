@@ -39,7 +39,7 @@ public class Popups extends JOptionPane{
             case 1 -> {
                 dialog.setTitle("ERROR");
 
-                contentLabel.setIcon(new ImageIcon(Objects.requireNonNull(Popups.class.getResource("images/ErrorIcon.png"))));
+                contentLabel.setIcon(new ImageIcon(Objects.requireNonNull(Popups.class.getResource(Constants.ERROR_ICON))));
 
                 Button okButton = new Button(" OK ");
                 okButton.addActionListener(closeWindow -> dialog.dispose());
@@ -48,7 +48,7 @@ public class Popups extends JOptionPane{
             case 2 -> {
                 dialog.setTitle("WARNING");
 
-                contentLabel.setIcon(new ImageIcon(Objects.requireNonNull(Popups.class.getResource("images/WarningIcon.png"))));
+                contentLabel.setIcon(new ImageIcon(Objects.requireNonNull(Popups.class.getResource(Constants.WARNING_ICON))));
 
                 Button confirmButton = new Button(" YES ",Constants.CONFIRM_GREEN, Color.white);
                 confirmButton.addActionListener(confirm -> {

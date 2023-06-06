@@ -1,6 +1,8 @@
 package br.com.ticotech.gbooks.java.view;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.Objects;
 
 import br.com.ticotech.gbooks.java.controllers.SaleController;
 import br.com.ticotech.gbooks.java.controllers.StockController;
@@ -66,7 +68,7 @@ public class MainFrame {
 
         topPanel.setBackground(Constants.DARK_GRAY);
         leftPanel.setBackground(Constants.MID_GRAY);
-        centerPanel.setBackground(Constants.LIGHT_GRAY);
+        centerPanel.setBackground(Constants.BABY_BLUE);
         bottomPanel.setBackground(Constants.DARK_GRAY);
 
         topPanel.setPreferredSize(new Dimension(100, 30));
@@ -116,15 +118,17 @@ public class MainFrame {
     }
 
     private void showHomeScreen() {
-        JLabel titleLabel = new JLabel("G-BOOKS");
-        titleLabel.setBounds(590,400,440,100);
+        JLabel titleLabel = new JLabel();
+        titleLabel.setBounds(840,250,254,243);
         titleLabel.setOpaque(false);
         titleLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN,100));
         titleLabel.setForeground(Constants.DARK_GRAY);
+        titleLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGO_ICON))));
         centerPanel.add(titleLabel);
 
         saleScreen.setVisible(false);
         stockScreen.setVisible(false);
+        leftPanel.setVisible(false);
 
         cashierButton.setEnabled(false);
         stockButton.setEnabled(false);
@@ -132,8 +136,12 @@ public class MainFrame {
         usersButton.setEnabled(false);
         logoutButton.setEnabled(false);
 
-        Button enterButton = new Button("Enter");
-        enterButton.setBounds(765,530, 90,40);
+        Button enterButton = new Button("");
+        enterButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.JOIN_BUTTON))));
+        enterButton.setBorderPainted(false);
+        enterButton.setFocusPainted(false);
+        enterButton.setContentAreaFilled(false);
+        enterButton.setBounds(867,530, 197,74);
         enterButton.addActionListener(e -> {
             cashierButton.setEnabled(true);
             stockButton.setEnabled(true);
@@ -150,10 +158,12 @@ public class MainFrame {
     private void showSaleSection() {
         saleScreen.setVisible(true);
         stockScreen.setVisible(false);
+        leftPanel.setVisible(true);
     }
 
     private void showStockSection(){
         saleScreen.setVisible(false);
         stockScreen.setVisible(true);
+        leftPanel.setVisible(true);
     }
 }
