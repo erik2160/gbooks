@@ -79,12 +79,12 @@ public class FinishSection {
 
         finishPanel = new JPanel();
         finishPanel.setBackground(Constants.BABY_BLUE);
-        finishPanel.setBounds(40, 690, 1540, 190);
+        finishPanel.setBounds(40, 690, 1540, 250);
         finishPanel.setLayout(null);
 
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(Color.WHITE);
-        pointsPanel.setBounds(10,10, 374,170);
+        pointsPanel.setBounds(10,10, 374,230);
         pointsPanel.setLayout(null);
 
         cpfField = new TextField("CPF");
