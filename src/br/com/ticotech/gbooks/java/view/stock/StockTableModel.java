@@ -8,7 +8,7 @@ import java.util.List;
 
 public class StockTableModel extends DefaultTableModel {
 
-    private final String[] columns = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","UNITS","FINAL PRICE","INVOICE PRICE"};
+    private final String[] columns = {"CODE","TITLE","AUTHOR","EDITION","PUBLISHER","UNITS","INVOICE PRICE","FINAL PRICE"};
     private List<Book> stockBookList;
 
     public void setStockBookList(List<Book> stockBookList) {
@@ -63,8 +63,8 @@ public class StockTableModel extends DefaultTableModel {
             case 3 -> this.stockBookList.get(rowIndex).getEdition();
             case 4 -> this.stockBookList.get(rowIndex).getPublisher();
             case 5 -> this.stockBookList.get(rowIndex).getUnits();
-            case 6 -> this.stockBookList.get(rowIndex).getFinalPrice();
-            case 7 -> this.stockBookList.get(rowIndex).getInvoicePrice();
+            case 6 -> this.stockBookList.get(rowIndex).getInvoicePrice();
+            case 7 -> this.stockBookList.get(rowIndex).getFinalPrice();
             default -> 0;
         };
     }
@@ -75,11 +75,11 @@ public class StockTableModel extends DefaultTableModel {
             case 0 -> this.stockBookList.get(rowIndex).setCode((String) aValue);
             case 1 -> this.stockBookList.get(rowIndex).setTitle((String) aValue);
             case 2 -> this.stockBookList.get(rowIndex).setAuthor((String) aValue);
-            case 3 -> this.stockBookList.get(rowIndex).setEdition((Integer) aValue);
+            case 3 -> this.stockBookList.get(rowIndex).setEdition((String) aValue);
             case 4 -> this.stockBookList.get(rowIndex).setPublisher((String) aValue);
             case 5 -> this.stockBookList.get(rowIndex).setUnits((Integer) aValue);
-            case 6 -> this.stockBookList.get(rowIndex).setFinalPrice((Double) aValue);
-            case 7 -> this.stockBookList.get(rowIndex).setInvoicePrice((Double) aValue);
+            case 6 -> this.stockBookList.get(rowIndex).setInvoicePrice((Double) aValue);
+            case 7 -> this.stockBookList.get(rowIndex).setFinalPrice((Double) aValue);
         }
     }
 

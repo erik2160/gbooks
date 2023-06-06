@@ -229,7 +229,6 @@ public class FinishSection {
 
                 switch (payment) {
                     case (-1) -> {
-                        cardValueField.setForeground(Color.BLACK);
                         cardValueField.setText(saleController.getToPay());
                     }
                     case (+1) -> changeDisplay.setText(saleController.getCashChange());

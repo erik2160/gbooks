@@ -4,13 +4,13 @@ public class Book {
     private String code;
     private String title;
     private String author;
-    private int edition;
+    private String edition;
     private String publisher;
     private int units;
     private double invoicePrice;
     private double finalPrice;
 
-    public Book(String code, String title, String author,int edition, String publisher, int units, double invoicePrice, double finalPrice) {
+    public Book(String code, String title, String author,String edition, String publisher, int units, double invoicePrice, double finalPrice) {
         this.code = code;
         this.title = title;
         this.author = author;
@@ -45,11 +45,11 @@ public class Book {
         this.author = author;
     }
 
-    public int getEdition() {
+    public String getEdition() {
         return edition;
     }
 
-    public void setEdition(int edition) {
+    public void setEdition(String edition) {
         this.edition = edition;
     }
 

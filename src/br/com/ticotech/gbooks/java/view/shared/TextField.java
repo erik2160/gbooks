@@ -49,6 +49,11 @@ public class TextField extends JTextField {
             setText("");
         }
     }
+    public void setText(String text){
+        setForeground(Color.BLACK);
+        super.setText(text);
+    }
+
     public void setFontSize(int size){
             this.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, size));
         }

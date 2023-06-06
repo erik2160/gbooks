@@ -11,7 +11,7 @@ import java.util.Objects;
 public class StockController {
     private StockRepository stockRepository;
     private final StockTableModel stockTableModel;
-    List<Book> stockList;
+    private List<Book> stockList;
 
     public StockTableModel getStockTableModel() {
         return stockTableModel;
@@ -20,16 +20,12 @@ public class StockController {
     public StockController(StockRepository stockRepository){
         this.stockRepository = stockRepository;
         stockList = stockRepository.getStock();
-        //stockList = new ArrayList<>();
         stockTableModel = new StockTableModel(stockList);
-        //TEST
-        stockRepository.addToStock(new Book("123", "Book1", "AUTHOR",1, "PUBLISHER", 10, 25.17, 26.20));
-
     }
 
     public void doSearch(String search){
         List<Book> newList = new ArrayList<>();
-        if(!Objects.equals(search,"")) {
+        if(!Objects.equals(search,"") && !Objects.equals(search,"search" )) {
             for (Book book : stockRepository.getStock()) {
                 if (book.getCode().contains(search) && !newList.contains(book)) {
                     newList.add(book);
@@ -46,6 +42,17 @@ public class StockController {
             newList = stockRepository.getStock();
         }
         stockTableModel.setStockBookList(newList);
+    }
+
+    public Book getBook(String barcode){
+        return stockRepository.getBook(barcode);
+    }
+
+    public void addBook(Book book){
+        stockRepository.addBook(book);
+    }
+    public void deleteBook(String barcode){
+        stockRepository.deleteBook(barcode);
     }
 
 }
