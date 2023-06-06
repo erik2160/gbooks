@@ -52,12 +52,12 @@ public class CartSection {
         cartPanel.setBounds(40, 20, 1540, 660);
 
         barcodeTextField = new TextField("BARCODE");
-        barcodeTextField.setBounds(26, 26, 240, 33);
+        barcodeTextField.setBounds(26, 26, 240, 40);
         barcodeTextField.setFontSize(22);
         cartPanel.add(barcodeTextField);
 
         unitsTextField = new TextField("UNITS");
-        unitsTextField.setBounds(276, 26, 80, 33);
+        unitsTextField.setBounds(276, 26, 80, 40);
         unitsTextField.setFontSize(22);
         unitsTextField.addActionListener(enterUnit -> addToCart());
         cartPanel.add(unitsTextField);
@@ -66,24 +66,27 @@ public class CartSection {
         buttonAdd.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.ADD_BUTTON))));
         buttonAdd.setBorderPainted(false);
         buttonAdd.setContentAreaFilled(false);
-        buttonAdd.setBounds(366, 24, 166, 50);
+        buttonAdd.setBounds(366, 20, 166, 50);
         buttonAdd.addActionListener(addItem -> addToCart());
         cartPanel.add(buttonAdd);
 
-        buttonRemove = new Button("REMOVE", Constants.CANCEL_RED, Color.WHITE);
-        buttonRemove.setBounds(1266, 26, 120, 33);
+        buttonRemove = new Button();
+        buttonRemove.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.REMOVE_BUTTON))));
+        buttonRemove.setBounds(1130, 20, 182, 50);
         buttonRemove.setEnabled(false);
         buttonRemove.addActionListener(removeItem ->removeFromCart());
         cartPanel.add(buttonRemove);
 
-        buttonCancel = new Button("CANCEL", Constants.CANCEL_RED, Color.WHITE);
-        buttonCancel.setBounds(1394, 26, 120, 33);
+        buttonCancel = new Button();
+        buttonCancel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.CANCEL_BUTTON))));
+        buttonCancel.setBounds(1334, 20, 182, 50);
         buttonCancel.setEnabled(false);
         buttonCancel.addActionListener(finishSale -> cancelSale());
         cartPanel.add(buttonCancel);
 
         JScrollPane tableScrollPane = new JScrollPane(table);
-        tableScrollPane.setBounds(26, 70, 1488, 560);
+        tableScrollPane.setBounds(26, 80, 1488, 560);
+        tableScrollPane.getViewport().setBackground(Color.WHITE);
         cartPanel.add(tableScrollPane);
     }
 
