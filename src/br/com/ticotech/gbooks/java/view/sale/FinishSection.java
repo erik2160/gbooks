@@ -8,6 +8,8 @@ import br.com.ticotech.gbooks.java.view.shared.TextField;
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.Objects;
 
@@ -90,22 +92,26 @@ public class FinishSection {
         cpfField = new TextField("CPF");
         cpfField.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         cpfField.setBackground(Constants.BABY_BLUE);
+        cpfField.setBorder(new LineBorder(Constants.DARK_BLUE));
         cpfField.setBounds(70, 10, 300, 45);
         pointsPanel.add(cpfField);
 
         Display pointsDisplay = new Display("POINTS");
         pointsDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         pointsDisplay.setBackground(Constants.BABY_BLUE);
+        pointsDisplay.setBorder(new LineBorder(Constants.DARK_BLUE));
         pointsDisplay.setBounds(70, 67, 300, 45);
         pointsPanel.add(pointsDisplay);
 
         Display newPriceDisplay = new Display("NEW PRICE", Constants.CONFIRM_GREEN);
         newPriceDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         newPriceDisplay.setBackground(Constants.BABY_BLUE);
+        newPriceDisplay.setBorder(new LineBorder(Constants.DARK_BLUE));
         newPriceDisplay.setBounds(70, 124, 300, 45);
         pointsPanel.add(newPriceDisplay);
 
         JCheckBox pointsCheckBox = new JCheckBox("USE POINTS");
+        pointsCheckBox.setBorder(new LineBorder(Constants.DARK_BLUE));
         pointsCheckBox.setBackground(Color.WHITE);
         pointsCheckBox.setForeground(Constants.DARK_BLUE);
         pointsCheckBox.setOpaque(true);
