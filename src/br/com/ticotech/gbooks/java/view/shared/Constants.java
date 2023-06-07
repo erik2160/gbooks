@@ -17,7 +17,7 @@ public class Constants {
     public static final String ERROR_ICON = "images/ErrorIcon.png";
     public static final String WARNING_ICON = "images/WarningIcon.png";
     public static final String LOGO_ICON = "shared/images/Logo.png";
-    public static final String JOIN_BUTTON = "shared/images/JoinButton.png";
+    public static final String LOGIN_BUTTON = "shared/images/LoginButton.png";
     public static final String CASHIER_BUTTON = "shared/images/CashierButton.png";
     public static final String STOCK_BUTTON = "shared/images/StockButton.png";
     public static final String REPORT_BUTTON = "shared/images/ReportButton.png";

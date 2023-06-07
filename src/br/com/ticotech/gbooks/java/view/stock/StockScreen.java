@@ -37,7 +37,7 @@ public class StockScreen {
         stockPanel.setBounds(40,20,1540,915);
 
         searchField = new TextField("SEARCH");
-        searchField.setBounds(26,26,240,33);
+        searchField.setBounds(26,23,247,46);
         stockPanel.add(searchField);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -70,7 +70,8 @@ public class StockScreen {
         removeButton.addActionListener(e -> deleteBook());
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(26,70,1488,820);
+        scrollPane.setBounds(26,80,1488,820);
+        scrollPane.getViewport().setBackground(Color.WHITE);
         stockPanel.add(scrollPane);
     }
     public void setVisible(boolean isVisible){

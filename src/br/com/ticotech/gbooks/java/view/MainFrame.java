@@ -156,7 +156,7 @@ public class MainFrame {
         logoutButton.setEnabled(false);
 
         Button enterButton = new Button("");
-        enterButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.JOIN_BUTTON))));
+        enterButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGIN_BUTTON))));
         enterButton.setBorderPainted(false);
         enterButton.setContentAreaFilled(false);
         enterButton.setBounds(867,530, 197,74);

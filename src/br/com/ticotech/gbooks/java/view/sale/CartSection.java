@@ -52,12 +52,12 @@ public class CartSection {
         cartPanel.setBounds(40, 20, 1540, 660);
 
         barcodeTextField = new TextField("BARCODE");
-        barcodeTextField.setBounds(26, 26, 240, 40);
+        barcodeTextField.setBounds(26, 23, 270, 46);
         barcodeTextField.setFontSize(22);
         cartPanel.add(barcodeTextField);
 
         unitsTextField = new TextField("UNITS");
-        unitsTextField.setBounds(276, 26, 80, 40);
+        unitsTextField.setBounds(310, 23, 80, 45);
         unitsTextField.setFontSize(22);
         unitsTextField.addActionListener(enterUnit -> addToCart());
         cartPanel.add(unitsTextField);
@@ -66,7 +66,7 @@ public class CartSection {
         buttonAdd.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.ADD_BUTTON))));
         buttonAdd.setBorderPainted(false);
         buttonAdd.setContentAreaFilled(false);
-        buttonAdd.setBounds(366, 20, 166, 50);
+        buttonAdd.setBounds(400, 20, 166, 50);
         buttonAdd.addActionListener(addItem -> addToCart());
         cartPanel.add(buttonAdd);
 
