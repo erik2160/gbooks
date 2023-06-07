@@ -141,7 +141,6 @@ public class CartSection {
                     if (table.getRowCount() ==0){
                         saleScreen.changeElementsStatus("reset");
                     }
-                    saleScreen.changeElementsStatus("reset");
                     //saleScreen.getToPayDisplay().setText(saleController.getToPay());
                 }
             } catch (NumberFormatException e) {
