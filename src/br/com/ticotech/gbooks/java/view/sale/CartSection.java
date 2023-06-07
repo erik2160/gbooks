@@ -137,8 +137,10 @@ public class CartSection {
                 if(saleController.removeFromCart(barcode, unitsFormatted)){
                     table.setVisible(false);
                     table.setVisible(true);
-                    saleScreen.changeElementsStatus("reset");
                     saleScreen.getToPayDisplay().setText(saleController.getToPay());
+                    if (table.getRowCount() ==0){
+                        saleScreen.changeElementsStatus("reset");
+                    }
                 }
             } catch (NumberFormatException e) {
                 new Popups("Invalid type! Enter a number in the UNITS field.", 1);
