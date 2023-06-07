@@ -111,8 +111,8 @@ public class StockEditor extends JFrame{
         panel.add(finalPrice);
 
         Button finishButton = new Button();
-        finishButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.FINISH_BUTTON))));
-        finishButton.setBounds(40,420,374,140);
+        finishButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.FINISH_STOCK_BUTTON))));
+        finishButton.setBounds(40,410,374,140);
         panel.add(finishButton);
 
         switch (type) {
