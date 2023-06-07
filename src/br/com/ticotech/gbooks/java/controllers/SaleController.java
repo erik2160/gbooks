@@ -63,8 +63,9 @@ public class SaleController {
             if (book.getUnits() == 0) {
                 new Popups("There is no more units of this book in the stock", 1);
                 return false;
-            }
-            else if (units > book.getUnits()) {
+            } else if (units < 1) {
+                new Popups("UNITS number needs to be positive", 1);
+            } else if (units > book.getUnits()) {
                 new Popups("Units greater than in stock", 1);
                 return false;
             }
@@ -175,6 +176,8 @@ public class SaleController {
             Sale sale = new Sale(cpf,new Date(),saleList);
             saleRepository.addSale(sale);
             cancelSale();
+            payedInCash = 00.00;
+            payedByCard = 00.00;
             return true;
         }
         else{
