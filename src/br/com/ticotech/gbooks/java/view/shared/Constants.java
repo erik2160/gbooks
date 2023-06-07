@@ -33,4 +33,9 @@ public class Constants {
     public static final String REMOVE_STOCK_BUTTON = "../shared/images/RemoveStockButton.png";
     public static final String FINISH_BUTTON = "../shared/images/FinishButton.png";
     public static final String STICK_BOOKS = "shared/images/StickBooks.png";
+    public static final String CASH_BUTTON = "../shared/images/CashButton.png";
+    public static final String CREDIT_BUTTON = "../shared/images/CreditButton.png";
+    public static final String DEBIT_BUTTON = "../shared/images/DebitButton.png";
+    public static final String FINISH_SALE_BUTTON = "../shared/images/FinishSaleButton.png";
+
 }

@@ -116,7 +116,7 @@ public class CartSection {
             barcodeTextField.reset();
             unitsTextField.reset();
             barcodeTextField.requestFocus();
-            saleScreen.getToPayDisplay().setText(saleController.getToPay());
+            //saleScreen.getToPayDisplay().setText(saleController.getToPay());
         }
     }
 
@@ -137,10 +137,12 @@ public class CartSection {
                 if(saleController.removeFromCart(barcode, unitsFormatted)){
                     table.setVisible(false);
                     table.setVisible(true);
-                    saleScreen.getToPayDisplay().setText(saleController.getToPay());
+                    //saleScreen.getToPayDisplay().setText(saleController.getToPay());
                     if (table.getRowCount() ==0){
                         saleScreen.changeElementsStatus("reset");
                     }
+                    saleScreen.changeElementsStatus("reset");
+                    //saleScreen.getToPayDisplay().setText(saleController.getToPay());
                 }
             } catch (NumberFormatException e) {
                 new Popups("Invalid type! Enter a number in the UNITS field.", 1);

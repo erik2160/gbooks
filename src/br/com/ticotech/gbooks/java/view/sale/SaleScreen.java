@@ -22,30 +22,26 @@ public class SaleScreen {
                 cartSection.getButtonRemove().setEnabled(false);
                 cartSection.getBarcodeTextField().reset();
                 cartSection.getUnitsTextField().reset();
-                finishSection.getCashValueField().setEnabled(false);
-                finishSection.getCardValueField().setEnabled(false);
+//                finishSection.getCashValueField().setEnabled(false);
+//                finishSection.getCardValueField().setEnabled(false);
                 finishSection.getFinishButton().setEnabled(false);
                 finishSection.getCreditButton().setEnabled(false);
                 finishSection.getDebitButton().setEnabled(false);
-                finishSection.getPayedInCashDisplay().reset();
-                finishSection.getPayedByCardDisplay().reset();
-                finishSection.getTotalPayedDisplay().reset();
-                finishSection.getToPayDisplay().reset();
-                finishSection.getCashValueField().reset();
-                finishSection.getCardValueField().reset();
-                finishSection.getChangeDisplay().reset();
-                finishSection.getCardsButtons().clearSelection();
+//                finishSection.getCashValueField().reset();
+//                finishSection.getCardValueField().reset();
+//                finishSection.getChangeDisplay().reset();
+                //finishSection.getCardsButtons().clearSelection();
             } else if (Objects.equals(getType, "add")) {
                 cartSection.getButtonCancel().setEnabled(true);
                 cartSection.getButtonRemove().setEnabled(true);
-                finishSection.getCashValueField().setEnabled(true);
-                finishSection.getCardValueField().setEnabled(true);
+//                finishSection.getCashValueField().setEnabled(true);
+//                finishSection.getCardValueField().setEnabled(true);
                 finishSection.getFinishButton().setEnabled(true);
                 finishSection.getCreditButton().setEnabled(true);
                 finishSection.getDebitButton().setEnabled(true);
             }
         }
-        public Display getToPayDisplay(){return finishSection.getToPayDisplay();}
+        //public Display getToPayDisplay(){return finishSection.getToPayDisplay();}
         public Table getCartTable(){return cartSection.getTable();}
         public JPanel getCartPanel() {
             return cartSection.getCartPanel();
