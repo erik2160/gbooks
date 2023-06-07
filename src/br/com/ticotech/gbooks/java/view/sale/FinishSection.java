@@ -134,7 +134,7 @@ public class FinishSection {
         totalPanel.add(changeDisplay);
 
         finishButton = new Button();
-        finishButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.FINISH_BUTTON))));
+        finishButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.FINISH_SALE_BUTTON))));
         finishButton.setBorderPainted(false);
         finishButton.setContentAreaFilled(false);
         finishButton.setBounds(625, 80, 390, 140);
