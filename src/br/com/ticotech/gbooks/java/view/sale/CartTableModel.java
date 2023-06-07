@@ -13,11 +13,9 @@ public class CartTableModel extends DefaultTableModel {
     public CartTableModel(List<CartBook> cartBookList) {
         this.cartBookList = cartBookList;
     }
+
     public String[] getColumns() {
         return columns;
-    }
-    public List<CartBook> getSaleCart() {
-        return cartBookList;
     }
 
     @Override

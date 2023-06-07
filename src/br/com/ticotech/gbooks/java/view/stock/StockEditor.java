@@ -120,7 +120,7 @@ public class StockEditor extends JFrame{
                 book = stockController.getBook(barcode);
                 getBookAttributes();
                 finishButton.addActionListener(e -> {
-                    if(stockController.getBook(barcodeTextField.getText()) == null) {
+                    if((stockController.getBook(barcodeTextField.getText()) == null) || Objects.equals(barcodeTextField.getText(), book.getCode())){
                         updateBookAttributes();
                         dispose();
                     }
