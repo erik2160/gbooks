@@ -54,18 +54,21 @@ public class StockScreen {
             }
         });
 
-        Button editButton = new Button("EDIT");
-        editButton.setBounds(1138,26,120,33);
+        Button editButton = new Button();
+        editButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.EDIT_STOCK_BUTTON))));
+        editButton.setBounds(972,20,166,50);
         stockPanel.add(editButton);
         editButton.addActionListener(e -> editBook());
 
-        Button addButton = new Button("ADD");
-        addButton.setBounds(1266,26,120,33);
+        Button addButton = new Button();
+        addButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.ADD_STOCK_BUTTON))));
+        addButton.setBounds(1160,20,166,50);
         stockPanel.add(addButton);
         addButton.addActionListener(e -> addBook());
 
-        Button removeButton = new Button("REMOVE", Constants.CANCEL_RED, Color.WHITE);
-        removeButton.setBounds(1394,26,120,33);
+        Button removeButton = new Button();
+        removeButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.REMOVE_STOCK_BUTTON))));
+        removeButton.setBounds(1348,20,166,50);
         stockPanel.add(removeButton);
         removeButton.addActionListener(e -> deleteBook());
 

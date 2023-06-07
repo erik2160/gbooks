@@ -31,4 +31,5 @@ public class Constants {
     public static final String ADD_STOCK_BUTTON = "../shared/images/AddStockButton.png";
     public static final String EDIT_STOCK_BUTTON = "../shared/images/EditStockButton.png";
     public static final String REMOVE_STOCK_BUTTON = "../shared/images/RemoveStockButton.png";
+    public static final String FINISH_BUTTON = "../shared/images/FinishButton.png";
 }
