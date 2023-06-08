@@ -50,13 +50,13 @@ public class ValueSelector extends JFrame {
             else {
                 switch (type) {
                     case 1 -> {
-                        saleController.cashPayment(value);
+                        saleController.registerCashPayment(value);
                         finishSection.getTotalDisplay().setText(saleController.getToPay());
                         finishSection.getChangeDisplay().setText(saleController.getCashChange());
                         dispose();
                     }
                     case 2 -> {
-                        if (saleController.creditCardPayment(value)) {
+                        if (saleController.registerCardPayment(value)) {
                             finishSection.getTotalDisplay().setText(saleController.getToPay());
                             dispose();
                         }

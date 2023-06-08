@@ -6,10 +6,6 @@ import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
 
 import javax.swing.*;
-import javax.swing.border.AbstractBorder;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.Objects;
 
@@ -104,19 +100,19 @@ public class FinishSection {
         cashButton = new Button(Constants.CASH_BUTTON);
         cashButton.setBounds(15, 85, 350, 40);
         cashButton.setEnabled(false);
-        cashButton.addActionListener(e -> new ValueSelector(1, saleController, this));
+        cashButton.addActionListener(e -> doPayment(1));
         totalPanel.add(cashButton);
 
         creditButton = new Button(Constants.CREDIT_BUTTON);
         creditButton.setBounds(15, 130, 350, 40);
         creditButton.setEnabled(false);
-        creditButton.addActionListener(e -> new ValueSelector(2, saleController, this));
+        creditButton.addActionListener(e -> doPayment(2));
         totalPanel.add(this.creditButton);
 
         debitButton = new Button(Constants.DEBIT_BUTTON);
         debitButton.setBounds(15, 175, 350, 40);
         debitButton.setEnabled(false);
-        debitButton.addActionListener(e -> new ValueSelector(2, saleController, this));
+        debitButton.addActionListener(e -> doPayment(2));
         totalPanel.add(this.debitButton);
 
         changeDisplay = new Display("CHANGE");
@@ -143,6 +139,17 @@ public class FinishSection {
             saleScreen.getCartTable().setVisible(false);
             saleScreen.getCartTable().setVisible(true);
             saleScreen.changeElementsStatus("reset");
+        }
+    }
+
+    private void doPayment(int type){
+        if (saleController.isFirstPayment()){
+            new ValueSelector(type, saleController, this);
+        }
+        else {
+            saleController.registerSecondPayment();
+            totalDisplay.setText(saleController.getToPay());
+            changeDisplay.reset();
         }
     }
 }

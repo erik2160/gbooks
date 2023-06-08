@@ -18,8 +18,13 @@ public class SaleController {
     private final List<CartBook> cartBookList = new ArrayList<>();
     private final CartTableModel cartTableModel = new CartTableModel(cartBookList);
     private final SaleRepository saleRepository;
+    private boolean firstPayment = true;
     private double toPay;
     private double cashChange;
+
+    public boolean isFirstPayment() {
+        return firstPayment;
+    }
 
     public String getToPay() {
         double toPayRounded = Math.round(toPay*100.0)/100.0;
@@ -64,6 +69,8 @@ public class SaleController {
                         cartBook.setUnits(cartBook.getUnits() + units);
                         cartBook.setTotalPrice(book.getFinalPrice() * cartBook.getUnits());
                         toPay += cartBook.getUnitPrice()*units;
+                        firstPayment = true;
+                        return true;
                     }
                 }
             } else {
@@ -76,13 +83,15 @@ public class SaleController {
                 );
                 cartBookList.add(newCartBook);
                 toPay +=newCartBook.getTotalPrice();
+                firstPayment = true;
+                return true;
             }
-            return true;
         } else {
             String messageError = String.format("Barcode \"%S\" not found!", barcode);
             new Popups(messageError, 1);
             return false;
         }
+        return false;
     }
 
     public boolean removeFromCart(String barcode, int units) {
@@ -121,7 +130,7 @@ public class SaleController {
         toPay= 00.00;
     }
 
-    public void cashPayment(double value){
+    public void registerCashPayment(double value){
         if(value>toPay) {
             cashChange = value - toPay;
             toPay=00.00;
@@ -130,9 +139,10 @@ public class SaleController {
         } else {
             toPay -= value;
         }
+        firstPayment = false;
     }
 
-    public boolean creditCardPayment(double value){
+    public boolean registerCardPayment(double value){
         if(value>toPay){
             new Popups("Value greater than necessary!",1);
             return false;
@@ -141,7 +151,12 @@ public class SaleController {
         } else {
             toPay -= value;
         }
+        firstPayment = false;
         return true;
+    }
+
+    public void registerSecondPayment(){
+        toPay = 00.00;
     }
 
     public boolean finishSale(String cpf){
@@ -152,6 +167,7 @@ public class SaleController {
             List<CartBook> saleList = new ArrayList<>(cartBookList);
             Sale sale = new Sale(cpf,new Date(),saleList);
             saleRepository.addSale(sale);
+            firstPayment = true;
             cancelSale();
             return true;
         }

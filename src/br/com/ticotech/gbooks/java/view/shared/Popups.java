@@ -41,7 +41,7 @@ public class Popups extends JOptionPane{
 
                 contentLabel.setIcon(new ImageIcon(Objects.requireNonNull(Popups.class.getResource(Constants.ERROR_ICON))));
 
-                Button okButton = new Button(" OK ", Constants.CONFIRM_GREEN, Color.WHITE);
+                Button okButton = new Button(" OK ", Constants.CONFIRM_GREEN, Color.WHITE);//TODO
                 okButton.addActionListener(closeWindow -> dialog.dispose());
                 buttonPanel.add(okButton, BorderLayout.NORTH);
             }
@@ -50,14 +50,14 @@ public class Popups extends JOptionPane{
 
                 contentLabel.setIcon(new ImageIcon(Objects.requireNonNull(Popups.class.getResource(Constants.WARNING_ICON))));
 
-                Button confirmButton = new Button(" YES ",Constants.CONFIRM_GREEN, Color.white);
+                Button confirmButton = new Button(" YES ",Constants.CONFIRM_GREEN, Color.white);//TODO
                 confirmButton.addActionListener(confirm -> {
                     response = true;
                     dialog.dispose();
                 });
                 buttonPanel.add(confirmButton);
 
-                Button cancelButton = new Button(" NO ", Constants.CANCEL_RED, Color.WHITE);
+                Button cancelButton = new Button(" NO ", Constants.CANCEL_RED, Color.WHITE);//TODO
                 cancelButton.addActionListener(cancel -> {
                     response = false;
                     dialog.dispose();
