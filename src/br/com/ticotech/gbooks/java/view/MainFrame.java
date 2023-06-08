@@ -15,6 +15,7 @@ import br.com.ticotech.gbooks.java.view.report.ReportScreen;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.Constants;
+import br.com.ticotech.gbooks.java.view.shared.TextField;
 import br.com.ticotech.gbooks.java.view.stock.StockScreen;
 
 public class MainFrame {
@@ -151,13 +152,25 @@ public class MainFrame {
     }
 
     private void showHomeScreen() {
+        JPanel topPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
+
+        topPanel.setBackground(Constants.DARK_BLUE);
+        bottomPanel.setBackground(Constants.DARK_BLUE);
+
+        topPanel.setPreferredSize(new Dimension(100, 50));
+        bottomPanel.setPreferredSize(new Dimension(100, 50));
+
+        frame.add(topPanel, BorderLayout.NORTH);
+        frame.add(bottomPanel, BorderLayout.SOUTH);
+
         centerPanel.setBackground(Constants.BABY_BLUE);
         JLabel titleLabel = new JLabel();
-        titleLabel.setBounds(840,250,254,243);
+        titleLabel.setBounds(790,90,340,339);
         titleLabel.setOpaque(false);
         //titleLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN,100));
         //titleLabel.setForeground(Constants.DARK_GRAY);
-        titleLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGO_ICON))));
+        titleLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGIN_ICON))));
         centerPanel.add(titleLabel);
 
         saleScreen.setVisible(false);
@@ -171,11 +184,24 @@ public class MainFrame {
         usersButton.setEnabled(false);
         logoutButton.setEnabled(false);
 
+        //WORKHERE
+        TextField idField = new TextField("ID");
+        idField.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
+        idField.setBackground(Color.WHITE);
+        idField.setBounds(713, 480, 499, 63);
+        centerPanel.add(idField);
+
+        TextField passwordField = new TextField("PASSWORD");
+        passwordField.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
+        passwordField.setBackground(Color.WHITE);
+        passwordField.setBounds(713, 573, 499, 63);
+        centerPanel.add(passwordField);
+
         Button enterButton = new Button("");
         enterButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGIN_BUTTON))));
         enterButton.setBorderPainted(false);
         enterButton.setContentAreaFilled(false);
-        enterButton.setBounds(867,530, 197,74);
+        enterButton.setBounds(866,694, 189,66);
         enterButton.addActionListener(e -> {
             cashierButton.setEnabled(true);
             stockButton.setEnabled(true);

@@ -46,5 +46,6 @@ public class Constants {
     public static final String FINAL_DATE_BUTTON = "../shared/images/FinalButton.png";
     public static final String RESET_FILTER = "../shared/images/ResetFilter.png";
     public static final String SEARCH_BUTTON = "../shared/images/SearchButton.png";
+    public static final String LOGIN_ICON = "shared/images/LoginIcon.png";
 
 }
