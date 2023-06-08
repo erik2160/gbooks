@@ -37,5 +37,9 @@ public class Constants {
     public static final String CREDIT_BUTTON = "../shared/images/CreditButton.png";
     public static final String DEBIT_BUTTON = "../shared/images/DebitButton.png";
     public static final String FINISH_SALE_BUTTON = "../shared/images/FinishSaleButton.png";
+    public static final String INITIAL_DATE_BUTTON = "../shared/images/InitialButton.png";
+    public static final String FINAL_DATE_BUTTON = "../shared/images/FinalButton.png";
+    public static final String RESET_FILTER = "../shared/images/ResetFilter.png";
+    public static final String SEARCH_BUTTON = "../shared/images/SearchButton.png";
 
 }
