@@ -2,6 +2,8 @@ package br.com.ticotech.gbooks.java.view;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 import br.com.ticotech.gbooks.java.controllers.ReportController;
