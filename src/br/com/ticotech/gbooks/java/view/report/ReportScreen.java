@@ -20,30 +20,30 @@ public class ReportScreen{
         reportPanel.setBackground(Constants.MID_GRAY);
         reportPanel.setBounds(40,20,1540,915);
 
-        Button firstDateButton = new Button("FIRST DATE");
-        firstDateButton.setBounds(26,26,150,33);
-        firstDateButton.setEnabled(false);
-        //firstDateButton.addActionListener(); TODO
-        reportPanel.add(firstDateButton);
-
-        Button secondDateButton = new Button("SECOND DATE");
-        secondDateButton.setBounds(199,26,150,33);
-        secondDateButton.setEnabled(false);
-        //secondDateButton.addActionListener(e-> new Calendar("Second")); //TODO
-        reportPanel.add(secondDateButton);
-
-        int [] columnsWidth = {50,50,30,5,30,5,40,40};
-        table = new Table(reportController.getReportTableModel(), columnsWidth);
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(26,70,1488,820);
-        reportPanel.add(scrollPane);
+//        Button firstDateButton = new Button("FIRST DATE");
+//        firstDateButton.setBounds(26,26,150,33);
+//        firstDateButton.setEnabled(false);
+//        //firstDateButton.addActionListener(); TODO
+//        reportPanel.add(firstDateButton);
+//
+//        Button secondDateButton = new Button("SECOND DATE");
+//        secondDateButton.setBounds(199,26,150,33);
+//        secondDateButton.setEnabled(false);
+//        //secondDateButton.addActionListener(e-> new Calendar("Second")); //TODO
+//        reportPanel.add(secondDateButton);
+//
+//        int [] columnsWidth = {50,50,30,5,30,5,40,40};
+//        table = new Table(reportController.getReportTableModel(), columnsWidth);
+//        JScrollPane scrollPane = new JScrollPane(table);
+//        scrollPane.setBounds(26,70,1488,820);
+//        reportPanel.add(scrollPane);
 
     }
     public void setVisible(boolean isVisible){
         reportPanel.setVisible(isVisible);
-        table.setVisible(false);
-        table.setVisible(true);
-            reportController.getReportTableModel().updateList();
+//        table.setVisible(false);
+//        table.setVisible(true);
+//            reportController.getReportTableModel().updateList();
 
     }
 

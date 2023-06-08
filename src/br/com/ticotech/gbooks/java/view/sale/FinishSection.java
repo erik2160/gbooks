@@ -75,16 +75,6 @@ public class FinishSection {
         newPriceDisplay.setBounds(70, 124, 300, 45);
         pointsPanel.add(newPriceDisplay);
 
-//        JCheckBox pointsCheckBox = new JCheckBox("USE POINTS");
-//        pointsCheckBox.setBorder(new LineBorder(Constants.DARK_BLUE));
-//        pointsCheckBox.setBackground(Color.WHITE);
-//        pointsCheckBox.setForeground(Constants.DARK_BLUE);
-//        pointsCheckBox.setOpaque(true);
-//        pointsCheckBox.setFocusPainted(false);
-//        pointsCheckBox.setBounds(148, 177, 215, 45);
-//        pointsCheckBox.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, 20));
-//        pointsPanel.add(pointsCheckBox);
-
         CheckBox pointsCheckBox = new CheckBox(Constants.POINTS_CHECKED_BOX, Constants.POINTS_NOT_CHECKED_BOX);
         pointsCheckBox.addActionListener(e-> pointsCheckBox.alterCheck());
         pointsCheckBox.setBounds(100, 177, 245, 45);
@@ -103,26 +93,18 @@ public class FinishSection {
         totalDisplay.setBounds(15, 10, 1000, 60);
         totalPanel.add(totalDisplay);
 
-        Button cashButton = new Button();
-        cashButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.CASH_BUTTON))));
-        cashButton.setBorderPainted(false);
-        cashButton.setContentAreaFilled(false);
+        Button cashButton = new Button(Constants.CASH_BUTTON);
         cashButton.setBounds(15, 85, 350, 40);
         //buttonCash.addActionListener(addItem -> addToCart());
         totalPanel.add(cashButton);
+        cashButton.addActionListener(e -> new ValueSelector());
 
-        this.creditButton = new Button();
-        this.creditButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.CREDIT_BUTTON))));
-        this.creditButton.setBorderPainted(false);
-        this.creditButton.setContentAreaFilled(false);
+        this.creditButton = new Button(Constants.CREDIT_BUTTON);
         this.creditButton.setBounds(15, 130, 350, 40);
         //buttonCash.addActionListener(addItem -> addToCart());
         totalPanel.add(this.creditButton);
 
-        this.debitButton = new Button();
-        this.debitButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.DEBIT_BUTTON))));
-        this.debitButton.setBorderPainted(false);
-        this.debitButton.setContentAreaFilled(false);
+        this.debitButton = new Button(Constants.DEBIT_BUTTON);
         this.debitButton.setBounds(15, 175, 350, 40);
         //buttonCash.addActionListener(addItem -> addToCart());
         totalPanel.add(this.debitButton);
@@ -133,29 +115,17 @@ public class FinishSection {
         changeDisplay.setBounds(380, 84, 240, 130);
         totalPanel.add(changeDisplay);
 
-        finishButton = new Button();
-        finishButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.FINISH_SALE_BUTTON))));
-        finishButton.setBorderPainted(false);
-        finishButton.setContentAreaFilled(false);
+        finishButton = new Button(Constants.FINISH_SALE_BUTTON);
         finishButton.setBounds(625, 80, 390, 140);
         totalPanel.add(finishButton);
 
         finishPanel.add(totalPanel);
 
 
-//        creditButton = new RadioButton("Credit");
-//        creditButton.setEnabled(false);
-//        debitButton = new RadioButton("Debit");
-//        debitButton.setEnabled(false);
-//        creditButton.setBounds(735, 125, 120, 60);
-//        debitButton.setBounds(735, 160, 120, 60);
+
 //        cardsButtons = new ButtonGroup();
 //        cardsButtons.add(creditButton);
 //        cardsButtons.add(debitButton);
-//        totalPanel.add(creditButton);
-//        totalPanel.add(debitButton);
-//        creditButton.addActionListener(e -> creditCardPayment());
-//        debitButton.addActionListener(e -> creditCardPayment());
 
     }
 
