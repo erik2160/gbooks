@@ -1,10 +1,8 @@
 package br.com.ticotech.gbooks.java.view.report;
 
 import br.com.ticotech.gbooks.java.controllers.ReportController;
+import br.com.ticotech.gbooks.java.view.shared.*;
 import br.com.ticotech.gbooks.java.view.shared.Button;
-import br.com.ticotech.gbooks.java.view.shared.Constants;
-import br.com.ticotech.gbooks.java.view.shared.Display;
-import br.com.ticotech.gbooks.java.view.shared.Table;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,20 +21,28 @@ public class ReportScreen{
         reportPanel.setBackground(Constants.BABY_BLUE);
         reportPanel.setBounds(40,20,1540,915);
 
+        Display firstDateDisplay = new Display("   DD/MM/AAAA");
+        firstDateDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
+        firstDateDisplay.setBackground(Color.WHITE);
+        firstDateDisplay.setBounds(266, 26, 200, 50);
+        reportPanel.add(firstDateDisplay);
+
         Button firstDateButton = new Button();
         firstDateButton.setBounds(26,26,240,50);
         firstDateButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.INITIAL_DATE_BUTTON))));
         firstDateButton.setBorderPainted(false);
         firstDateButton.setContentAreaFilled(false);
         firstDateButton.setEnabled(true);
-        //firstDateButton.addActionListener(); TODO
+
+        Calendar calendarFirstDate = new Calendar("INITIAL DATE");
+        firstDateButton.addActionListener(e -> calendarFirstDate.show(firstDateButton, firstDateDisplay));
         reportPanel.add(firstDateButton);
 
-        Display firstDateDisplay = new Display("   DD/MM/AAAA");
-        firstDateDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
-        firstDateDisplay.setBackground(Color.WHITE);
-        firstDateDisplay.setBounds(266, 26, 200, 50);
-        reportPanel.add(firstDateDisplay);
+        Display secondDateDisplay = new Display("   DD/MM/AAAA");
+        secondDateDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
+        secondDateDisplay.setBackground(Color.WHITE);
+        secondDateDisplay.setBounds(843, 26, 200, 50);
+        reportPanel.add(secondDateDisplay);
 
         Button secondDateButton = new Button();
         secondDateButton.setBounds(600,26,240,50);
@@ -44,14 +50,11 @@ public class ReportScreen{
         secondDateButton.setBorderPainted(false);
         secondDateButton.setContentAreaFilled(false);
         secondDateButton.setEnabled(true);
-        //secondDateButton.addActionListener(e-> new Calendar("Second")); //TODO
+
+        Calendar calendarFinalDate = new Calendar("FINAL DATE");
+        secondDateButton.addActionListener(e -> calendarFinalDate.show(secondDateButton, secondDateDisplay));
         reportPanel.add(secondDateButton);
 
-        Display secondDateDisplay = new Display("   DD/MM/AAAA");
-        secondDateDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
-        secondDateDisplay.setBackground(Color.WHITE);
-        secondDateDisplay.setBounds(843, 26, 200, 50);
-        reportPanel.add(secondDateDisplay);
 
         Button resetFilter = new Button();
         resetFilter.setBounds(1200,26,66,50);
