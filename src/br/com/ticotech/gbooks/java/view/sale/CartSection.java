@@ -111,19 +111,25 @@ public class CartSection {
             barcodeTextField.reset();
             unitsTextField.reset();
             barcodeTextField.requestFocus();
-            //saleScreen.getToPayDisplay().setText(saleController.getToPay());
+            saleScreen.getTotalDisplay().setText(saleController.getToPay());
         }
     }
 
-    private void removeFromCart(){
-        String barcode = barcodeTextField.getText();
+    private void removeFromCart(){ //TODO
         String units = unitsTextField.getText();
         int unitsFormatted;
 
-        if(Objects.equals(barcode, "BARCODE")){
-            new Popups ("The BARCODE field is empty!", 1);
+        if(Objects.equals(barcodeTextField.getText(), "BARCODE") && table.getSelectedRow()<0){
+            new Popups ("There is no book selected!", 1);
         }
         else {
+            String barcode;
+            if(!Objects.equals(barcodeTextField.getText(), "BARCODE")){
+                barcode = barcodeTextField.getText();
+            }
+            else {
+                barcode = String.valueOf(table.getValueAt(table.getSelectedRow(),0));
+            }
             if (Objects.equals(units, "UNITS")) {
                 units = "0";
             }
@@ -132,11 +138,11 @@ public class CartSection {
                 if(saleController.removeFromCart(barcode, unitsFormatted)){
                     table.setVisible(false);
                     table.setVisible(true);
-                    //saleScreen.getToPayDisplay().setText(saleController.getToPay());
+                    saleScreen.getTotalDisplay().setText(saleController.getToPay());
                     if (table.getRowCount() ==0){
                         saleScreen.changeElementsStatus("reset");
                     }
-                    //saleScreen.getToPayDisplay().setText(saleController.getToPay());
+                    saleScreen.getTotalDisplay().setText(saleController.getToPay());
                 }
             } catch (NumberFormatException e) {
                 new Popups("Invalid type! Enter a number in the UNITS field.", 1);
