@@ -12,7 +12,7 @@ public class Popups extends JOptionPane{
         dialog.setResizable(false);
 
         JPanel contentPanel = new JPanel();
-        contentPanel.setBackground(new Color(234, 229, 223));
+        contentPanel.setBackground(new Color(255, 255, 255));
         contentPanel.setLayout(new BorderLayout());
 
         JLabel contentLabel = new JLabel(message);
@@ -23,15 +23,15 @@ public class Popups extends JOptionPane{
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(100, 50));
-        buttonPanel.setBackground(new Color(234, 229, 223));
+        buttonPanel.setBackground(new Color(255, 255, 255));
 
         JPanel marginWestPanel = new JPanel();
-        marginWestPanel.setBackground(new Color(234, 229, 223));
+        marginWestPanel.setBackground(new Color(255, 255, 255));
         marginWestPanel.setLayout(new BorderLayout());
         marginWestPanel.setPreferredSize(new Dimension(20, 60));
 
         JPanel marginEastPanel = new JPanel();
-        marginEastPanel.setBackground(new Color(234, 229, 223));
+        marginEastPanel.setBackground(new Color(255, 255, 255));
         marginEastPanel.setLayout(new BorderLayout());
         marginEastPanel.setPreferredSize(new Dimension(25, 60));
 
@@ -41,7 +41,7 @@ public class Popups extends JOptionPane{
 
                 contentLabel.setIcon(new ImageIcon(Objects.requireNonNull(Popups.class.getResource(Constants.ERROR_ICON))));
 
-                Button okButton = new Button(" OK ");
+                Button okButton = new Button(Constants.OK_BUTTON);
                 okButton.addActionListener(closeWindow -> dialog.dispose());
                 buttonPanel.add(okButton, BorderLayout.NORTH);
             }

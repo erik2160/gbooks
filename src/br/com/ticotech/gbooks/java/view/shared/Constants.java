@@ -17,6 +17,7 @@ public class Constants {
     public static final Color CANCEL_RED = new Color(229, 44, 40);
     public static final Color CONFIRM_GREEN = new Color(39, 217, 72);
     public static final String ERROR_ICON = "images/ErrorIcon.png";
+    public static final String OK_BUTTON = "images/OkButton.png";
     public static final String WARNING_ICON = "images/WarningIcon.png";
     public static final String LOGO_ICON = "shared/images/Logo.png";
     public static final String LOGIN_BUTTON = "shared/images/LoginButton.png";
