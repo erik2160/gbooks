@@ -21,7 +21,15 @@ public class ReportTableModel extends DefaultTableModel {
     private final String[] columns = {"DATE","CODE","TITLE","UNITS","SELL PRICE","INVOICE PRICE","TOTAL PRICE","PROFIT"};
 
     private List<BookReport> reportList;
-    private SaleRepository saleRepository;
+    private final SaleRepository saleRepository;
+
+    public List<BookReport> getReportList() {
+        return reportList;
+    }
+
+    public void setReportList(List<BookReport> reportList) {
+        this.reportList = reportList;
+    }
 
     public ReportTableModel(SaleRepository saleRepository, StockRepository stockRepository){
         this.saleRepository = saleRepository;

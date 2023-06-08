@@ -25,6 +25,7 @@ public class Calendar extends JFrame {
 
         panel = new JPanel();
         frame = new JFrame(title);
+        frame.setResizable(false);
 
 
     }
@@ -33,6 +34,7 @@ public class Calendar extends JFrame {
             selectedDate = calendar.getDate();
             formattedDate = dateFormat.format(selectedDate);
             display.setText("      "+formattedDate);
+            frame.dispose();
         });
         panel.setLayout(new BorderLayout());
         panel.add(calendar, BorderLayout.CENTER);

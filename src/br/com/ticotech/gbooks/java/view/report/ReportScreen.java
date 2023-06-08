@@ -6,13 +6,17 @@ import br.com.ticotech.gbooks.java.view.shared.Button;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Objects;
 
 public class ReportScreen{
 
     private final JPanel reportPanel;
-    private Table table;
-    private ReportController reportController;
+    private final Table table;
+    private final ReportController reportController;
+    private Display firstDateDisplay;
+    private final Display secondDateDisplay;
 
     public ReportScreen(ReportController reportController){
         this.reportController = reportController;
@@ -21,7 +25,7 @@ public class ReportScreen{
         reportPanel.setBackground(Constants.BABY_BLUE);
         reportPanel.setBounds(40,20,1540,915);
 
-        Display firstDateDisplay = new Display("   DD/MM/AAAA");
+        firstDateDisplay = new Display("   DD/MM/YYYY");
         firstDateDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         firstDateDisplay.setBackground(Color.WHITE);
         firstDateDisplay.setBounds(266, 20, 200, 50);
@@ -35,7 +39,7 @@ public class ReportScreen{
         firstDateButton.addActionListener(e -> calendarFirstDate.show(firstDateButton, firstDateDisplay));
         reportPanel.add(firstDateButton);
 
-        Display secondDateDisplay = new Display("   DD/MM/AAAA");
+        secondDateDisplay = new Display("   DD/MM/YYYY");
         secondDateDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         secondDateDisplay.setBackground(Color.WHITE);
         secondDateDisplay.setBounds(843, 20, 200, 50);
@@ -53,13 +57,16 @@ public class ReportScreen{
         Button resetFilter = new Button(Constants.RESET_FILTER);
         resetFilter.setBounds(1200,20,66,50);
         resetFilter.setEnabled(true);
-        //resetFilter.addActionListener(e-> ); //TODO
+        resetFilter.addActionListener(e-> {
+            firstDateDisplay.reset();
+            secondDateDisplay.reset();
+        });
         reportPanel.add(resetFilter);
 
         Button searchButton = new Button(Constants.SEARCH_BUTTON);
         searchButton.setBounds(1270,20,245,50);
         searchButton.setEnabled(true);
-        //searchButton.addActionListener(e-> ); //TODO
+        searchButton.addActionListener(e-> doSearch());
         reportPanel.add(searchButton);
 
         int [] columnsWidth = {50,50,30,5,30,5,40,40};
@@ -80,6 +87,14 @@ public class ReportScreen{
 
     public JPanel getReportPanel() {
         return reportPanel;
+    }
+
+    private void doSearch(){
+        String firstDate = firstDateDisplay.getText();
+        String secondDate = secondDateDisplay.getText();
+        reportController.doSearch(firstDate, secondDate);
+        table.setVisible(false);
+        table.setVisible(true);
     }
 }
 
