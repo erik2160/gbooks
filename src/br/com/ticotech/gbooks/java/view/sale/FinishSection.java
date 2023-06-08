@@ -107,7 +107,7 @@ public class FinishSection {
         cashButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.CASH_BUTTON))));
         cashButton.setBorderPainted(false);
         cashButton.setContentAreaFilled(false);
-        cashButton.setBounds(15, 80, 350, 45);
+        cashButton.setBounds(15, 85, 350, 40);
         //buttonCash.addActionListener(addItem -> addToCart());
         totalPanel.add(cashButton);
 
@@ -115,7 +115,7 @@ public class FinishSection {
         this.creditButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.CREDIT_BUTTON))));
         this.creditButton.setBorderPainted(false);
         this.creditButton.setContentAreaFilled(false);
-        this.creditButton.setBounds(15, 125, 350, 45);
+        this.creditButton.setBounds(15, 130, 350, 40);
         //buttonCash.addActionListener(addItem -> addToCart());
         totalPanel.add(this.creditButton);
 
@@ -123,7 +123,7 @@ public class FinishSection {
         this.debitButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.DEBIT_BUTTON))));
         this.debitButton.setBorderPainted(false);
         this.debitButton.setContentAreaFilled(false);
-        this.debitButton.setBounds(15, 170, 350, 45);
+        this.debitButton.setBounds(15, 175, 350, 40);
         //buttonCash.addActionListener(addItem -> addToCart());
         totalPanel.add(this.debitButton);
 
