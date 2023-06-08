@@ -1,11 +1,12 @@
 package br.com.ticotech.gbooks.java.view.shared;
 
-import javax.swing.*;
+
 import java.awt.*;
-import java.util.Objects;
+import br.com.ticotech.gbooks.java.view.shared.NewFont;
+
 
 public class Constants {
-    public static final String DEFAULT_FONT = "Ubuntu";
+    public static final String DEFAULT_FONT = new NewFont().getFonteExterna().getFontName();
     public static final Color DARK_GRAY = new Color(64,64,64);
     public static final Color MID_GRAY = new Color(166,166,166);
     public static final Color LIGHT_GRAY = new Color(235,235,235);
@@ -37,5 +38,9 @@ public class Constants {
     public static final String CREDIT_BUTTON = "../shared/images/CreditButton.png";
     public static final String DEBIT_BUTTON = "../shared/images/DebitButton.png";
     public static final String FINISH_SALE_BUTTON = "../shared/images/FinishSaleButton.png";
+    public static final String INITIAL_DATE_BUTTON = "../shared/images/InitialButton.png";
+    public static final String FINAL_DATE_BUTTON = "../shared/images/FinalButton.png";
+    public static final String RESET_FILTER = "../shared/images/ResetFilter.png";
+    public static final String SEARCH_BUTTON = "../shared/images/SearchButton.png";
 
 }
