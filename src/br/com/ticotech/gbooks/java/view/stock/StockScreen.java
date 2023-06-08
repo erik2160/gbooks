@@ -74,7 +74,7 @@ public class StockScreen {
         removeButton.addActionListener(e -> deleteBook());
 
         scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(26,80,1488,820);
+        scrollPane.setBounds(26,80,1488,810);
         scrollPane.getViewport().setBackground(Color.WHITE);
         stockPanel.add(scrollPane);
     }

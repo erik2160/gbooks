@@ -24,11 +24,11 @@ public class ReportScreen{
         Display firstDateDisplay = new Display("   DD/MM/AAAA");
         firstDateDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         firstDateDisplay.setBackground(Color.WHITE);
-        firstDateDisplay.setBounds(266, 26, 200, 50);
+        firstDateDisplay.setBounds(266, 20, 200, 50);
         reportPanel.add(firstDateDisplay);
 
         Button firstDateButton = new Button();
-        firstDateButton.setBounds(26,26,240,50);
+        firstDateButton.setBounds(26,20,240,50);
         firstDateButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.INITIAL_DATE_BUTTON))));
         firstDateButton.setBorderPainted(false);
         firstDateButton.setContentAreaFilled(false);
@@ -41,11 +41,11 @@ public class ReportScreen{
         Display secondDateDisplay = new Display("   DD/MM/AAAA");
         secondDateDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         secondDateDisplay.setBackground(Color.WHITE);
-        secondDateDisplay.setBounds(843, 26, 200, 50);
+        secondDateDisplay.setBounds(843, 20, 200, 50);
         reportPanel.add(secondDateDisplay);
 
         Button secondDateButton = new Button();
-        secondDateButton.setBounds(600,26,240,50);
+        secondDateButton.setBounds(600,20,240,50);
         secondDateButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.FINAL_DATE_BUTTON))));
         secondDateButton.setBorderPainted(false);
         secondDateButton.setContentAreaFilled(false);
@@ -57,7 +57,7 @@ public class ReportScreen{
 
 
         Button resetFilter = new Button();
-        resetFilter.setBounds(1200,26,66,50);
+        resetFilter.setBounds(1200,20,66,50);
         resetFilter.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.RESET_FILTER))));
         resetFilter.setBorderPainted(false);
         resetFilter.setContentAreaFilled(false);
@@ -66,7 +66,7 @@ public class ReportScreen{
         reportPanel.add(resetFilter);
 
         Button searchButton = new Button();
-        searchButton.setBounds(1270,26,245,50);
+        searchButton.setBounds(1270,20,245,50);
         searchButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.SEARCH_BUTTON))));
         searchButton.setBorderPainted(false);
         searchButton.setContentAreaFilled(false);
@@ -78,7 +78,7 @@ public class ReportScreen{
         table = new Table(reportController.getReportTableModel(), columnsWidth);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.getViewport().setBackground(Color.WHITE);
-        scrollPane.setBounds(26,100,1488,790);
+        scrollPane.setBounds(26,80,1488,810);
         reportPanel.add(scrollPane);
 
     }

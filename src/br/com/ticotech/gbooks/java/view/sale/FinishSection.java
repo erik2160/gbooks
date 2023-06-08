@@ -49,7 +49,7 @@ public class FinishSection {
 
         finishPanel = new JPanel();
         finishPanel.setBackground(Constants.BABY_BLUE);
-        finishPanel.setBounds(40, 690, 1540, 250);
+        finishPanel.setBounds(40, 685, 1540, 250);
         finishPanel.setLayout(null);
 
         JPanel pointsPanel = new JPanel();

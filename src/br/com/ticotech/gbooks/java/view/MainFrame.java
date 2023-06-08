@@ -139,7 +139,7 @@ public class MainFrame {
 
         JLabel stickBooks = new JLabel();
         stickBooks.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.STICK_BOOKS))));
-        stickBooks.setBounds(-20, 830, 340, 111);
+        stickBooks.setBounds(-20, 860, 340, 111);
 
         leftPanel.add(menuLabel);
         leftPanel.add(cashierButton);
