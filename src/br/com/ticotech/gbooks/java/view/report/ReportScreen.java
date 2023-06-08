@@ -84,9 +84,9 @@ public class ReportScreen{
     }
     public void setVisible(boolean isVisible){
         reportPanel.setVisible(isVisible);
-        table.setVisible(false);
-        table.setVisible(true);
-            reportController.getReportTableModel().updateList();
+//        table.setVisible(false);
+//        table.setVisible(true);
+//            reportController.getReportTableModel().updateList();
 
     }
 

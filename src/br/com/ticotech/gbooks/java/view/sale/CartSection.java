@@ -62,23 +62,18 @@ public class CartSection {
         unitsTextField.addActionListener(enterUnit -> addToCart());
         cartPanel.add(unitsTextField);
 
-        Button buttonAdd = new Button();
-        buttonAdd.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.ADD_BUTTON))));
-        buttonAdd.setBorderPainted(false);
-        buttonAdd.setContentAreaFilled(false);
+        Button buttonAdd = new Button(Constants.ADD_BUTTON);
         buttonAdd.setBounds(400, 20, 166, 50);
         buttonAdd.addActionListener(addItem -> addToCart());
         cartPanel.add(buttonAdd);
 
-        buttonRemove = new Button();
-        buttonRemove.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.REMOVE_BUTTON))));
+        buttonRemove = new Button(Constants.REMOVE_BUTTON);
         buttonRemove.setBounds(1130, 20, 182, 50);
         buttonRemove.setEnabled(false);
         buttonRemove.addActionListener(removeItem ->removeFromCart());
         cartPanel.add(buttonRemove);
 
-        buttonCancel = new Button();
-        buttonCancel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.CANCEL_BUTTON))));
+        buttonCancel = new Button(Constants.CANCEL_BUTTON);
         buttonCancel.setBounds(1334, 20, 182, 50);
         buttonCancel.setEnabled(false);
         buttonCancel.addActionListener(finishSale -> cancelSale());
