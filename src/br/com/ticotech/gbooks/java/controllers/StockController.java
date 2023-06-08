@@ -10,9 +10,8 @@ import java.util.Objects;
 
 public class StockController {
     private StockRepository stockRepository;
-    private final StockTableModel stockTableModel;
     private List<Book> stockList;
-
+    private final StockTableModel stockTableModel;
     public StockTableModel getStockTableModel() {
         return stockTableModel;
     }
