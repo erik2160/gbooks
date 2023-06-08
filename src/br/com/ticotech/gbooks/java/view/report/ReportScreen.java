@@ -27,11 +27,8 @@ public class ReportScreen{
         firstDateDisplay.setBounds(266, 20, 200, 50);
         reportPanel.add(firstDateDisplay);
 
-        Button firstDateButton = new Button();
+        Button firstDateButton = new Button(Constants.INITIAL_DATE_BUTTON);
         firstDateButton.setBounds(26,20,240,50);
-        firstDateButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.INITIAL_DATE_BUTTON))));
-        firstDateButton.setBorderPainted(false);
-        firstDateButton.setContentAreaFilled(false);
         firstDateButton.setEnabled(true);
 
         Calendar calendarFirstDate = new Calendar("INITIAL DATE");
@@ -44,11 +41,8 @@ public class ReportScreen{
         secondDateDisplay.setBounds(843, 20, 200, 50);
         reportPanel.add(secondDateDisplay);
 
-        Button secondDateButton = new Button();
+        Button secondDateButton = new Button(Constants.FINAL_DATE_BUTTON);
         secondDateButton.setBounds(600,20,240,50);
-        secondDateButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.FINAL_DATE_BUTTON))));
-        secondDateButton.setBorderPainted(false);
-        secondDateButton.setContentAreaFilled(false);
         secondDateButton.setEnabled(true);
 
         Calendar calendarFinalDate = new Calendar("FINAL DATE");
@@ -56,20 +50,14 @@ public class ReportScreen{
         reportPanel.add(secondDateButton);
 
 
-        Button resetFilter = new Button();
+        Button resetFilter = new Button(Constants.RESET_FILTER);
         resetFilter.setBounds(1200,20,66,50);
-        resetFilter.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.RESET_FILTER))));
-        resetFilter.setBorderPainted(false);
-        resetFilter.setContentAreaFilled(false);
         resetFilter.setEnabled(true);
         //resetFilter.addActionListener(e-> ); //TODO
         reportPanel.add(resetFilter);
 
-        Button searchButton = new Button();
+        Button searchButton = new Button(Constants.SEARCH_BUTTON);
         searchButton.setBounds(1270,20,245,50);
-        searchButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.SEARCH_BUTTON))));
-        searchButton.setBorderPainted(false);
-        searchButton.setContentAreaFilled(false);
         searchButton.setEnabled(true);
         //searchButton.addActionListener(e-> ); //TODO
         reportPanel.add(searchButton);

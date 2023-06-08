@@ -6,7 +6,8 @@ import br.com.ticotech.gbooks.java.view.shared.NewFont;
 
 
 public class Constants {
-    public static final String DEFAULT_FONT = new NewFont().getFonteExterna().getFontName();
+    //public static final String DEFAULT_FONT = new NewFont().getFonteExterna().getFontName();
+    public static final String DEFAULT_FONT = "Ubuntu";
     public static final Color DARK_GRAY = new Color(64,64,64);
     public static final Color MID_GRAY = new Color(166,166,166);
     public static final Color LIGHT_GRAY = new Color(235,235,235);
