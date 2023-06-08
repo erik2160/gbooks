@@ -18,11 +18,24 @@ public class FinishSection {
     private final SaleScreen saleScreen;
     private final JPanel finishPanel;
     private final TextField cpfField;
-    private final Button finishButton;
+    private final Display totalDisplay;
+    private final Button cashButton;
     private final Button creditButton;
     private final Button debitButton;
+    private final Display changeDisplay;
+    private final Button finishButton;
 
+    public Display getTotalDisplay() {
+        return totalDisplay;
+    }
+    public Display getChangeDisplay() {
+        return changeDisplay;
+    }
     public JPanel getFinishPanel(){return finishPanel;}
+    public Button getCashButton() {
+        return cashButton;
+    }
+
     public Button getCreditButton() {
         return creditButton;
     }
@@ -30,14 +43,7 @@ public class FinishSection {
     public Button getDebitButton() {
         return debitButton;
     }
-
-//    public Display getChangeDisplay() {
-//        return changeDisplay;
-//    }
-
-//    public ButtonGroup getCardsButtons() {
-//        return cardsButtons;
-//    }
+    //  public Display getChangeDisplay() {return changeDisplay;}
 
     public Button getFinishButton() {
         return finishButton;
@@ -52,6 +58,7 @@ public class FinishSection {
         finishPanel.setBounds(40, 685, 1540, 250);
         finishPanel.setLayout(null);
 
+        //Points section start.
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(Color.WHITE);
         pointsPanel.setBounds(25,10, 441,230);
@@ -82,34 +89,37 @@ public class FinishSection {
 
         finishPanel.add(pointsPanel);
 
+        //Payment section start.
         JPanel totalPanel = new JPanel();
         totalPanel.setBackground(Color.WHITE);
         totalPanel.setBounds(480,10, 1030,230);
         totalPanel.setLayout(null);
 
-        Display totalDisplay = new Display("TOTAL");
+        totalDisplay = new Display("TOTAL");
         totalDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         totalDisplay.setBackground(Constants.BABY_BLUE);
         totalDisplay.setBounds(15, 10, 1000, 60);
         totalPanel.add(totalDisplay);
 
-        Button cashButton = new Button(Constants.CASH_BUTTON);
+        cashButton = new Button(Constants.CASH_BUTTON);
         cashButton.setBounds(15, 85, 350, 40);
-        //buttonCash.addActionListener(addItem -> addToCart());
+        cashButton.setEnabled(false);
+        cashButton.addActionListener(e -> new ValueSelector(1, saleController, this));
         totalPanel.add(cashButton);
-        cashButton.addActionListener(e -> new ValueSelector());
 
-        this.creditButton = new Button(Constants.CREDIT_BUTTON);
-        this.creditButton.setBounds(15, 130, 350, 40);
-        //buttonCash.addActionListener(addItem -> addToCart());
+        creditButton = new Button(Constants.CREDIT_BUTTON);
+        creditButton.setBounds(15, 130, 350, 40);
+        creditButton.setEnabled(false);
+        creditButton.addActionListener(e -> new ValueSelector(2, saleController, this));
         totalPanel.add(this.creditButton);
 
-        this.debitButton = new Button(Constants.DEBIT_BUTTON);
-        this.debitButton.setBounds(15, 175, 350, 40);
-        //buttonCash.addActionListener(addItem -> addToCart());
+        debitButton = new Button(Constants.DEBIT_BUTTON);
+        debitButton.setBounds(15, 175, 350, 40);
+        debitButton.setEnabled(false);
+        debitButton.addActionListener(e -> new ValueSelector(2, saleController, this));
         totalPanel.add(this.debitButton);
 
-        Display changeDisplay = new Display("CHANGE");
+        changeDisplay = new Display("CHANGE");
         changeDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         changeDisplay.setBackground(Constants.BABY_BLUE);
         changeDisplay.setBounds(380, 84, 240, 130);
@@ -117,65 +127,12 @@ public class FinishSection {
 
         finishButton = new Button(Constants.FINISH_SALE_BUTTON);
         finishButton.setBounds(625, 80, 390, 140);
+        finishButton.setEnabled(false);
+        finishButton.addActionListener(e -> finishSale());
         totalPanel.add(finishButton);
 
         finishPanel.add(totalPanel);
-
-
-
-//        cardsButtons = new ButtonGroup();
-//        cardsButtons.add(creditButton);
-//        cardsButtons.add(debitButton);
-
     }
-
-//    private void cashPayment(){
-//        if(Objects.equals(cashValueField.getText(), "")){
-//            new Popups("PAYED field is empty!",1);
-//        }
-//        else{
-//            String stringValue = cashValueField.getText();
-//            double doubleValue;
-//
-//            try {
-//                doubleValue = Double.parseDouble(stringValue);
-//                int payment = saleController.cashPayment(doubleValue);
-//
-//                switch (payment) {
-//                    case (-1) -> {
-//                        cardValueField.setText(saleController.getToPay());
-//                    }
-//                    case (+1) -> changeDisplay.setText(saleController.getCashChange());
-//                }
-//                payedInCashDisplay.setText(saleController.getPayedInCash());
-//                toPayDisplay.setText(saleController.getToPay());
-//                totalPayedDisplay.setText(saleController.getTotalPayed());
-//
-//            } catch (NumberFormatException e) {
-//                new Popups("Invalid type! Enter a number in the PAYED field.", 1);
-//            }
-//        }
-//    }
-
-//    private void creditCardPayment(){
-//        if(Objects.equals(cardValueField.getText(),"00.00")){
-//            new Popups("VALUE field is empty!",1);
-//        }
-//        else {
-//            String stringValue = cardValueField.getText();
-//            double doubleValue;
-//            try {
-//                doubleValue = Double.parseDouble(stringValue);
-//                saleController.creditCardPayment(doubleValue);
-//
-//                payedByCardDisplay.setText(saleController.getPayedByCard());
-//                toPayDisplay.setText(saleController.getToPay());
-//                totalPayedDisplay.setText(saleController.getTotalPayed());
-//            } catch (NumberFormatException e) {
-//                new Popups("Invalid type! Enter a number in the PAYED field.", 1);
-//            }
-//        }
-//    }
 
     private void finishSale(){
         String cpf = cpfField.getText();

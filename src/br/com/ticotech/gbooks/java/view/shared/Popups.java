@@ -41,7 +41,7 @@ public class Popups extends JOptionPane{
 
                 contentLabel.setIcon(new ImageIcon(Objects.requireNonNull(Popups.class.getResource(Constants.ERROR_ICON))));
 
-                Button okButton = new Button(" OK ");
+                Button okButton = new Button(" OK ", Constants.CONFIRM_GREEN, Color.WHITE);
                 okButton.addActionListener(closeWindow -> dialog.dispose());
                 buttonPanel.add(okButton, BorderLayout.NORTH);
             }

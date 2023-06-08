@@ -18,30 +18,26 @@ public class SaleScreen {
 
         public void changeElementsStatus(String getType) {
             if (Objects.equals(getType, "reset")) {
-                cartSection.getButtonCancel().setEnabled(false);
-                cartSection.getButtonRemove().setEnabled(false);
                 cartSection.getBarcodeTextField().reset();
                 cartSection.getUnitsTextField().reset();
-//                finishSection.getCashValueField().setEnabled(false);
-//                finishSection.getCardValueField().setEnabled(false);
-                finishSection.getFinishButton().setEnabled(false);
+                cartSection.getButtonRemove().setEnabled(false);
+                cartSection.getButtonCancel().setEnabled(false);
+                finishSection.getTotalDisplay().reset();
+                finishSection.getChangeDisplay().reset();
+                finishSection.getCashButton().setEnabled(false);
                 finishSection.getCreditButton().setEnabled(false);
                 finishSection.getDebitButton().setEnabled(false);
-//                finishSection.getCashValueField().reset();
-//                finishSection.getCardValueField().reset();
-//                finishSection.getChangeDisplay().reset();
-                //finishSection.getCardsButtons().clearSelection();
+                finishSection.getFinishButton().setEnabled(false);
             } else if (Objects.equals(getType, "add")) {
                 cartSection.getButtonCancel().setEnabled(true);
                 cartSection.getButtonRemove().setEnabled(true);
-//                finishSection.getCashValueField().setEnabled(true);
-//                finishSection.getCardValueField().setEnabled(true);
+                finishSection.getCashButton().setEnabled(true);
                 finishSection.getFinishButton().setEnabled(true);
                 finishSection.getCreditButton().setEnabled(true);
                 finishSection.getDebitButton().setEnabled(true);
             }
         }
-        //public Display getToPayDisplay(){return finishSection.getToPayDisplay();}
+        public Display getTotalDisplay(){return finishSection.getTotalDisplay();}
         public Table getCartTable(){return cartSection.getTable();}
         public JPanel getCartPanel() {
             return cartSection.getCartPanel();
