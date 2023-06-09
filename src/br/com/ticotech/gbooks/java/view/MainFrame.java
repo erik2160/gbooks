@@ -17,6 +17,7 @@ import br.com.ticotech.gbooks.java.view.report.ReportScreen;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.Constants;
+import br.com.ticotech.gbooks.java.view.shared.PasswordField;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
 import br.com.ticotech.gbooks.java.view.stock.StockScreen;
 
@@ -184,11 +185,10 @@ public class MainFrame {
         idField.setBounds(713, 480, 499, 63);
         centerPanel.add(idField);
 
-        TextField passwordField = new TextField("PASSWORD");
-        passwordField.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
-        passwordField.setBackground(Color.WHITE);
+        PasswordField passwordField = new PasswordField("PASSWORD");
         passwordField.setBounds(713, 573, 499, 63);
-        centerPanel.add(passwordField);
+        centerPanel.add(passwordField.getPasswordPlaceholder());
+        centerPanel.add(passwordField.getPasswordEntry());
 
         Button enterButton = new Button(Constants.LOGIN_BUTTON);
         enterButton.setBounds(866,685, 197,74);
