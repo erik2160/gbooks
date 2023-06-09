@@ -23,7 +23,7 @@ public class StockEditor extends JFrame{
     private TextField finalPrice;
     private TextField invoicePrice;
     private Book book;
-    public StockEditor(String type, String barcode, StockController stockController) {
+    public StockEditor(String type, String barcode, StockController stockController, StockScreen stockScreen) {
         this.stockController = stockController;
         setTitle(type);
         setSize(430, 585);
@@ -121,6 +121,8 @@ public class StockEditor extends JFrame{
                 finishButton.addActionListener(e -> {
                     if((stockController.getBook(barcodeTextField.getText()) == null) || Objects.equals(barcodeTextField.getText(), book.getCode())){
                         updateBookAttributes();
+                        stockScreen.getTable().setVisible(false);
+                        stockScreen.getTable().setVisible(true);
                         dispose();
                     }
                     else {
@@ -131,6 +133,8 @@ public class StockEditor extends JFrame{
             case ("ADD") -> finishButton.addActionListener(e -> {
                 if (stockController.getBook(barcodeTextField.getText()) == null) {
                     stockController.addBook(getNewBook());
+                    stockScreen.getTable().setVisible(false);
+                    stockScreen.getTable().setVisible(true);
                     dispose();
                 }
                 else {

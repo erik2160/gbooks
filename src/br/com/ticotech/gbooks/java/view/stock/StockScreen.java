@@ -90,13 +90,13 @@ public class StockScreen {
             new Popups("There is no book selected!", 1);
         }
         else if (!Objects.equals(searchField.getText(), "SEARCH")){
-            new StockEditor("EDITION", (String) table.getValueAt(0, 0), stockController);
+            new StockEditor("EDITION", (String) table.getValueAt(0, 0), stockController,this);
         } else {
-            new StockEditor("EDITION", (String) table.getValueAt(table.getSelectedRow(), 0), stockController);
+            new StockEditor("EDITION", (String) table.getValueAt(table.getSelectedRow(), 0), stockController,this);
         }
     }
     private void addBook(){
-        new StockEditor("ADD", null, stockController);
+        new StockEditor("ADD", null, stockController, this);
         table.setVisible(false);
         table.setVisible(true);
     }
