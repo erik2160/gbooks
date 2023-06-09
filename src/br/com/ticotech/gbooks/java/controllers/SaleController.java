@@ -8,6 +8,10 @@ import br.com.ticotech.gbooks.java.repository.SaleRepository;
 import br.com.ticotech.gbooks.java.repository.StockRepository;
 import br.com.ticotech.gbooks.java.view.shared.Popups;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -168,6 +172,7 @@ public class SaleController {
             Sale sale = new Sale(cpf,new Date(),saleList);
             saleRepository.addSale(sale);
             firstPayment = true;
+            createNfe(cpf);
             cancelSale();
             return true;
         }
@@ -201,6 +206,36 @@ public class SaleController {
             }
         }
         return null;
+    }
+
+    private void createNfe(String cpf){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
+        String fileName = "NFE.txt";
+        double total = 0;
+
+        try {
+            FileWriter writer = new FileWriter(fileName);
+            BufferedWriter buffer = new BufferedWriter(writer);
+
+            buffer.write("--------------------------------------\n");
+            buffer.write("BOOKSTORE G-BOOKS\n");
+            buffer.write("CNPJ 32.456.789/0001-23\n");
+            buffer.write("--------------------------------------\n");
+            buffer.write("PRODUCTS:\n");
+            for (CartBook book : cartBookList){
+                buffer.write(book.getTitle() + "   x" + book.getUnits() +"\n");
+                total+= book.getTotalPrice();
+            }
+            total = Math.round(total*100.0)/100.0;
+            buffer.write("TOTAL: " + total + "\n");
+            buffer.write("--------------------------------------\n");
+            buffer.write("EMISSION DATE: " + dateFormat.format(new Date())+"\n");
+            buffer.write("--------------------------------------\n");
+            buffer.write("CONSUMER: " + cpf);
+
+            buffer.close();
+        } catch (IOException ignored) {
+        }
     }
 
 }

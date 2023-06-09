@@ -5,6 +5,7 @@ out/
 /target
 *.class
 *.log
+*.txt
 
 
 ### Eclipse ###
