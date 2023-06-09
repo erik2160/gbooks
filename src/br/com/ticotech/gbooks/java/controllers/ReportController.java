@@ -14,26 +14,25 @@ import java.util.List;
 import java.util.Objects;
 
 public class ReportController {
-    private StockRepository stockRepository;
-    private SaleRepository saleRepository;
     private final ReportTableModel reportTableModel;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private List<BookReport> originalReportList;
 
     public ReportTableModel getReportTableModel() {
         return reportTableModel;
     }
 
     public ReportController(StockRepository stockRepository, SaleRepository saleRepository){
-        this.stockRepository = stockRepository;
-        this.saleRepository = saleRepository;
         this.reportTableModel = new ReportTableModel(saleRepository, stockRepository);
     }
 
     public void doSearch(String firstDate, String secondDate){
+        reportTableModel.updateList();
+        originalReportList = reportTableModel.getReportList();
         List<BookReport> newReportList = new ArrayList<>();
 
         if (!Objects.equals(firstDate, "   DD/MM/YYYY")&& Objects.equals(secondDate, "   DD/MM/YYYY")){
-            for (BookReport report: reportTableModel.getReportList()){
+            for (BookReport report: originalReportList){
                 try {
                     Date initialDate = dateFormat.parse(firstDate);
                     Date reportDate = dateFormat.parse(report.getDate());
@@ -46,7 +45,7 @@ public class ReportController {
             }
             reportTableModel.setReportList(newReportList);
         } else if (Objects.equals(firstDate, "   DD/MM/YYYY")&& !Objects.equals(secondDate, "   DD/MM/YYYY")) {
-            for (BookReport report : reportTableModel.getReportList()) {
+            for (BookReport report : originalReportList) {
                 try {
                     Date finalDate = dateFormat.parse(secondDate);
                     Date reportDate = dateFormat.parse(report.getDate());
@@ -59,7 +58,7 @@ public class ReportController {
             }
             reportTableModel.setReportList(newReportList);
         } else if (!Objects.equals(secondDate, "   DD/MM/YYYY")&&!Objects.equals(firstDate, "   DD/MM/YYYY")) {
-            for (BookReport report : reportTableModel.getReportList()) {
+            for (BookReport report : originalReportList) {
                 try {
                     Date initialDate = dateFormat.parse(firstDate);
                     Date finalDate = dateFormat.parse(secondDate);
@@ -72,6 +71,9 @@ public class ReportController {
                 }
             }
             reportTableModel.setReportList(newReportList);
+        }
+        else {
+            reportTableModel.setReportList(originalReportList);
         }
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
 public class ReportTableModel extends DefaultTableModel {
 
     private List<Sale> saleList;
-    StockRepository stockRepository;
+    private final StockRepository stockRepository;
 
     private final String[] columns = {"DATE","CODE","TITLE","UNITS","SELL PRICE","INVOICE PRICE","TOTAL PRICE","PROFIT"};
 

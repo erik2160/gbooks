@@ -25,29 +25,29 @@ public class ReportScreen{
         reportPanel.setBackground(Constants.BABY_BLUE);
         reportPanel.setBounds(40,20,1540,915);
 
+        Button firstDateButton = new Button(Constants.INITIAL_DATE_BUTTON);
+        firstDateButton.setBounds(26,20,240,50);
+        firstDateButton.setEnabled(true);
+
         firstDateDisplay = new Display("   DD/MM/YYYY");
         firstDateDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         firstDateDisplay.setBackground(Color.WHITE);
         firstDateDisplay.setBounds(266, 20, 200, 50);
         reportPanel.add(firstDateDisplay);
 
-        Button firstDateButton = new Button(Constants.INITIAL_DATE_BUTTON);
-        firstDateButton.setBounds(26,20,240,50);
-        firstDateButton.setEnabled(true);
-
         Calendar calendarFirstDate = new Calendar("INITIAL DATE");
         firstDateButton.addActionListener(e -> calendarFirstDate.show(firstDateButton, firstDateDisplay));
         reportPanel.add(firstDateButton);
 
+        Button secondDateButton = new Button(Constants.FINAL_DATE_BUTTON);
+        secondDateButton.setBounds(480,20,240,50);
+        secondDateButton.setEnabled(true);
+
         secondDateDisplay = new Display("   DD/MM/YYYY");
         secondDateDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         secondDateDisplay.setBackground(Color.WHITE);
-        secondDateDisplay.setBounds(843, 20, 200, 50);
+        secondDateDisplay.setBounds(723, 20, 200, 50);
         reportPanel.add(secondDateDisplay);
-
-        Button secondDateButton = new Button(Constants.FINAL_DATE_BUTTON);
-        secondDateButton.setBounds(600,20,240,50);
-        secondDateButton.setEnabled(true);
 
         Calendar calendarFinalDate = new Calendar("FINAL DATE");
         secondDateButton.addActionListener(e -> calendarFinalDate.show(secondDateButton, secondDateDisplay));
@@ -75,14 +75,12 @@ public class ReportScreen{
         scrollPane.getViewport().setBackground(Color.WHITE);
         scrollPane.setBounds(26,80,1488,810);
         reportPanel.add(scrollPane);
-
     }
     public void setVisible(boolean isVisible){
         reportPanel.setVisible(isVisible);
         table.setVisible(false);
         table.setVisible(true);
         reportController.getReportTableModel().updateList();
-
     }
 
     public JPanel getReportPanel() {
