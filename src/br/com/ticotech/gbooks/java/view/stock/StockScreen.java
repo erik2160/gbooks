@@ -86,14 +86,16 @@ public class StockScreen {
         stockController.doSearch(searchField.getText().toLowerCase());
     }
     private void editBook(){
-        if (Objects.equals(searchField.getText(),"SEARCH") && table.getSelectedRow()<0){
-            new Popups("There is no book selected!", 1);
+        if (table.getRowCount()!=0) {
+            if (Objects.equals(searchField.getText(), "SEARCH") && table.getSelectedRow() < 0) {
+                new Popups("There is no book selected!", 1);
+            } else if (!Objects.equals(searchField.getText(), "SEARCH")) {
+                new StockEditor("EDITION", (String) table.getValueAt(0, 0), stockController, this);
+            } else {
+                new StockEditor("EDITION", (String) table.getValueAt(table.getSelectedRow(), 0), stockController, this);
+            }
         }
-        else if (!Objects.equals(searchField.getText(), "SEARCH")){
-            new StockEditor("EDITION", (String) table.getValueAt(0, 0), stockController,this);
-        } else {
-            new StockEditor("EDITION", (String) table.getValueAt(table.getSelectedRow(), 0), stockController,this);
-        }
+        else {new Popups("There are no books registered in stock.",1);}
     }
     private void addBook(){
         new StockEditor("ADD", null, stockController, this);
@@ -102,24 +104,26 @@ public class StockScreen {
     }
 
     private void deleteBook(){
-        if (Objects.equals(searchField.getText(),"SEARCH") && table.getSelectedRow()<0){
-            new Popups("There is no book selected!", 1);
-        }
-        else {
-            String barcode;
-            if (!Objects.equals(searchField.getText(), "SEARCH")) {
-                barcode =(String) table.getValueAt(0, 0);
+        if (table.getRowCount()!=0) {
+            if (Objects.equals(searchField.getText(), "SEARCH") && table.getSelectedRow() < 0) {
+                new Popups("There is no book selected!", 1);
             } else {
-                barcode =(String) table.getValueAt(table.getSelectedRow(), 0);
-            }
-            String message = "Do you want to remove the book with code " + barcode + " from stock?";
-            Popups popups = new Popups(message,2);
-            if(popups.getResponse()) {
-                stockController.deleteBook(barcode);
-                table.setVisible(false);
-                table.setVisible(true);
-                doSearch();
+                String barcode;
+                if (!Objects.equals(searchField.getText(), "SEARCH")) {
+                    barcode = (String) table.getValueAt(0, 0);
+                } else {
+                    barcode = (String) table.getValueAt(table.getSelectedRow(), 0);
+                }
+                String message = "Do you want to remove the book with code " + barcode + " from stock?";
+                Popups popups = new Popups(message, 2);
+                if (popups.getResponse()) {
+                    stockController.deleteBook(barcode);
+                    table.setVisible(false);
+                    table.setVisible(true);
+                    doSearch();
+                }
             }
         }
+        else {new Popups("There are no books registered in stock.",1);}
     }
 }

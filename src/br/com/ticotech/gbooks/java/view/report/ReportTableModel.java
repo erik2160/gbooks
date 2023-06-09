@@ -56,24 +56,26 @@ public class ReportTableModel extends DefaultTableModel {
     }
 
     public void updateList(){
-        List<BookReport> bookReportList = new ArrayList<>();
-        for(Sale sale: saleRepository.getSaleList()) {
-            for (CartBook book : sale.getBookList()) {
-                double invoicePrice = stockRepository.getBook(book.getCode()).getInvoicePrice();
-                BookReport bookReport = new BookReport(
-                        sale.getDate(),
-                        book.getCode(),
-                        book.getTitle(),
-                        book.getUnits(),
-                        book.getUnitPrice(),
-                        invoicePrice,
-                        book.getTotalPrice(),
-                        book.getTotalPrice()-(book.getUnits()*invoicePrice)
-                );
-                bookReportList.add(bookReport);
+        if(stockRepository.getStock().size() != 0) {
+            List<BookReport> bookReportList = new ArrayList<>();
+            for (Sale sale : saleRepository.getSaleList()) {
+                for (CartBook book : sale.getBookList()) {
+                    double invoicePrice = stockRepository.getBook(book.getCode()).getInvoicePrice();
+                    BookReport bookReport = new BookReport(
+                            sale.getDate(),
+                            book.getCode(),
+                            book.getTitle(),
+                            book.getUnits(),
+                            book.getUnitPrice(),
+                            invoicePrice,
+                            book.getTotalPrice(),
+                            book.getTotalPrice() - (book.getUnits() * invoicePrice)
+                    );
+                    bookReportList.add(bookReport);
+                }
             }
+            reportList = bookReportList;
         }
-        reportList = bookReportList;
     }
 
     public String[] getColumns() {

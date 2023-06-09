@@ -4,6 +4,8 @@ import br.com.ticotech.gbooks.java.view.MainFrame;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -18,7 +20,7 @@ public class TextField extends JTextField {
         this.setText(placeHolder);
         this.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 20));
         this.setForeground(Color.lightGray);
-        BevelBorder border = new BevelBorder(BevelBorder.RAISED);
+        LineBorder border = new LineBorder(Color.white,2);
         this.setBorder(border);
 
         this.addFocusListener(new FocusListener() {

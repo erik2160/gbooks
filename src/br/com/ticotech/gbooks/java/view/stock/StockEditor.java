@@ -119,31 +119,62 @@ public class StockEditor extends JFrame{
                 book = stockController.getBook(barcode);
                 getBookAttributes();
                 finishButton.addActionListener(e -> {
-                    if((stockController.getBook(barcodeTextField.getText()) == null) || Objects.equals(barcodeTextField.getText(), book.getCode())){
-                        updateBookAttributes();
-                        stockScreen.getTable().setVisible(false);
-                        stockScreen.getTable().setVisible(true);
-                        dispose();
-                    }
-                    else {
-                        new Popups("There is already a book with this code",1);
+                    if(verifyInput()) {
+                        if ((stockController.getBook(barcodeTextField.getText()) == null) || Objects.equals(barcodeTextField.getText(), book.getCode())) {
+                            setBookAttributes();
+                            stockScreen.getTable().setVisible(false);
+                            stockScreen.getTable().setVisible(true);
+                            dispose();
+                        } else {
+                            new Popups("There is already a book with this code", 1);
+                        }
                     }
                 });
             }
             case ("ADD") -> finishButton.addActionListener(e -> {
-                if (stockController.getBook(barcodeTextField.getText()) == null) {
-                    stockController.addBook(getNewBook());
-                    stockScreen.getTable().setVisible(false);
-                    stockScreen.getTable().setVisible(true);
-                    dispose();
-                }
-                else {
-                    new Popups("There is already a book with this code",1);
+                if(verifyInput()) {
+                    if (stockController.getBook(barcodeTextField.getText()) == null) {
+                        stockController.addBook(getNewBook());
+                        stockScreen.getTable().setVisible(false);
+                        stockScreen.getTable().setVisible(true);
+                        dispose();
+                    } else {
+                        new Popups("There is already a book with this code", 1);
+                    }
                 }
             });
         }
 
         setVisible(true);
+    }
+    
+    private boolean verifyInput(){
+        TextField[] textFields = {barcodeTextField, titleTextField, author,edition, publisher,unitsField, invoicePrice,finalPrice};
+        for (TextField input : textFields){
+            if (Objects.equals(input.getText(), "")){
+                new Popups("There is a empty field.",1);
+                return false;
+            }
+        }
+        TextField[] intInputs = {edition, unitsField};
+        for (TextField input : intInputs){
+            try {
+                Integer.parseInt(input.getText());
+            }catch (NumberFormatException e){
+                new Popups("Letter in number field.",1);
+                return false;
+            }
+        }
+        TextField[] doubleInputs = {invoicePrice, finalPrice};
+        for (TextField input : doubleInputs) {
+            try {
+                Double.parseDouble(input.getText().replace(",","."));
+            }catch (NumberFormatException e){
+                new Popups("Letter in number field",1);
+                return false;
+            }
+        }
+        return true;
     }
 
     private void getBookAttributes(){
@@ -157,15 +188,15 @@ public class StockEditor extends JFrame{
         finalPrice.setText(String.valueOf(book.getFinalPrice()));
     }
 
-    private void updateBookAttributes(){
+    private void setBookAttributes(){
         book.setCode(barcodeTextField.getText());
         book.setTitle(titleTextField.getText());
         book.setAuthor(author.getText());
         book.setEdition(edition.getText());
         book.setPublisher(publisher.getText());
         book.setUnits(Integer.parseInt(unitsField.getText()));
-        book.setInvoicePrice(Double.parseDouble(invoicePrice.getText()));
-        book.setFinalPrice(Double.parseDouble(finalPrice.getText()));
+        book.setInvoicePrice(Double.parseDouble(invoicePrice.getText().replace(",",".")));
+        book.setFinalPrice(Double.parseDouble(finalPrice.getText().replace(",",".")));
     }
 
     private Book getNewBook(){
@@ -176,8 +207,8 @@ public class StockEditor extends JFrame{
                 edition.getText(),
                 publisher.getText(),
                 Integer.parseInt(unitsField.getText()),
-                Double.parseDouble(invoicePrice.getText()),
-                Double.parseDouble(finalPrice.getText())
+                Double.parseDouble(invoicePrice.getText().replace(",",".")),
+                Double.parseDouble(finalPrice.getText().replace(",","."))
         );
     }
 }
