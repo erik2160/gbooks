@@ -23,7 +23,7 @@ public class Popups extends JOptionPane{
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(100, 50));
-        buttonPanel.setLayout(null);
+        //buttonPanel.setLayout(null);
         buttonPanel.setBackground(new Color(255, 255, 255));
 
         JPanel marginWestPanel = new JPanel();
@@ -43,9 +43,9 @@ public class Popups extends JOptionPane{
                 contentLabel.setIcon(new ImageIcon(Objects.requireNonNull(Popups.class.getResource(Constants.ERROR_ICON))));
 
                 Button okButton = new Button(Constants.OK_BUTTON);
-                okButton.setBounds(100, 8,86, 36);
+                okButton.setPreferredSize(new Dimension(86, 36));
                 okButton.addActionListener(closeWindow -> dialog.dispose());
-                buttonPanel.add(okButton, BorderLayout.NORTH);
+                buttonPanel.add(okButton, BorderLayout.CENTER);
             }
             case 2 -> {
                 dialog.setTitle("WARNING");
@@ -53,7 +53,7 @@ public class Popups extends JOptionPane{
                 contentLabel.setIcon(new ImageIcon(Objects.requireNonNull(Popups.class.getResource(Constants.WARNING_ICON))));
 
                 Button confirmButton = new Button(Constants.YES_BUTTON);
-                confirmButton.setBounds(100, 8,86, 36);
+                confirmButton.setPreferredSize(new Dimension(86, 36));
                 confirmButton.addActionListener(confirm -> {
                     response = true;
                     dialog.dispose();
@@ -61,7 +61,7 @@ public class Popups extends JOptionPane{
                 buttonPanel.add(confirmButton);
 
                 Button cancelButton = new Button(Constants.NO_BUTTON);
-                cancelButton.setBounds(190, 8,86, 36);
+                cancelButton.setPreferredSize(new Dimension(86, 36));
                 cancelButton.addActionListener(cancel -> {
                     response = false;
                     dialog.dispose();

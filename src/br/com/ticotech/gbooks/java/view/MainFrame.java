@@ -2,6 +2,8 @@ package br.com.ticotech.gbooks.java.view;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -77,10 +79,10 @@ public class MainFrame {
         leftPanel.setLayout(null);
         centerPanel.setLayout(null);
 
-        topPanel.setBackground(Constants.BABY_BLUE);
+        topPanel.setBackground(Constants.DARK_BLUE);
         leftPanel.setBackground(Constants.BABY_BLUE);
         centerPanel.setBackground(Constants.BABY_BLUE);
-        bottomPanel.setBackground(Constants.BABY_BLUE);
+        bottomPanel.setBackground(Constants.DARK_BLUE);
 
         topPanel.setPreferredSize(new Dimension(100, 30));
         leftPanel.setPreferredSize(new Dimension(300, 100));
@@ -123,7 +125,10 @@ public class MainFrame {
         stockButton.addActionListener(e -> showStockSection());
         reportButton.addActionListener(e -> showReportSection());
         usersButton.setEnabled(false);
-        logoutButton.addActionListener(e -> showHomeScreen());
+        logoutButton.addActionListener(e -> {
+            showHomeScreen();
+            leftPanel.setVisible(false);
+        });
     }
 
     private void configureLeftPanel() {
@@ -152,18 +157,6 @@ public class MainFrame {
     }
 
     private void showHomeScreen() {
-        JPanel topPanel = new JPanel();
-        JPanel bottomPanel = new JPanel();
-
-        topPanel.setBackground(Constants.DARK_BLUE);
-        bottomPanel.setBackground(Constants.DARK_BLUE);
-
-        topPanel.setPreferredSize(new Dimension(100, 50));
-        bottomPanel.setPreferredSize(new Dimension(100, 50));
-
-        frame.add(topPanel, BorderLayout.NORTH);
-        frame.add(bottomPanel, BorderLayout.SOUTH);
-
         centerPanel.setBackground(Constants.BABY_BLUE);
         JLabel titleLabel = new JLabel();
         titleLabel.setBounds(790,90,340,339);
@@ -197,11 +190,8 @@ public class MainFrame {
         passwordField.setBounds(713, 573, 499, 63);
         centerPanel.add(passwordField);
 
-        Button enterButton = new Button("");
-        enterButton.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGIN_BUTTON))));
-        enterButton.setBorderPainted(false);
-        enterButton.setContentAreaFilled(false);
-        enterButton.setBounds(866,694, 189,66);
+        Button enterButton = new Button(Constants.LOGIN_BUTTON);
+        enterButton.setBounds(866,685, 197,74);
         enterButton.addActionListener(e -> {
             cashierButton.setEnabled(true);
             stockButton.setEnabled(true);
@@ -209,6 +199,8 @@ public class MainFrame {
             logoutButton.setEnabled(true);
             titleLabel.setVisible(false);
             enterButton.setVisible(false);
+            idField.setVisible(false);
+            passwordField.setVisible(false);
             showSaleSection();
         });
         centerPanel.add(enterButton);
