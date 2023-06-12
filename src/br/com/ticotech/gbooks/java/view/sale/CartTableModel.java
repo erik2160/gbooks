@@ -1,4 +1,4 @@
-package br.com.ticotech.gbooks.java.model;
+package br.com.ticotech.gbooks.java.view.sale;
 
 import br.com.ticotech.gbooks.java.entities.CartBook;
 

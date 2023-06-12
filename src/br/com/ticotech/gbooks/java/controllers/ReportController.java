@@ -1,9 +1,9 @@
 package br.com.ticotech.gbooks.java.controllers;
 
 import br.com.ticotech.gbooks.java.entities.BookReport;
-import br.com.ticotech.gbooks.java.model.SaleRepository;
-import br.com.ticotech.gbooks.java.model.StockRepository;
-import br.com.ticotech.gbooks.java.model.ReportTableModel;
+import br.com.ticotech.gbooks.java.repository.SaleRepository;
+import br.com.ticotech.gbooks.java.repository.StockRepository;
+import br.com.ticotech.gbooks.java.view.report.ReportTableModel;
 import br.com.ticotech.gbooks.java.view.shared.Popups;
 
 import java.text.ParseException;

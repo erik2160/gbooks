@@ -2,10 +2,10 @@ package br.com.ticotech.gbooks.java.controllers;
 
 import br.com.ticotech.gbooks.java.entities.CartBook;
 import br.com.ticotech.gbooks.java.entities.Book;
-import br.com.ticotech.gbooks.java.model.CartTableModel;
+import br.com.ticotech.gbooks.java.view.sale.CartTableModel;
 import br.com.ticotech.gbooks.java.entities.Sale;
-import br.com.ticotech.gbooks.java.model.SaleRepository;
-import br.com.ticotech.gbooks.java.model.StockRepository;
+import br.com.ticotech.gbooks.java.repository.SaleRepository;
+import br.com.ticotech.gbooks.java.repository.StockRepository;
 import br.com.ticotech.gbooks.java.view.shared.Popups;
 
 import java.io.BufferedWriter;
@@ -168,8 +168,12 @@ public class SaleController {
             for(CartBook cartBook: cartBookList){
                 stockRepository.alterUnits("remove", cartBook.getUnits(),cartBook.getCode());
             }
-            List<CartBook> saleList = new ArrayList<>(cartBookList);
-            Sale sale = new Sale(cpf,new Date(),saleList);
+            List<CartBook> bookList = new ArrayList<>(cartBookList);
+            List<Double> invoicePriceList = new ArrayList<>();
+            for (CartBook book :bookList){
+                invoicePriceList.add(stockRepository.getBook(book.getCode()).getInvoicePrice());
+            }
+            Sale sale = new Sale(cpf,new Date(),bookList, invoicePriceList);
             saleRepository.addSale(sale);
             firstPayment = true;
             createNfe(cpf);

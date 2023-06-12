@@ -1,7 +1,7 @@
 package br.com.ticotech.gbooks.java.entities;
 
 import br.com.ticotech.gbooks.java.controllers.StockController;
-import br.com.ticotech.gbooks.java.model.StockRepository;
+import br.com.ticotech.gbooks.java.repository.StockRepository;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

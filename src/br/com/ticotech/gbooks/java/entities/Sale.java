@@ -8,11 +8,13 @@ public class Sale {
     private final String cpf;
     private final Date date;
     private final List<CartBook> bookList;
+    private final List<Double> invoicePriceList;
 
-    public Sale(String cpf, Date date, List<CartBook> bookList){
+    public Sale(String cpf, Date date, List<CartBook> bookList, List<Double> invoicePriceList){
         this.cpf = cpf;
         this.date = date;
         this.bookList = bookList;
+        this.invoicePriceList = invoicePriceList;
     }
 
     public String getCpf() {
@@ -25,5 +27,9 @@ public class Sale {
 
     public List<CartBook> getBookList() {
         return bookList;
+    }
+
+    public List<Double> getInvoicePriceList() {
+        return invoicePriceList;
     }
 }
