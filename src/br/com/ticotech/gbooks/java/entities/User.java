@@ -5,10 +5,12 @@ import br.com.ticotech.gbooks.java.model.UserRepository;
 public class User {
   private final String id;
   private final String password;
+  //private final String role;
   public UserRepository userRepository;
   public User(String id, String password) {
     this.id = id;
     this.password = password;
+    //this.role = role;
   }
   public String getId() {
     return id;
@@ -16,6 +18,11 @@ public class User {
   public String getPassword() {
     return password;
   }
+  /*
+  public String getRole() {
+    return role;
+  }
+   */
 
   public boolean loginVerify(String id, String password) {
     userRepository = new UserRepository();

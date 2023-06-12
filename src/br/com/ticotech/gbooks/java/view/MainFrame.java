@@ -128,7 +128,6 @@ public class MainFrame {
         logoutButton.addActionListener(e -> {
             showHomeScreen();
             leftPanel.setVisible(false);
-            credentialsLabel.setVisible(true);
         });
     }
 
@@ -210,8 +209,9 @@ public class MainFrame {
                 enterButton.setVisible(false);
                 idField.setVisible(false);
                 passwordField.setVisible(false);
+                credentialsLabel.setVisible(false);
+                //System.out.println(user.getRole());
                 showSaleSection();
-
             } else {
                 credentialsLabel.setVisible(true);
             }

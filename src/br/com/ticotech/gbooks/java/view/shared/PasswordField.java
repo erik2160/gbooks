@@ -1,5 +1,7 @@
 package br.com.ticotech.gbooks.java.view.shared;
 
+import br.com.ticotech.gbooks.java.view.MainFrame;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
@@ -53,7 +55,6 @@ public class PasswordField {
                 if(passwordEntry.getPassword().length == 0){
                     passwordEntry.setVisible(false);
                     passwordPlaceholder.setVisible(true);
-                    System.out.println("test");
                 }
             }
         });
