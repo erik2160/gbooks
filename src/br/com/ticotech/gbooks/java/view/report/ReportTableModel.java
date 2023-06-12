@@ -57,6 +57,7 @@ public class ReportTableModel extends DefaultTableModel {
         reportList = bookReportList;
     }
 
+
     public String[] getColumns() {
         return columns;
     }
