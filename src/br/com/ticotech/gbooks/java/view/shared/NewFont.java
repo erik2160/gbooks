@@ -14,7 +14,7 @@ public class NewFont {
     public NewFont() {
 
         try {
-            externalFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(NewFont.class.getResourceAsStream("../../../resources/BebasNeue-Regular.ttf")));
+            externalFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(NewFont.class.getResourceAsStream("../../../resources/Ubuntu-Medium.ttf")));
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(externalFont);
         } catch (Exception e) {
             throw new RuntimeException("Error loading custom font.", e);

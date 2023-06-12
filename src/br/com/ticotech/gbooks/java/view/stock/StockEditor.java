@@ -37,7 +37,7 @@ public class StockEditor extends JFrame{
         add(panel);
 
         JLabel barcodeLabel = new JLabel("BARCODE:");
-        barcodeLabel.setBounds(65,40,110,33);
+        barcodeLabel.setBounds(64,40,110,33);
         barcodeLabel.setFont(new Font(Constants.DEFAULT_FONT,Font.PLAIN,22));
         panel.add(barcodeLabel);
 
@@ -46,7 +46,7 @@ public class StockEditor extends JFrame{
         panel.add(barcodeTextField);
 
         JLabel titleLabel = new JLabel("TITLE:");
-        titleLabel.setBounds(115,90,65,33);
+        titleLabel.setBounds(112,90,65,33);
         titleLabel.setFont(new Font(Constants.DEFAULT_FONT,Font.PLAIN,22));
         panel.add(titleLabel);
 
@@ -91,7 +91,7 @@ public class StockEditor extends JFrame{
         panel.add(unitsField);
 
         JLabel buyPriceLabel = new JLabel("INVOICE PRICE:");
-        buyPriceLabel.setBounds(20,340,160,33);
+        buyPriceLabel.setBounds(17,340,160,33);
         buyPriceLabel.setFont(new Font(Constants.DEFAULT_FONT,Font.PLAIN,22));
         panel.add(buyPriceLabel);
 
@@ -99,8 +99,8 @@ public class StockEditor extends JFrame{
         invoicePrice.setBounds(190,340,220,33);
         panel.add(invoicePrice);
 
-        JLabel sellPriceLabel = new JLabel("FINAL PRICE:");
-        sellPriceLabel.setBounds(47,390,130,33);
+        JLabel sellPriceLabel = new JLabel("SELL PRICE:");
+        sellPriceLabel.setBounds(55,390,130,33);
         sellPriceLabel.setFont(new Font(Constants.DEFAULT_FONT,Font.PLAIN,22));
         panel.add(sellPriceLabel);
 
