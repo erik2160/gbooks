@@ -8,6 +8,7 @@ import br.com.ticotech.gbooks.java.controllers.SaleController;
 import br.com.ticotech.gbooks.java.controllers.StockController;
 import br.com.ticotech.gbooks.java.model.SaleRepository;
 import br.com.ticotech.gbooks.java.model.StockRepository;
+import br.com.ticotech.gbooks.java.model.UserRepository;
 import br.com.ticotech.gbooks.java.view.report.ReportScreen;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
@@ -29,6 +30,7 @@ public class MainFrame {
     private Button reportButton;
     private Button usersButton;
     private Button logoutButton;
+    private UserRepository userRepository;
 
     public MainFrame() {
         createFrame();
@@ -202,7 +204,7 @@ public class MainFrame {
             String enteredPassword = passwordField.getText();
             User user = new User(enteredId, enteredPassword);
 
-            if (user.login(enteredId, enteredPassword)) {
+            if (user.loginVerify(enteredId, enteredPassword)) {
                 cashierButton.setEnabled(true);
                 stockButton.setEnabled(true);
                 reportButton.setEnabled(true);
@@ -214,9 +216,6 @@ public class MainFrame {
                 showSaleSection();
 
             } else {
-                for (User i : User.userList) {
-                    System.out.println(i);
-                }
                 credentialsLabel.setVisible(true);
             }
         });
