@@ -2,6 +2,7 @@ package br.com.ticotech.gbooks.java.view.shared;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -24,6 +25,8 @@ public class PasswordField {
         passwordEntry.setBorder(new BevelBorder(BevelBorder.RAISED));
         passwordEntry.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 20));
         passwordEntry.setVisible(false);
+        LineBorder border = new LineBorder(Color.white,2);
+        passwordEntry.setBorder(border);
 
         passwordPlaceholder.addFocusListener(new FocusListener() {
             @Override

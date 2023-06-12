@@ -9,12 +9,12 @@ import java.util.Date;
 
 public class Calendar extends JFrame {
 
-    private JCalendar calendar;
-    private JButton selectButton;
-    private JPanel panel;
-    private JFrame frame;
+    private final JCalendar calendar;
+    private final JButton selectButton;
+    private final JPanel panel;
+    private final JFrame frame;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private Date selectedDate;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private String formattedDate;
 
     public Calendar(String title) {
@@ -26,8 +26,6 @@ public class Calendar extends JFrame {
         panel = new JPanel();
         frame = new JFrame(title);
         frame.setResizable(false);
-
-
     }
     public void show (Component componentRelative, Display display){
         selectButton.addActionListener(e -> {

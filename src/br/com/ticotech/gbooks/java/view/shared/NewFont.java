@@ -1,25 +1,23 @@
 package br.com.ticotech.gbooks.java.view.shared;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 public class NewFont {
 
-    public Font fonteExterna;
+    public Font externalFont;
 
-    public Font getFonteExterna() {
-        return fonteExterna;
+    public Font getExternalFont() {
+        return externalFont;
     }
 
     public NewFont() {
 
         try {
-            fonteExterna = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(NewFont.class.getResourceAsStream("../../../resources/BebasNeue-Regular.ttf")));
-            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(fonteExterna);
+            externalFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(NewFont.class.getResourceAsStream("../../../resources/BebasNeue-Regular.ttf")));
+            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(externalFont);
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao carregar a fonte personalizada.", e);
+            throw new RuntimeException("Error loading custom font.", e);
         }
 
     }

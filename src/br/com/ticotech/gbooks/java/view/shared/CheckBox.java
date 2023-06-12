@@ -6,11 +6,12 @@ import java.util.Objects;
 
 public class CheckBox extends JButton {
     private boolean checked;
-    private String imageChecked;
-    private String imageNotChecked;
+    private final String imageChecked;
+    private final String imageNotChecked;
     public CheckBox(String checked, String notChecked){
         this.imageChecked = checked;
         this.imageNotChecked = notChecked;
+
         Cursor cur = new Cursor(Cursor.HAND_CURSOR);
         this.setCursor(cur);
         this.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(notChecked))));

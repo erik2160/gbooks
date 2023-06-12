@@ -1,10 +1,6 @@
 package br.com.ticotech.gbooks.java.view.shared;
 
-import br.com.ticotech.gbooks.java.view.MainFrame;
-
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusEvent;

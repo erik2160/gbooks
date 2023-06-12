@@ -1,11 +1,6 @@
 package br.com.ticotech.gbooks.java.view;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 import br.com.ticotech.gbooks.java.controllers.ReportController;
@@ -26,11 +21,6 @@ public class MainFrame {
     private final SaleScreen saleScreen;
     private final StockScreen stockScreen;
     private final ReportScreen reportScreen;
-    private final SaleRepository saleRepository = new SaleRepository();
-    private final StockRepository stockRepository = new StockRepository();
-    private StockController stockController = new StockController(stockRepository);
-    private SaleController saleController = new SaleController(stockRepository, saleRepository);
-    private ReportController reportController = new ReportController(stockRepository,saleRepository);
     private JPanel leftPanel;
     private JPanel centerPanel;
     private Button cashierButton;
@@ -44,18 +34,24 @@ public class MainFrame {
         createPanels();
         configureLeftPanel();
 
+        SaleRepository saleRepository = new SaleRepository();
+        StockRepository stockRepository = new StockRepository();
+
+        SaleController saleController = new SaleController(stockRepository, saleRepository);
         saleScreen = new SaleScreen(saleController);
+        saleScreen.setVisible(false);
         centerPanel.add(saleScreen.getCartPanel());
         centerPanel.add(saleScreen.getFinishPanel());
-        saleScreen.setVisible(false);
 
+        StockController stockController = new StockController(stockRepository);
         stockScreen = new StockScreen(stockController);
-        centerPanel.add(stockScreen.getStockPanel());
         stockScreen.setVisible(false);
+        centerPanel.add(stockScreen.getStockPanel());
 
+        ReportController reportController = new ReportController(stockRepository, saleRepository);
         reportScreen = new ReportScreen(reportController);
-        centerPanel.add(reportScreen.getReportPanel());
         reportScreen.setVisible(false);
+        centerPanel.add(reportScreen.getReportPanel());
 
         showHomeScreen();
 
@@ -162,8 +158,6 @@ public class MainFrame {
         JLabel titleLabel = new JLabel();
         titleLabel.setBounds(790,90,340,339);
         titleLabel.setOpaque(false);
-        //titleLabel.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN,100));
-        //titleLabel.setForeground(Constants.DARK_GRAY);
         titleLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGIN_ICON))));
         centerPanel.add(titleLabel);
 

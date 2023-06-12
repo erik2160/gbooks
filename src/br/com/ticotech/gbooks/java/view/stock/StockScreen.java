@@ -16,7 +16,6 @@ public class StockScreen {
     private final Table table;
     private final JPanel stockPanel;
     private final TextField searchField;
-    private final JScrollPane scrollPane;
 
     public JPanel getStockPanel() {
         return stockPanel;
@@ -70,7 +69,7 @@ public class StockScreen {
         stockPanel.add(removeButton);
         removeButton.addActionListener(e -> deleteBook());
 
-        scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(26,80,1488,810);
         scrollPane.getViewport().setBackground(Color.WHITE);
         stockPanel.add(scrollPane);

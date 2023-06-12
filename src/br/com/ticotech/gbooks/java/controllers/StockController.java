@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class StockController {
-    private StockRepository stockRepository;
-    private List<Book> stockList;
+    private final StockRepository stockRepository;
     private final StockTableModel stockTableModel;
     public StockTableModel getStockTableModel() {
         return stockTableModel;
@@ -18,7 +17,7 @@ public class StockController {
 
     public StockController(StockRepository stockRepository){
         this.stockRepository = stockRepository;
-        stockList = stockRepository.getStock();
+        List<Book> stockList = stockRepository.getStock();
         stockTableModel = new StockTableModel(stockList);
     }
 

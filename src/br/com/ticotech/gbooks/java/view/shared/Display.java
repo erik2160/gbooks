@@ -34,9 +34,4 @@ public class Display extends JTextField {
         setText(displayPlaceHolder);
         setDisabledTextColor(Color.lightGray);
     }
-
-    public void setFontSize(int size){
-     this.setFont( new Font(Constants.DEFAULT_FONT, Font.PLAIN, size));
-    }
-
 }

@@ -16,7 +16,6 @@ import java.util.Objects;
 public class ReportController {
     private final ReportTableModel reportTableModel;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    private List<BookReport> originalReportList;
 
     public ReportTableModel getReportTableModel() {
         return reportTableModel;
@@ -28,7 +27,7 @@ public class ReportController {
 
     public void doSearch(String firstDate, String secondDate){
         reportTableModel.updateList();
-        originalReportList = reportTableModel.getReportList();
+        List<BookReport> originalReportList = reportTableModel.getReportList();
         List<BookReport> newReportList = new ArrayList<>();
 
         if (!Objects.equals(firstDate, "   DD/MM/YYYY")&& Objects.equals(secondDate, "   DD/MM/YYYY")){

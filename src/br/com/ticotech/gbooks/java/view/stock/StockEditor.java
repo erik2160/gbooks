@@ -13,18 +13,16 @@ import java.util.Objects;
 
 public class StockEditor extends JFrame{
 
-    private StockController stockController;
-    private TextField barcodeTextField;
-    private TextField titleTextField;
-    private TextField author;
-    private TextField edition;
-    private TextField publisher;
-    private TextField unitsField;
-    private TextField finalPrice;
-    private TextField invoicePrice;
+    private final TextField barcodeTextField;
+    private final TextField titleTextField;
+    private final TextField author;
+    private final TextField edition;
+    private final TextField publisher;
+    private final TextField unitsField;
+    private final TextField finalPrice;
+    private final TextField invoicePrice;
     private Book book;
     public StockEditor(String type, String barcode, StockController stockController, StockScreen stockScreen) {
-        this.stockController = stockController;
         setTitle(type);
         setSize(430, 585);
         setResizable(false);

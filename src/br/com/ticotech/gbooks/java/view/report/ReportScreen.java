@@ -6,16 +6,13 @@ import br.com.ticotech.gbooks.java.view.shared.Button;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.Objects;
 
 public class ReportScreen{
 
     private final JPanel reportPanel;
     private final Table table;
     private final ReportController reportController;
-    private Display firstDateDisplay;
+    private final Display firstDateDisplay;
     private final Display secondDateDisplay;
 
     public ReportScreen(ReportController reportController){

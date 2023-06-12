@@ -7,9 +7,6 @@ import br.com.ticotech.gbooks.java.view.shared.TextField;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Objects;
 
 public class FinishSection {

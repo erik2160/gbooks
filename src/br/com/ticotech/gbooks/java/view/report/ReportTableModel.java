@@ -8,14 +8,11 @@ import br.com.ticotech.gbooks.java.repository.StockRepository;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ReportTableModel extends DefaultTableModel {
 
-    private List<Sale> saleList;
     private final StockRepository stockRepository;
 
     private final String[] columns = {"DATE","CODE","TITLE","UNITS","SELL PRICE","INVOICE PRICE","TOTAL PRICE","PROFIT"};
@@ -33,26 +30,9 @@ public class ReportTableModel extends DefaultTableModel {
 
     public ReportTableModel(SaleRepository saleRepository, StockRepository stockRepository){
         this.saleRepository = saleRepository;
-        this.saleList = saleRepository.getSaleList();
         this.stockRepository = stockRepository;
-        List<BookReport> bookReportList = new ArrayList<>();
-        for(Sale sale: saleList) {
-            for (CartBook book : sale.getBookList()) {
-                double invoicePrice = stockRepository.getBook(book.getCode()).getInvoicePrice();
-                BookReport bookReport = new BookReport(
-                        sale.getDate(),
-                        book.getCode(),
-                        book.getTitle(),
-                        book.getUnits(),
-                        book.getUnitPrice(),
-                        invoicePrice,
-                        book.getTotalPrice(),
-                        book.getTotalPrice()-(book.getUnits()*invoicePrice)
-                );
-                bookReportList.add(bookReport);
-            }
-        }
-        reportList = bookReportList;
+        
+        updateList();
     }
 
     public void updateList(){
