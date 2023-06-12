@@ -15,6 +15,7 @@ import br.com.ticotech.gbooks.java.view.shared.Constants;
 import br.com.ticotech.gbooks.java.view.shared.PasswordField;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
 import br.com.ticotech.gbooks.java.view.stock.StockScreen;
+import br.com.ticotech.gbooks.java.entities.User;
 
 public class MainFrame {
     private JFrame frame;
@@ -184,18 +185,40 @@ public class MainFrame {
         centerPanel.add(passwordField.getPasswordPlaceholder());
         centerPanel.add(passwordField.getPasswordEntry());
 
+        JLabel credentialsLabel = new JLabel();
+        credentialsLabel.setBounds(830,650,277,25);
+        credentialsLabel.setOpaque(false);
+        credentialsLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.INVALID_CREDENTIALS))));
+        credentialsLabel.setVisible(false);
+        centerPanel.add(credentialsLabel);
+
+
+
+
         Button enterButton = new Button(Constants.LOGIN_BUTTON);
         enterButton.setBounds(866,685, 197,74);
         enterButton.addActionListener(e -> {
-            cashierButton.setEnabled(true);
-            stockButton.setEnabled(true);
-            reportButton.setEnabled(true);
-            logoutButton.setEnabled(true);
-            titleLabel.setVisible(false);
-            enterButton.setVisible(false);
-            idField.setVisible(false);
-            passwordField.setVisible(false);
-            showSaleSection();
+            String enteredId = idField.getText();
+            String enteredPassword = passwordField.getText();
+            User user = new User(enteredId, enteredPassword);
+
+            if (user.login(enteredId, enteredPassword)) {
+                cashierButton.setEnabled(true);
+                stockButton.setEnabled(true);
+                reportButton.setEnabled(true);
+                logoutButton.setEnabled(true);
+                titleLabel.setVisible(false);
+                enterButton.setVisible(false);
+                idField.setVisible(false);
+                passwordField.setVisible(false);
+                showSaleSection();
+
+            } else {
+                for (User i : User.userList) {
+                    System.out.println(i);
+                }
+                credentialsLabel.setVisible(true);
+            }
         });
         centerPanel.add(enterButton);
     }
