@@ -128,6 +128,7 @@ public class MainFrame {
         logoutButton.addActionListener(e -> {
             showHomeScreen();
             leftPanel.setVisible(false);
+            credentialsLabel.setVisible(true);
         });
     }
 
@@ -175,7 +176,6 @@ public class MainFrame {
         usersButton.setEnabled(false);
         logoutButton.setEnabled(false);
 
-        //WORKHERE
         TextField idField = new TextField("ID");
         idField.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         idField.setBackground(Color.WHITE);
@@ -193,9 +193,6 @@ public class MainFrame {
         credentialsLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.INVALID_CREDENTIALS))));
         credentialsLabel.setVisible(false);
         centerPanel.add(credentialsLabel);
-
-
-
 
         Button enterButton = new Button(Constants.LOGIN_BUTTON);
         enterButton.setBounds(866,685, 197,74);

@@ -9,7 +9,7 @@ public class UserRepository {
   public List<User> users;
   public UserRepository() {
     users = new ArrayList<>();
-    users.add(new User("123", "123"));
+    users.add(new User("Cashier", "Cashier123"));
     users.add(new User("321", "321"));
   }
 
