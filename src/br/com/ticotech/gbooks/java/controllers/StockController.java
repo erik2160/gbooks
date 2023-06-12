@@ -1,8 +1,8 @@
 package br.com.ticotech.gbooks.java.controllers;
 
 import br.com.ticotech.gbooks.java.entities.Book;
-import br.com.ticotech.gbooks.java.repository.StockRepository;
-import br.com.ticotech.gbooks.java.view.stock.StockTableModel;
+import br.com.ticotech.gbooks.java.model.StockRepository;
+import br.com.ticotech.gbooks.java.model.StockTableModel;
 
 import java.util.ArrayList;
 import java.util.List;

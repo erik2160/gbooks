@@ -2,10 +2,10 @@ package br.com.ticotech.gbooks.java.controllers;
 
 import br.com.ticotech.gbooks.java.entities.CartBook;
 import br.com.ticotech.gbooks.java.entities.Book;
-import br.com.ticotech.gbooks.java.view.sale.CartTableModel;
+import br.com.ticotech.gbooks.java.model.CartTableModel;
 import br.com.ticotech.gbooks.java.entities.Sale;
-import br.com.ticotech.gbooks.java.repository.SaleRepository;
-import br.com.ticotech.gbooks.java.repository.StockRepository;
+import br.com.ticotech.gbooks.java.model.SaleRepository;
+import br.com.ticotech.gbooks.java.model.StockRepository;
 import br.com.ticotech.gbooks.java.view.shared.Popups;
 
 import java.io.BufferedWriter;

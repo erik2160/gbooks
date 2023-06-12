@@ -1,10 +1,10 @@
-package br.com.ticotech.gbooks.java.view.report;
+package br.com.ticotech.gbooks.java.model;
 
 import br.com.ticotech.gbooks.java.entities.BookReport;
 import br.com.ticotech.gbooks.java.entities.CartBook;
 import br.com.ticotech.gbooks.java.entities.Sale;
-import br.com.ticotech.gbooks.java.repository.SaleRepository;
-import br.com.ticotech.gbooks.java.repository.StockRepository;
+import br.com.ticotech.gbooks.java.model.SaleRepository;
+import br.com.ticotech.gbooks.java.model.StockRepository;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;

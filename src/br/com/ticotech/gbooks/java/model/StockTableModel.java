@@ -1,4 +1,4 @@
-package br.com.ticotech.gbooks.java.view.stock;
+package br.com.ticotech.gbooks.java.model;
 
 import br.com.ticotech.gbooks.java.entities.Book;
 

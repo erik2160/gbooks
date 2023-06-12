@@ -1,8 +1,8 @@
 package br.com.ticotech.gbooks.java.entities;
 
 import br.com.ticotech.gbooks.java.controllers.SaleController;
-import br.com.ticotech.gbooks.java.repository.SaleRepository;
-import br.com.ticotech.gbooks.java.repository.StockRepository;
+import br.com.ticotech.gbooks.java.model.SaleRepository;
+import br.com.ticotech.gbooks.java.model.StockRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
