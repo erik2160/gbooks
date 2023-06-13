@@ -1,6 +1,6 @@
 # G-Books
 
-![G-Books Logo](./link)
+![G-Books Logo](src/br/com/ticotech/gbooks/java/view/shared/images/Logo.png)
 
 G-Books é um projeto para gerenciamento de livros. Ele permite que você faça o registro e controle de livros, além de oferecer recursos de pesquisa e relatórios.
 
