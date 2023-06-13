@@ -120,6 +120,7 @@ public class StockScreen {
                     table.setVisible(false);
                     table.setVisible(true);
                     doSearch();
+                    table.clearSelection();
                 }
             }
         }

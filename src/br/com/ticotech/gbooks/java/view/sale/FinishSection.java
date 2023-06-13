@@ -39,7 +39,6 @@ public class FinishSection {
     public Button getDebitButton() {
         return debitButton;
     }
-    //  public Display getChangeDisplay() {return changeDisplay;}
 
     public Button getFinishButton() {
         return finishButton;
@@ -142,14 +141,7 @@ public class FinishSection {
         }
     }
 
-    private void doPayment(int type){
-        if (saleController.isFirstPayment()){
-            new ValueSelector(type, saleController, this);
-        }
-        else {
-            saleController.registerSecondPayment();
-            totalDisplay.setText(saleController.getToPay());
-            changeDisplay.reset();
-        }
+    private void doPayment(int type) {
+        new ValueSelector(type, saleController, this);
     }
 }

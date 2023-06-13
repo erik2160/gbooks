@@ -22,13 +22,9 @@ public class SaleController {
     private final List<CartBook> cartBookList = new ArrayList<>();
     private final CartTableModel cartTableModel = new CartTableModel(cartBookList);
     private final SaleRepository saleRepository;
-    private boolean firstPayment = true;
     private double toPay;
     private double cashChange;
-
-    public boolean isFirstPayment() {
-        return firstPayment;
-    }
+    int nfeNumber = 0;
 
     public String getToPay() {
         double toPayRounded = Math.round(toPay*100.0)/100.0;
@@ -73,7 +69,6 @@ public class SaleController {
                         cartBook.setUnits(cartBook.getUnits() + units);
                         cartBook.setTotalPrice(book.getFinalPrice() * cartBook.getUnits());
                         toPay += cartBook.getUnitPrice()*units;
-                        firstPayment = true;
                         return true;
                     }
                 }
@@ -87,7 +82,6 @@ public class SaleController {
                 );
                 cartBookList.add(newCartBook);
                 toPay +=newCartBook.getTotalPrice();
-                firstPayment = true;
                 return true;
             }
         } else {
@@ -143,7 +137,6 @@ public class SaleController {
         } else {
             toPay -= value;
         }
-        firstPayment = false;
     }
 
     public boolean registerCardPayment(double value){
@@ -155,12 +148,7 @@ public class SaleController {
         } else {
             toPay -= value;
         }
-        firstPayment = false;
         return true;
-    }
-
-    public void registerSecondPayment(){
-        toPay = 00.00;
     }
 
     public boolean finishSale(String cpf){
@@ -175,7 +163,6 @@ public class SaleController {
             }
             Sale sale = new Sale(cpf,new Date(),bookList, invoicePriceList);
             saleRepository.addSale(sale);
-            firstPayment = true;
             createNfe(cpf);
             cancelSale();
             return true;
@@ -214,7 +201,7 @@ public class SaleController {
 
     private void createNfe(String cpf){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
-        String fileName = "NFE.txt";
+        String fileName = "NFE("+nfeNumber++ +").txt";
         double total = 0;
 
         try {
@@ -227,7 +214,7 @@ public class SaleController {
             buffer.write("--------------------------------------\n");
             buffer.write("PRODUCTS:\n");
             for (CartBook book : cartBookList){
-                buffer.write(book.getTitle() + "   x" + book.getUnits() +"\n");
+                buffer.write(book.getTitle() + " x" + book.getUnits() +"\n");
                 total+= book.getTotalPrice();
             }
             total = Math.round(total*100.0)/100.0;

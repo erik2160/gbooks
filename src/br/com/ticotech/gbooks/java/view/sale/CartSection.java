@@ -148,6 +148,7 @@ public class CartSection {
                 new Popups("Invalid type! Enter a number in the UNITS field.", 1);
             }
         }
+        table.clearSelection();
     }
 
     private void cancelSale(){

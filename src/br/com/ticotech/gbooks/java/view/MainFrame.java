@@ -48,7 +48,7 @@ public class MainFrame {
         stockScreen.setVisible(false);
         centerPanel.add(stockScreen.getStockPanel());
 
-        ReportController reportController = new ReportController(stockRepository, saleRepository);
+        ReportController reportController = new ReportController(saleRepository);
         reportScreen = new ReportScreen(reportController);
         reportScreen.setVisible(false);
         centerPanel.add(reportScreen.getReportPanel());

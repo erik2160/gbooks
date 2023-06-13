@@ -21,8 +21,8 @@ public class ReportController {
         return reportTableModel;
     }
 
-    public ReportController(StockRepository stockRepository, SaleRepository saleRepository){
-        this.reportTableModel = new ReportTableModel(saleRepository, stockRepository);
+    public ReportController(SaleRepository saleRepository){
+        this.reportTableModel = new ReportTableModel(saleRepository);
     }
 
     public void doSearch(String firstDate, String secondDate){
@@ -62,7 +62,7 @@ public class ReportController {
                     Date initialDate = dateFormat.parse(firstDate);
                     Date finalDate = dateFormat.parse(secondDate);
                     Date reportDate = dateFormat.parse(report.getDate());
-                    if (reportDate.after(initialDate) && reportDate.before(finalDate)) {
+                    if ((reportDate.after(initialDate) || reportDate.equals(initialDate)) && (reportDate.before(finalDate) || reportDate.equals(finalDate))) {
                         newReportList.add(report);
                     }
                 } catch (ParseException e) {
