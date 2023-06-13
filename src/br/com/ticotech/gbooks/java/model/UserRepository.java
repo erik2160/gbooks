@@ -4,22 +4,27 @@ import br.com.ticotech.gbooks.java.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserRepository {
-  public List<User> users;
+  public List<User> userList;
   public UserRepository() {
-    users = new ArrayList<>();
-    users.add(new User("Cashier", "Cashier123"));
-    users.add(new User("Manager", "Manager123"));
-    users.add(new User("Erik", "Erik123"));
-    users.add(new User("Lisandra", "Lisandra123"));
-    users.add(new User("Fernando", "Fernando123"));
-    users.add(new User("Edenilson", "Edenilson123"));
-    users.add(new User("Jonathan", "Jonathan123"));
-    users.add(new User("a", "a"));
+    userList = new ArrayList<>();
+    userList.add(new User("Cashier", "123", "Cashier123", 1));
+    userList.add(new User("Manager", "124","Manager123", 2));
+    userList.add(new User("Erik", "125","Erik123", 2));
+    userList.add(new User("Lisandra","126", "Lisandra123", 2));
+    userList.add(new User("Fernando", "127","Fernes123", 2));
+    userList.add(new User("Edenilson", "128", "Edenilson123", 2));
+    userList.add(new User("Jonathan", "129", "Jonathan123", 2));
   }
 
-  public List<User> getUsers() {
-    return users;
+  public User getUser(String id){
+    for (User user : userList){
+      if (Objects.equals(user.getId(),id)){
+        return user;
+      }
+    }
+    return null;
   }
 }

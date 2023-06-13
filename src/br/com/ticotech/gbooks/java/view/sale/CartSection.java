@@ -111,7 +111,7 @@ public class CartSection {
             barcodeTextField.reset();
             unitsTextField.reset();
             barcodeTextField.requestFocus();
-            saleScreen.getTotalDisplay().setText(saleController.getToPay());
+            saleScreen.getTotalDisplay().setText("TOTAL: $" + saleController.getToPay());
         }
     }
 

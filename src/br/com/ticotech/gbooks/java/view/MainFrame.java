@@ -6,22 +6,26 @@ import java.util.Objects;
 import br.com.ticotech.gbooks.java.controllers.ReportController;
 import br.com.ticotech.gbooks.java.controllers.SaleController;
 import br.com.ticotech.gbooks.java.controllers.StockController;
+import br.com.ticotech.gbooks.java.controllers.UserController;
 import br.com.ticotech.gbooks.java.model.SaleRepository;
 import br.com.ticotech.gbooks.java.model.StockRepository;
+import br.com.ticotech.gbooks.java.model.UserRepository;
+import br.com.ticotech.gbooks.java.view.login.LoginScreen;
 import br.com.ticotech.gbooks.java.view.report.ReportScreen;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.Constants;
-import br.com.ticotech.gbooks.java.view.shared.PasswordField;
-import br.com.ticotech.gbooks.java.view.shared.TextField;
 import br.com.ticotech.gbooks.java.view.stock.StockScreen;
-import br.com.ticotech.gbooks.java.entities.User;
 
 public class MainFrame {
     private JFrame frame;
     private final SaleScreen saleScreen;
     private final StockScreen stockScreen;
     private final ReportScreen reportScreen;
+    private final LoginScreen loginScreen;
+    private final UserController userController;
+    private final JLabel textUserName = new JLabel();
+    private final JLabel textUserRole = new JLabel();
     private JPanel leftPanel;
     private JPanel centerPanel;
     private Button cashierButton;
@@ -30,13 +34,33 @@ public class MainFrame {
     private Button usersButton;
     private Button logoutButton;
 
+    public Button getCashierButton() {
+        return cashierButton;
+    }
+
+    public Button getStockButton() {
+        return stockButton;
+    }
+
+    public Button getReportButton() {
+        return reportButton;
+    }
+
+    public Button getLogoutButton() {
+        return logoutButton;
+    }
+
     public MainFrame() {
         createFrame();
         createPanels();
-        configureLeftPanel();
 
         SaleRepository saleRepository = new SaleRepository();
         StockRepository stockRepository = new StockRepository();
+        UserRepository userRepository = new UserRepository();
+
+        this.userController = new UserController(userRepository);
+        loginScreen = new LoginScreen(userController, this);
+        centerPanel.add(loginScreen.getLoginPanel());
 
         SaleController saleController = new SaleController(stockRepository, saleRepository);
         saleScreen = new SaleScreen(saleController);
@@ -45,7 +69,7 @@ public class MainFrame {
         centerPanel.add(saleScreen.getFinishPanel());
 
         StockController stockController = new StockController(stockRepository);
-        stockScreen = new StockScreen(stockController);
+        stockScreen = new StockScreen(stockController, userController);
         stockScreen.setVisible(false);
         centerPanel.add(stockScreen.getStockPanel());
 
@@ -54,10 +78,10 @@ public class MainFrame {
         reportScreen.setVisible(false);
         centerPanel.add(reportScreen.getReportPanel());
 
-        showHomeScreen();
+        configureLeftPanel();
+        showLoginSection();
 
-        frame.setVisible(true);
-    }
+        frame.setVisible(true);}
 
     private void createFrame(){
         frame = new JFrame("G-Books System");
@@ -124,7 +148,7 @@ public class MainFrame {
         reportButton.addActionListener(e -> showReportSection());
         usersButton.setEnabled(false);
         logoutButton.addActionListener(e -> {
-            showHomeScreen();
+            showLoginSection();
             leftPanel.setVisible(false);
         });
     }
@@ -154,79 +178,43 @@ public class MainFrame {
         leftPanel.add(stickBooks);
     }
 
-    private void showHomeScreen() {
-        centerPanel.setBackground(Constants.BABY_BLUE);
-        JLabel titleLabel = new JLabel();
-        titleLabel.setBounds(790,90,340,339);
-        titleLabel.setOpaque(false);
-        titleLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.LOGIN_ICON))));
-        centerPanel.add(titleLabel);
+    private void setCredentialsText(){
+        textUserName.setText("Operator: " + userController.getName());
+        textUserName.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 20));
+        textUserName.setBounds(40, 577, 300, 300);
 
-        saleScreen.setVisible(false);
-        stockScreen.setVisible(false);
-        reportScreen.setVisible(false);
-        leftPanel.setVisible(false);
+        textUserRole.setText("Role: " + userController.getRoleName());
+        textUserRole.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 20));
+        textUserRole.setBounds(40, 600, 300, 300);
 
-        cashierButton.setEnabled(false);
-        stockButton.setEnabled(false);
-        reportButton.setEnabled(false);
-        usersButton.setEnabled(false);
-        logoutButton.setEnabled(false);
+        leftPanel.add(textUserName);
+        leftPanel.add(textUserRole);
+    }
 
-        TextField firstField = new TextField("");
-        firstField.setOpaque(false);
-        firstField.setBorder(null);
-        firstField.setBounds(830, 200,  1, 1);
-        centerPanel.add(firstField);
-
-        TextField idField = new TextField("ID");
-        idField.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
-        idField.setBackground(Color.WHITE);
-        idField.setBounds(713, 480, 499, 63);
-        centerPanel.add(idField);
-
-        PasswordField passwordField = new PasswordField("PASSWORD");
-        passwordField.setBounds(713, 573, 499, 63);
-        centerPanel.add(passwordField.getPasswordPlaceholder());
-        centerPanel.add(passwordField.getPasswordEntry());
-
-        JLabel credentialsLabel = new JLabel();
-        credentialsLabel.setBounds(830,650,277,25);
-        credentialsLabel.setOpaque(false);
-        credentialsLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(Constants.INVALID_CREDENTIALS))));
-        credentialsLabel.setVisible(false);
-        centerPanel.add(credentialsLabel);
-
-        Button enterButton = new Button(Constants.LOGIN_BUTTON);
-        enterButton.setBounds(866,685, 197,74);
-        enterButton.addActionListener(e -> {
-            String enteredId = idField.getText();
-            String enteredPassword = passwordField.getText();
-            User user = new User(enteredId, enteredPassword);
-
-            if (user.loginVerify(enteredId, enteredPassword)) {
+    public void doLogin(int accessType){
+        switch (accessType){
+            case 1 -> {
+                cashierButton.setEnabled(true);
+                stockButton.setEnabled(true);
+                reportButton.setEnabled(false);
+                logoutButton.setEnabled(true);
+            }
+            case 2 -> {
                 cashierButton.setEnabled(true);
                 stockButton.setEnabled(true);
                 reportButton.setEnabled(true);
                 logoutButton.setEnabled(true);
-                titleLabel.setVisible(false);
-                enterButton.setVisible(false);
-                idField.setVisible(false);
-                passwordField.setVisible(false);
-                credentialsLabel.setVisible(false);
-                //System.out.println(user.getRole());
-                showSaleSection();
-            } else {
-                credentialsLabel.setVisible(true);
             }
-        });
-        centerPanel.add(enterButton);
+        }
+        showSaleSection();
+        setCredentialsText();
     }
 
     private void showSaleSection() {
         saleScreen.setVisible(true);
         stockScreen.setVisible(false);
         reportScreen.setVisible(false);
+        loginScreen.setVisible(false);
         leftPanel.setVisible(true);
         centerPanel.setBackground(Color.WHITE);
     }
@@ -235,13 +223,22 @@ public class MainFrame {
         saleScreen.setVisible(false);
         stockScreen.setVisible(true);
         reportScreen.setVisible(false);
+        loginScreen.setVisible(false);
     }
 
     private void showReportSection(){
         saleScreen.setVisible(false);
         stockScreen.setVisible(false);
         reportScreen.setVisible(true);
-        leftPanel.setVisible(true);
-        centerPanel.setBackground(Color.WHITE);
+        loginScreen.setVisible(false);
+    }
+
+    private void showLoginSection() {
+        saleScreen.setVisible(false);
+        stockScreen.setVisible(false);
+        reportScreen.setVisible(false);
+        loginScreen.setVisible(true);
+        leftPanel.setVisible(false);
+        centerPanel.setBackground(Constants.BABY_BLUE);
     }
 }

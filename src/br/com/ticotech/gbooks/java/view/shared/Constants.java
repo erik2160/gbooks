@@ -47,9 +47,10 @@ public class Constants {
     public static final String FINAL_DATE_BUTTON = "../shared/images/FinalButton.png";
     public static final String RESET_FILTER = "../shared/images/ResetFilter.png";
     public static final String SEARCH_BUTTON = "../shared/images/SearchButton.png";
-    public static final String LOGIN_ICON = "shared/images/LoginIcon.png";
+    public static final String LOGIN_ICON = "../shared/images/LoginIcon.png";
     public static final String TOTAL_VALUE_BUTTON = "../shared/images/TotalValueButton.png";
     public static final String CHANGE_BUTTON = "../shared/images/ChangeButton.png";
-    public static final String INVALID_CREDENTIALS = "shared/images/InvalidCredentialsImage.png";
+    public static final String INVALID_USER = "../shared/images/InvalidUser.png";
+    public static final String INVALID_PASSWORD = "../shared/images/InvalidPassword.png";
 
 }

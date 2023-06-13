@@ -65,13 +65,13 @@ public class ValueSelector extends JFrame {
                 switch (type) {
                     case 1 -> {
                         saleController.registerCashPayment(value);
-                        finishSection.getTotalDisplay().setText(saleController.getToPay());
-                        finishSection.getChangeDisplay().setText(saleController.getCashChange());
+                        finishSection.getTotalDisplay().setText("TOTAL: $ " + saleController.getToPay());
+                        finishSection.getChangeDisplay().setText("CHANGE: $" + saleController.getCashChange());
                         dispose();
                     }
                     case 2 -> {
                         if (saleController.registerCardPayment(value)) {
-                            finishSection.getTotalDisplay().setText(saleController.getToPay());
+                            finishSection.getTotalDisplay().setText("TOTAL: $ " + saleController.getToPay());
                             dispose();
                         }
                     }

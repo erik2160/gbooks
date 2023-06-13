@@ -73,4 +73,10 @@ public class PasswordField {
     public String getText(){
         return String.valueOf(passwordEntry.getPassword());
     }
+
+    public void reset(){
+        passwordEntry.setText("");
+        passwordEntry.setVisible(false);
+        passwordPlaceholder.setVisible(true);
+    }
 }
