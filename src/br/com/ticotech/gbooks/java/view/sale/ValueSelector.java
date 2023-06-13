@@ -7,6 +7,8 @@ import br.com.ticotech.gbooks.java.view.shared.Popups;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.Objects;
 
 public class ValueSelector extends JFrame {
 
@@ -20,21 +22,33 @@ public class ValueSelector extends JFrame {
         this.saleController = saleController;
         this.finishSection = finishSection;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(600, 500);
+        setSize(500, 180);
         setLayout(null);
+        setLocationRelativeTo(null);
+        setTitle("Value Selector");
         setResizable(false);
 
-        valueInput = new TextField("VALUE");
-        valueInput.setBounds(50,50,200,50);
+        TextField firstField = new TextField("");
+        firstField.setOpaque(false);
+        firstField.setBorder(null);
+        firstField.setBounds(830, 1,  1, 1);
+        this.add(firstField);
+
+        valueInput = new TextField("INSERT VALUE");
+        valueInput.setBounds(40,20,420,50);
         this.add(valueInput);
 
-        Button fullValueButton = new Button(Constants.ADD_BUTTON);
-        fullValueButton.setBounds(50,200, 200,100);
-        fullValueButton.addActionListener(e -> valueInput.setText(saleController.getToPay()));
+
+        Button fullValueButton = new Button(Constants.TOTAL_VALUE_BUTTON);
+        fullValueButton.setBounds(35,90, 208,58);
+        fullValueButton.addActionListener(e -> {
+            valueInput.setText(saleController.getToPay());
+            doPayment();
+        });
         this.add(fullValueButton);
 
-        Button finishButton = new Button(Constants.FINISH_SALE_BUTTON);
-        finishButton.setBounds(30,300,450,150);
+        Button finishButton = new Button(Constants.CHANGE_BUTTON);
+        finishButton.setBounds(260,90,208,58);
         finishButton.addActionListener(e -> doPayment());
         this.add(finishButton);
 

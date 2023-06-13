@@ -173,6 +173,12 @@ public class MainFrame {
         usersButton.setEnabled(false);
         logoutButton.setEnabled(false);
 
+        TextField firstField = new TextField("");
+        firstField.setOpaque(false);
+        firstField.setBorder(null);
+        firstField.setBounds(830, 200,  1, 1);
+        centerPanel.add(firstField);
+
         TextField idField = new TextField("ID");
         idField.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         idField.setBackground(Color.WHITE);

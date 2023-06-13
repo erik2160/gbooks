@@ -23,7 +23,6 @@ public class Popups extends JOptionPane{
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(100, 50));
-        //buttonPanel.setLayout(null);
         buttonPanel.setBackground(new Color(255, 255, 255));
 
         JPanel marginWestPanel = new JPanel();
