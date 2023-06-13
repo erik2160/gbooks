@@ -117,11 +117,11 @@ public class FinishSection {
         changeDisplay = new Display("CHANGE");
         changeDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         changeDisplay.setBackground(Constants.BABY_BLUE);
-        changeDisplay.setBounds(380, 84, 240, 130);
+        changeDisplay.setBounds(379, 84, 240, 130);
         totalPanel.add(changeDisplay);
 
         finishButton = new Button(Constants.FINISH_SALE_BUTTON);
-        finishButton.setBounds(625, 80, 390, 140);
+        finishButton.setBounds(630, 80, 385, 142);
         finishButton.setEnabled(false);
         finishButton.addActionListener(e -> finishSale());
         totalPanel.add(finishButton);
