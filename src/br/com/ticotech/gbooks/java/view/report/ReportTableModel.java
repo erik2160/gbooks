@@ -4,7 +4,6 @@ import br.com.ticotech.gbooks.java.entities.BookReport;
 import br.com.ticotech.gbooks.java.entities.CartBook;
 import br.com.ticotech.gbooks.java.entities.Sale;
 import br.com.ticotech.gbooks.java.repository.SaleRepository;
-import br.com.ticotech.gbooks.java.repository.StockRepository;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -12,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReportTableModel extends DefaultTableModel {
-
-    private final StockRepository stockRepository;
 
     private final String[] columns = {"DATE","CODE","TITLE","UNITS","SELL PRICE","INVOICE PRICE","TOTAL PRICE","PROFIT"};
 
@@ -28,9 +25,8 @@ public class ReportTableModel extends DefaultTableModel {
         this.reportList = reportList;
     }
 
-    public ReportTableModel(SaleRepository saleRepository, StockRepository stockRepository){
+    public ReportTableModel(SaleRepository saleRepository){
         this.saleRepository = saleRepository;
-        this.stockRepository = stockRepository;
         
         updateList();
     }
@@ -38,25 +34,24 @@ public class ReportTableModel extends DefaultTableModel {
     public void updateList(){
         List<BookReport> bookReportList = new ArrayList<>();
         for (Sale sale : saleRepository.getSaleList()) {
-            int i = 0;
-            for (CartBook book : sale.getBookList()) {
+            for (int i = 0; i<sale.getBookList().size(); i++) {
+                CartBook book = sale.getBookList().get(i);
+                double invoice = sale.getInvoicePriceList().get(i);
                 BookReport bookReport = new BookReport(
                         sale.getDate(),
                         book.getCode(),
                         book.getTitle(),
                         book.getUnits(),
                         book.getUnitPrice(),
-                        sale.getInvoicePriceList().get(i),
+                        invoice,
                         book.getTotalPrice(),
-                        book.getTotalPrice() - (book.getUnits() * sale.getInvoicePriceList().get(i))
+                        book.getTotalPrice() - (book.getUnits() * invoice)
                 );
                 bookReportList.add(bookReport);
-                i++;
             }
         }
         reportList = bookReportList;
     }
-
 
     public String[] getColumns() {
         return columns;

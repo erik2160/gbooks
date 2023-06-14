@@ -57,6 +57,7 @@ public class ReportScreen{
         resetFilter.addActionListener(e-> {
             firstDateDisplay.reset();
             secondDateDisplay.reset();
+            doSearch();
         });
         reportPanel.add(resetFilter);
 

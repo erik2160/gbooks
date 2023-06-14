@@ -1,6 +1,7 @@
 package br.com.ticotech.gbooks.java.view.stock;
 
 import br.com.ticotech.gbooks.java.controllers.StockController;
+import br.com.ticotech.gbooks.java.controllers.UserController;
 import br.com.ticotech.gbooks.java.view.shared.*;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.TextField;
@@ -13,9 +14,13 @@ import java.util.Objects;
 
 public class StockScreen {
     private final StockController stockController;
+    private final UserController userController;
     private final Table table;
     private final JPanel stockPanel;
     private final TextField searchField;
+    private final Button editButton;
+    private final Button addButton;
+    private final Button removeButton;
 
     public JPanel getStockPanel() {
         return stockPanel;
@@ -25,7 +30,8 @@ public class StockScreen {
         return table;
     }
 
-    public StockScreen(StockController stockController){
+    public StockScreen(StockController stockController, UserController userController){
+        this.userController = userController;
         this.stockController = stockController;
 
         int [] columnsWidth = {90,60,10,10,10,10,10,10};
@@ -54,17 +60,17 @@ public class StockScreen {
             }
         });
 
-        Button editButton = new Button(Constants.EDIT_STOCK_BUTTON);
+        editButton = new Button(Constants.EDIT_STOCK_BUTTON);
         editButton.setBounds(972,20,166,50);
         stockPanel.add(editButton);
         editButton.addActionListener(e -> editBook());
 
-        Button addButton = new Button(Constants.ADD_STOCK_BUTTON);
+        addButton = new Button(Constants.ADD_STOCK_BUTTON);
         addButton.setBounds(1160,20,166,50);
         stockPanel.add(addButton);
         addButton.addActionListener(e -> addBook());
 
-        Button removeButton = new Button(Constants.REMOVE_STOCK_BUTTON);
+        removeButton = new Button(Constants.REMOVE_STOCK_BUTTON);
         removeButton.setBounds(1348,20,166,50);
         stockPanel.add(removeButton);
         removeButton.addActionListener(e -> deleteBook());
@@ -75,8 +81,24 @@ public class StockScreen {
         stockPanel.add(scrollPane);
     }
     public void setVisible(boolean isVisible){
+        if (isVisible) {
+            checkPermission();
+        }
         stockPanel.setVisible(isVisible);
         doSearch();
+    }
+
+    private void checkPermission(){
+        if (userController.getAccessType() == 2){
+            addButton.setEnabled(true);
+            removeButton.setEnabled(true);
+            editButton.setEnabled(true);
+        }
+        else{
+            addButton.setEnabled(false);
+            removeButton.setEnabled(false);
+            editButton.setEnabled(false);
+        }
     }
 
     private void doSearch(){
@@ -120,6 +142,7 @@ public class StockScreen {
                     table.setVisible(false);
                     table.setVisible(true);
                     doSearch();
+                    table.clearSelection();
                 }
             }
         }
