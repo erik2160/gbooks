@@ -47,8 +47,8 @@ public class ValueSelector extends JFrame {
         });
         this.add(fullValueButton);
 
-        Button finishButton = new Button(Constants.CHANGE_BUTTON);
-        finishButton.setBounds(260,90,208,58);
+        Button finishButton = new Button(Constants.PAY_BUTTON);
+        finishButton.setBounds(258,90,208,58);
         finishButton.addActionListener(e -> doPayment());
         this.add(finishButton);
 
