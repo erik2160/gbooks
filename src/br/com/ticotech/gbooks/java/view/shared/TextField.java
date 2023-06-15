@@ -16,7 +16,7 @@ public class TextField extends JTextField {
         this.setText(placeHolder);
         this.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 20));
         this.setForeground(Color.lightGray);
-        LineBorder border = new LineBorder(Color.white,2);
+        LineBorder border = new LineBorder(new Color(184,207,229),1);
         this.setBorder(border);
 
         this.addFocusListener(new FocusListener() {

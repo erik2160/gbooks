@@ -8,6 +8,11 @@ public class CheckBox extends JButton {
     private boolean checked;
     private final String imageChecked;
     private final String imageNotChecked;
+
+    public boolean isChecked() {
+        return checked;
+    }
+
     public CheckBox(String checked, String notChecked){
         this.imageChecked = checked;
         this.imageNotChecked = notChecked;
@@ -29,5 +34,12 @@ public class CheckBox extends JButton {
             checked=false;
             this.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(imageNotChecked))));
         }
+    }
+
+    public void setEnable(boolean enable){
+        if (!enable && checked){
+            alterCheck();
+        }
+        setEnabled(enable);
     }
 }

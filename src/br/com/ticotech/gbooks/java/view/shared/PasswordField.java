@@ -25,9 +25,9 @@ public class PasswordField {
         passwordPlaceholder = new TextField(placeholder);
         passwordEntry = new JPasswordField();
         passwordEntry.setBorder(new BevelBorder(BevelBorder.RAISED));
-        passwordEntry.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 20));
+        passwordEntry.setFont(new Font(Constants.DEFAULT_FONT, Font.PLAIN, 22));
         passwordEntry.setVisible(false);
-        LineBorder border = new LineBorder(Color.white,2);
+        LineBorder border = new LineBorder(new Color(184,207,229),1);
         passwordEntry.setBorder(border);
 
         passwordPlaceholder.addFocusListener(new FocusListener() {

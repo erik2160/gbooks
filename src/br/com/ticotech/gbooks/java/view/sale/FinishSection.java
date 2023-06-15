@@ -14,6 +14,9 @@ public class FinishSection {
     private final SaleScreen saleScreen;
     private final JPanel finishPanel;
     private final TextField cpfField;
+    private final Display pointsDisplay;
+    private final Display discountDisplay;
+    private final CheckBox pointsCheckBox;
     private final Display totalDisplay;
     private final Button cashButton;
     private final Button creditButton;
@@ -21,6 +24,18 @@ public class FinishSection {
     private final Display changeDisplay;
     private final Button finishButton;
 
+    public TextField getCpfField() {
+        return cpfField;
+    }
+    public Display getDiscountDisplay() {
+        return discountDisplay;
+    }
+    public Display getPointsDisplay() {
+        return pointsDisplay;
+    }
+    public CheckBox getPointsCheckBox() {
+        return pointsCheckBox;
+    }
     public Display getTotalDisplay() {
         return totalDisplay;
     }
@@ -31,15 +46,12 @@ public class FinishSection {
     public Button getCashButton() {
         return cashButton;
     }
-
     public Button getCreditButton() {
         return creditButton;
     }
-
     public Button getDebitButton() {
         return debitButton;
     }
-
     public Button getFinishButton() {
         return finishButton;
     }
@@ -63,23 +75,26 @@ public class FinishSection {
         cpfField.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         cpfField.setBackground(Constants.BABY_BLUE);
         cpfField.setBounds(70, 10, 300, 45);
+        cpfField.addActionListener(e -> setClient());
+        cpfField.setEnabled(false);
         pointsPanel.add(cpfField);
 
-        Display pointsDisplay = new Display("POINTS");
+        pointsDisplay = new Display("POINTS");
         pointsDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         pointsDisplay.setBackground(Constants.BABY_BLUE);
         pointsDisplay.setBounds(70, 67, 300, 45);
         pointsPanel.add(pointsDisplay);
 
-        Display newPriceDisplay = new Display("NEW PRICE", Constants.CONFIRM_GREEN);
-        newPriceDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
-        newPriceDisplay.setBackground(Constants.BABY_BLUE);
-        newPriceDisplay.setBounds(70, 124, 300, 45);
-        pointsPanel.add(newPriceDisplay);
+        discountDisplay = new Display("DISCOUNT", Constants.CONFIRM_GREEN);
+        discountDisplay.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
+        discountDisplay.setBackground(Constants.BABY_BLUE);
+        discountDisplay.setBounds(70, 124, 300, 45);
+        pointsPanel.add(discountDisplay);
 
-        CheckBox pointsCheckBox = new CheckBox(Constants.POINTS_CHECKED_BOX, Constants.POINTS_NOT_CHECKED_BOX);
-        pointsCheckBox.addActionListener(e-> pointsCheckBox.alterCheck());
+        pointsCheckBox = new CheckBox(Constants.POINTS_CHECKED_BOX, Constants.POINTS_NOT_CHECKED_BOX);
         pointsCheckBox.setBounds(100, 177, 245, 45);
+        pointsCheckBox.addActionListener(e-> alterUsePoints());
+        pointsCheckBox.setEnabled(false);
         pointsPanel.add(pointsCheckBox);
 
         finishPanel.add(pointsPanel);
@@ -129,9 +144,36 @@ public class FinishSection {
         finishPanel.add(totalPanel);
     }
 
+    private void setClient(){
+        if (cpfField.getText().length() != 11){
+            new Popups("The entered CPF is invalid!",1);
+        }
+        else {
+            saleController.setClient(cpfField.getText());
+            pointsDisplay.setText(String.valueOf(saleController.getPoints()));
+            discountDisplay.setText("$" + saleController.getDiscount());
+            if (pointsCheckBox.isChecked()) {
+                pointsCheckBox.alterCheck();
+                alterUsePoints();
+            }
+            pointsCheckBox.setEnabled(true);
+        }
+    }
+
+    private void alterUsePoints(){
+        pointsCheckBox.alterCheck();
+        if (pointsCheckBox.isChecked()){
+            if(!saleController.usePoints()){
+                pointsCheckBox.alterCheck();
+            }
+        }
+        else {saleController.cancelUsePoints();}
+        totalDisplay.setText("TOTAL: $" + saleController.getToPay());
+    }
+
     private void finishSale(){
         String cpf = cpfField.getText();
-        if (Objects.equals(cpf,"CPF")){
+        if (Objects.equals(cpf,"CPF")|| cpf.length()!=11){
             cpf = "unknown";
         }
         if(saleController.finishSale(cpf)) {

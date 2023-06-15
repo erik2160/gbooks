@@ -2,6 +2,8 @@ package br.com.ticotech.gbooks.java.controllers;
 
 import br.com.ticotech.gbooks.java.entities.CartBook;
 import br.com.ticotech.gbooks.java.entities.Book;
+import br.com.ticotech.gbooks.java.entities.Client;
+import br.com.ticotech.gbooks.java.repository.ClientRepository;
 import br.com.ticotech.gbooks.java.view.sale.CartTableModel;
 import br.com.ticotech.gbooks.java.entities.Sale;
 import br.com.ticotech.gbooks.java.repository.SaleRepository;
@@ -22,27 +24,38 @@ public class SaleController {
     private final List<CartBook> cartBookList = new ArrayList<>();
     private final CartTableModel cartTableModel = new CartTableModel(cartBookList);
     private final SaleRepository saleRepository;
+    private final ClientRepository clientRepository;
+    private Client client;
+    private int points;
+    private boolean usingPoints;
+    private double discount = 00.00;
+    private double total;
     private double toPay;
     private double cashChange;
-    int nfeNumber = 0;
+    private int nfeNumber = 0;
 
+    public int getPoints() {
+        return points;
+    }
+    public double getDiscount() {
+        return discount;
+    }
     public String getToPay() {
         double toPayRounded = Math.round(toPay*100.0)/100.0;
         return String.valueOf(toPayRounded);
     }
-
     public String getCashChange() {
         double cashChangeRounded = Math.round(cashChange*100.0)/100.0;
         return String.valueOf(cashChangeRounded);
     }
-
     public CartTableModel getCartTableModel() {
         return cartTableModel;
     }
 
-    public SaleController(StockRepository stockRepository, SaleRepository saleRepository) {
+    public SaleController(StockRepository stockRepository, SaleRepository saleRepository, ClientRepository clientRepository) {
         this.stockRepository = stockRepository;
         this.saleRepository = saleRepository;
+        this.clientRepository = clientRepository;
     }
 
     public boolean addToCart(String barcode, int units) {
@@ -69,6 +82,7 @@ public class SaleController {
                         cartBook.setUnits(cartBook.getUnits() + units);
                         cartBook.setTotalPrice(book.getFinalPrice() * cartBook.getUnits());
                         toPay += cartBook.getUnitPrice()*units;
+                        total += cartBook.getUnitPrice()*units;
                         return true;
                     }
                 }
@@ -81,7 +95,8 @@ public class SaleController {
                         Double.parseDouble(String.format("%.2f", book.getFinalPrice() * units).replace(",", "."))
                 );
                 cartBookList.add(newCartBook);
-                toPay +=newCartBook.getTotalPrice();
+                toPay += newCartBook.getTotalPrice();
+                total += newCartBook.getUnitPrice()*units;
                 return true;
             }
         } else {
@@ -108,15 +123,18 @@ public class SaleController {
             }else {
                 if (units == 0) {
                     toPay -= book.getTotalPrice();
+                    total -= book.getTotalPrice();
                     cartBookList.remove(book);
                 } else {
                     book.setUnits(book.getUnits() - units);
                     book.setTotalPrice(book.getUnitPrice() * book.getUnits());
                     toPay -= book.getUnitPrice() * units;
+                    total -= book.getUnitPrice() * units;
                     if (book.getUnits() == 0) {
                         cartBookList.remove(book);
                     }
                 }
+                if (toPay <0){toPay= 0.0;}
                 return true;
             }
         }
@@ -126,6 +144,40 @@ public class SaleController {
         List<CartBook> booksForRemove = new ArrayList<>(cartBookList);
         cartBookList.removeAll(booksForRemove);
         toPay= 00.00;
+        total = 00.00;
+    }
+
+    public void setClient(String cpf){
+        if (clientRepository.getClient(cpf)!=null) {
+            this.client = clientRepository.getClient(cpf);
+            points = client.getPoints();
+            discount = Math.round(points * 0.05 * 100.0) / 100.0;
+        }
+        else {
+            clientRepository.addClient(new Client(cpf, 0));
+            points = 0;
+            discount = 00.00;
+        }
+    }
+
+    public boolean usePoints(){
+        if (points == 0){
+            new Popups("There is no points for use!",1);
+            return false;
+        }
+        if (discount > toPay){
+            toPay = 00.00;
+        }
+        else {
+            toPay = toPay - discount;
+        }
+        usingPoints = true;
+        return true;
+    }
+
+    public void cancelUsePoints(){
+        toPay += discount;
+        usingPoints = false;
     }
 
     public void registerCashPayment(double value){
@@ -153,9 +205,18 @@ public class SaleController {
 
     public boolean finishSale(String cpf){
         if (toPay==0){
+            if(client!=null) {
+                if (usingPoints) {
+                    client.setPoints(0);
+                } else {
+                    client.setPoints(client.getPoints() + (int) total);
+                }
+            }
+
             for(CartBook cartBook: cartBookList){
                 stockRepository.alterUnits("remove", cartBook.getUnits(),cartBook.getCode());
             }
+
             List<CartBook> bookList = new ArrayList<>(cartBookList);
             List<Double> invoicePriceList = new ArrayList<>();
             for (CartBook book :bookList){
@@ -163,7 +224,9 @@ public class SaleController {
             }
             Sale sale = new Sale(cpf,new Date(),bookList, invoicePriceList);
             saleRepository.addSale(sale);
+
             createNfe(cpf);
+
             cancelSale();
             return true;
         }
@@ -219,6 +282,7 @@ public class SaleController {
             }
             total = Math.round(total*100.0)/100.0;
             buffer.write("TOTAL: " + total + "\n");
+            if(usingPoints){buffer.write("DISCOUNT: " + discount + "\n");}
             buffer.write("--------------------------------------\n");
             buffer.write("EMISSION DATE: " + dateFormat.format(new Date())+"\n");
             buffer.write("--------------------------------------\n");

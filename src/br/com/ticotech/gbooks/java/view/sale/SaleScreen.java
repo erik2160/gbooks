@@ -22,6 +22,11 @@ public class SaleScreen {
                 cartSection.getUnitsTextField().reset();
                 cartSection.getButtonRemove().setEnabled(false);
                 cartSection.getButtonCancel().setEnabled(false);
+                finishSection.getCpfField().reset();
+                finishSection.getCpfField().setEnabled(true);
+                finishSection.getPointsDisplay().reset();
+                finishSection.getDiscountDisplay().reset();
+                finishSection.getPointsCheckBox().setEnable(false);
                 finishSection.getTotalDisplay().reset();
                 finishSection.getChangeDisplay().reset();
                 finishSection.getCashButton().setEnabled(false);
@@ -31,6 +36,7 @@ public class SaleScreen {
             } else if (Objects.equals(getType, "add")) {
                 cartSection.getButtonCancel().setEnabled(true);
                 cartSection.getButtonRemove().setEnabled(true);
+                finishSection.getCpfField().setEnabled(true);
                 finishSection.getCashButton().setEnabled(true);
                 finishSection.getFinishButton().setEnabled(true);
                 finishSection.getCreditButton().setEnabled(true);

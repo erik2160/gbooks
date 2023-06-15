@@ -22,7 +22,7 @@ public class ValueSelector extends JFrame {
         this.saleController = saleController;
         this.finishSection = finishSection;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(500, 180);
+        setSize(500, 210);
         setLayout(null);
         setLocationRelativeTo(null);
         setTitle("Value Selector");
@@ -65,13 +65,13 @@ public class ValueSelector extends JFrame {
                 switch (type) {
                     case 1 -> {
                         saleController.registerCashPayment(value);
-                        finishSection.getTotalDisplay().setText("TOTAL: $ " + saleController.getToPay());
+                        finishSection.getTotalDisplay().setText("TOTAL: $" + saleController.getToPay());
                         finishSection.getChangeDisplay().setText("CHANGE: $" + saleController.getCashChange());
                         dispose();
                     }
                     case 2 -> {
                         if (saleController.registerCardPayment(value)) {
-                            finishSection.getTotalDisplay().setText("TOTAL: $ " + saleController.getToPay());
+                            finishSection.getTotalDisplay().setText("TOTAL: $" + saleController.getToPay());
                             dispose();
                         }
                     }

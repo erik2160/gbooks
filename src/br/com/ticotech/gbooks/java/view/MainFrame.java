@@ -7,6 +7,7 @@ import br.com.ticotech.gbooks.java.controllers.ReportController;
 import br.com.ticotech.gbooks.java.controllers.SaleController;
 import br.com.ticotech.gbooks.java.controllers.StockController;
 import br.com.ticotech.gbooks.java.controllers.UserController;
+import br.com.ticotech.gbooks.java.repository.ClientRepository;
 import br.com.ticotech.gbooks.java.repository.SaleRepository;
 import br.com.ticotech.gbooks.java.repository.StockRepository;
 import br.com.ticotech.gbooks.java.repository.UserRepository;
@@ -41,12 +42,13 @@ public class MainFrame {
         SaleRepository saleRepository = new SaleRepository();
         StockRepository stockRepository = new StockRepository();
         UserRepository userRepository = new UserRepository();
+        ClientRepository clientRepository = new ClientRepository();
 
         this.userController = new UserController(userRepository);
         loginScreen = new LoginScreen(userController, this);
         centerPanel.add(loginScreen.getLoginPanel());
 
-        SaleController saleController = new SaleController(stockRepository, saleRepository);
+        SaleController saleController = new SaleController(stockRepository, saleRepository, clientRepository);
         saleScreen = new SaleScreen(saleController);
         saleScreen.setVisible(false);
         centerPanel.add(saleScreen.getCartPanel());
