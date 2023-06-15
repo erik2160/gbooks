@@ -16,6 +16,7 @@ import br.com.ticotech.gbooks.java.view.report.ReportScreen;
 import br.com.ticotech.gbooks.java.view.sale.SaleScreen;
 import br.com.ticotech.gbooks.java.view.shared.Button;
 import br.com.ticotech.gbooks.java.view.shared.Constants;
+import br.com.ticotech.gbooks.java.view.shared.Popups;
 import br.com.ticotech.gbooks.java.view.stock.StockScreen;
 
 public class MainFrame {
@@ -134,8 +135,10 @@ public class MainFrame {
         reportButton.addActionListener(e -> showReportSection());
         usersButton.setEnabled(false);
         logoutButton.addActionListener(e -> {
+            saleScreen.reset();
+            stockScreen.reset();
+            reportScreen.reset();
             showLoginSection();
-            leftPanel.setVisible(false);
         });
     }
 

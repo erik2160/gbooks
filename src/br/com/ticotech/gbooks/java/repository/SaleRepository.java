@@ -26,18 +26,18 @@ public class SaleRepository {
             throw new RuntimeException(e);
         }
         List<CartBook> testList = new ArrayList<>();
-        testList.add(new CartBook("111","Book1", 2, 26.20, 52.4));
-        testList.add(new CartBook("222","Book2", 2, 26.20, 52.4));
+        testList.add(new CartBook("8642097535","Pride and Prejudice", 1, 25.20, 25.20));
+        testList.add(new CartBook("6927403820","The Catcher in the Rye", 2, 26.20, 52.4));
         List<Double> invoiceList = new ArrayList<>();
-        invoiceList.add(20.0);
-        invoiceList.add(22.0);
+        invoiceList.add(21.55);
+        invoiceList.add(23.26);
         addSale(new Sale("33344455566", firstDate,testList,invoiceList));
         List<CartBook> testList2 = new ArrayList<>();
-        testList2.add(new CartBook("222","Book2", 1, 26.20, 26.20));
-        testList2.add(new CartBook("333","Book3", 2, 26.20, 52.4));
+        testList2.add(new CartBook("2081649277","The Lord of the Rings", 1, 26.20, 26.20));
+        testList2.add(new CartBook("4567890127","The Hunger Games", 2, 30.35, 60.70));
         List<Double> invoiceList2 = new ArrayList<>();
-        invoiceList2.add(22.0);
         invoiceList2.add(24.0);
+        invoiceList2.add(27.0);
         addSale(new Sale("19122345678", secondDate,testList2,invoiceList2));
     }
 

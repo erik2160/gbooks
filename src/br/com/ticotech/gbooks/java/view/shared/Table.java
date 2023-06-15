@@ -19,7 +19,7 @@ public class Table extends JTable {
             label.setVerticalAlignment(SwingConstants.CENTER);
         }
         if (row % 2 != 0) {
-            component.setBackground(new Color (240, 240, 240));
+            component.setBackground(Constants.LIGHT_BABY_BLUE);
         } else {
             component.setBackground(table.getBackground());
         }
@@ -42,8 +42,8 @@ public class Table extends JTable {
         }
 
         getTableHeader().setReorderingAllowed(false);
-        getTableHeader().setBackground (Constants.LIGHT_GRAY);
-        getTableHeader().setForeground (Color.BLACK);
+        getTableHeader().setBackground (Constants.DARK_BLUE);
+        getTableHeader().setForeground (Color.WHITE);
         getTableHeader().setFont (new Font (Constants.DEFAULT_FONT, Font.BOLD, 22));
         setRowHeight (30);
     }

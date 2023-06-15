@@ -151,7 +151,7 @@ public class CartSection {
         table.clearSelection();
     }
 
-    private void cancelSale(){
+    public void cancelSale(){
         Popups cancelPopup = new Popups("Do you want to cancel the purchase?",2);
         if(cancelPopup.getResponse()){
             saleScreen.changeElementsStatus("reset");

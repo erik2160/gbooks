@@ -34,7 +34,7 @@ public class StockScreen {
         this.userController = userController;
         this.stockController = stockController;
 
-        int [] columnsWidth = {90,60,10,10,10,10,10,10};
+        int [] columnsWidth = {50,140,50,10,100,10,20,20};
         table = new Table(stockController.getStockTableModel() ,columnsWidth);
 
         stockPanel = new JPanel();
@@ -43,6 +43,7 @@ public class StockScreen {
         stockPanel.setBounds(40,20,1540,915);
 
         searchField = new TextField("SEARCH");
+        searchField.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD,23));
         searchField.setBounds(26,23,247,46);
         stockPanel.add(searchField);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
@@ -79,6 +80,9 @@ public class StockScreen {
         scrollPane.setBounds(26,80,1488,810);
         scrollPane.getViewport().setBackground(Color.WHITE);
         stockPanel.add(scrollPane);
+    }
+    public void reset(){
+        searchField.reset();
     }
     public void setVisible(boolean isVisible){
         if (isVisible) {

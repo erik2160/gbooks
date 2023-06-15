@@ -8,9 +8,9 @@ import br.com.ticotech.gbooks.java.view.shared.NewFont;
 public class Constants {
     public static final String DEFAULT_FONT = new NewFont().getExternalFont().getFontName();
     public static final Color DARK_GRAY = new Color(64,64,64);
-    public static final Color MID_GRAY = new Color(166,166,166);
     public static final Color LIGHT_GRAY = new Color(235,235,235);
     public static final Color BABY_BLUE = new Color(195, 228, 245);
+    public static final Color LIGHT_BABY_BLUE = new Color(244, 249, 254);
     public static final Color DARK_BLUE = new Color(43, 144,195);
     public static final Color CONFIRM_GREEN = new Color(39, 217, 72);
     public static final String ERROR_ICON = "images/ErrorIcon.png";

@@ -50,7 +50,6 @@ public class ReportScreen{
         secondDateButton.addActionListener(e -> calendarFinalDate.show(secondDateButton, secondDateDisplay));
         reportPanel.add(secondDateButton);
 
-
         Button resetFilter = new Button(Constants.RESET_FILTER);
         resetFilter.setBounds(1200,20,66,50);
         resetFilter.setEnabled(true);
@@ -67,13 +66,18 @@ public class ReportScreen{
         searchButton.addActionListener(e-> doSearch());
         reportPanel.add(searchButton);
 
-        int [] columnsWidth = {50,50,30,5,30,5,40,40};
+        int [] columnsWidth = {20,30,140,10,10,10,10,10};
         table = new Table(reportController.getReportTableModel(), columnsWidth);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.getViewport().setBackground(Color.WHITE);
         scrollPane.setBounds(26,80,1488,810);
         reportPanel.add(scrollPane);
     }
+    public void reset(){
+        firstDateDisplay.reset();
+        secondDateDisplay.reset();
+    }
+
     public void setVisible(boolean isVisible){
         reportPanel.setVisible(isVisible);
         table.setVisible(false);
